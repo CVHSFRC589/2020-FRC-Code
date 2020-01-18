@@ -16,3 +16,6 @@ We're actually going to use Github this year
 |                                                             |
 |_____________________________________________________________| -Adarsh
 </pre>
+
+Notes on using Spark Motors (vs TalonSRX):
+-Place 
