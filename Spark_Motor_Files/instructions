@@ -1,2 +1,10 @@
-Place the other two files in this folder (called maven and vendordeps) in C:/Users/Public/wpilib/2020
-If it asks to replace existing files do it
+Download the SPARK MOTOR zip file (it's the other file in this folder). Extract the zip file and open it. 
+There should be two folders inside, maven and vendordeps. Place these folders in C:/Users/Public/wpilib/2020 (replace 2020 with the current year)
+Click the W in Visual Studio -> Manage Vendor Libraries -> Install New Libraries (Offline) -> Check the box next to REVRobotics and click OK
+
+important import statements:
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
