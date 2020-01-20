@@ -14,7 +14,9 @@ We're actually going to use Github this year
 |              |         |            |                    |  |
 |  ____________|         |____________|         ___________|  |
 |                                                             |
-|_____________________________________________________________| -Adarsh
+|_____________________________________________________________| -Adarsh && Lukas
 </pre>
 
 Notes on using Spark Motors (vs TalonSRX): The Spark_Motor_Files folder has everything you need + instructions
+
+Note: Github Desktop is amazing use it -Made from Github desktop
