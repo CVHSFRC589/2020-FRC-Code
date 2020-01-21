@@ -22,7 +22,4 @@ Notes on using Spark Motors (vs TalonSRX): The Spark_Motor_Files folder has ever
 
 Note: Github Desktop is amazing use it, if you have trouble pushing, push from Github Desktop
 -Made from Github desktop
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 7e20216ff67f69a5bc6384c204dd9936c74540f1
+
