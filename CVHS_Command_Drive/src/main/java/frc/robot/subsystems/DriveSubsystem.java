@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -27,7 +26,7 @@ public class DriveSubsystem extends SubsystemBase {
   //private final WPI_TalonSRX m_rightMotor = new WPI_TalonSRX(DriveConstants.kRightMotor1Port);  
 
   public static CANSparkMax m_leftMotor;
-  public static CANSparkMax m_rightMotor = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
+  public static CANSparkMax m_rightMotor;
 
   // The motors on the left side of the drive.
   // private final SpeedControllerGroup m_leftMotors =
@@ -56,6 +55,9 @@ public class DriveSubsystem extends SubsystemBase {
    * Creates a new DriveSubsystem.
    */
   public DriveSubsystem() {
+
+    m_leftMotor = new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless);
+    m_rightMotor = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
     m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);

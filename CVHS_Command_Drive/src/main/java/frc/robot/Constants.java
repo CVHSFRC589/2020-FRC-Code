@@ -24,6 +24,8 @@ public final class Constants {
     public static final int kRightMotor1Port = 2;
     public static final int kRightMotor2Port = 3;
 
+    
+
     public static final int[] kLeftEncoderPorts = new int[]{0, 1};
     public static final int[] kRightEncoderPorts = new int[]{2, 3};
     public static final boolean kLeftEncoderReversed = false;
@@ -47,5 +49,18 @@ public final class Constants {
 
   public static final class OIConstants {
     public static final int kDriverControllerPort = 1;
+
+    public static final int kShooterMotor = 4;  //set motor port to whatever it is 
+    public static final int kAzimuthMotor = 5;
+    public static final int kElevationMotor = 6;
+
+    public static final int climbForwardChannel = ;
+    public static final int climbReverseChannel = ;
+    public static final int intakeForwardChannel = ;
+    public static final int intakeReverseChannel = ;
+    public static final int controlPanelForwardChannel = ;
+    public static final int controlPanelReverseChannel = ;
+
+    public static final int CompressorPort = 0;
   }
 }

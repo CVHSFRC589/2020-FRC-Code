@@ -7,21 +7,13 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveConstants;
 
-public class ExampleSubsystem extends SubsystemBase {
+public class ActiveIntake extends SubsystemBase {
   /**
-   * Creates a new ExampleSubsyste.
+   * Creates a new ActiveIntake.
    */
-
-    // DEFINE MEMBER OBJECTS
-  PWMVictorSPX m_leftMotor = new PWMVictorSPX(DriveConstants.ExampleConstants.kLeftMotorPort);
-
-  public ExampleSubsystem() {
-
-    // Initialize membersm
+  public ActiveIntake() {
 
   }
 
