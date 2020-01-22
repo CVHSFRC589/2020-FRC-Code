@@ -15,11 +15,11 @@ public class ControlPanelSubsystem extends SubsystemBase {
    * Creates a new ControlPanel.
    */
 
-  public static DoubleSolenoid controlPanel;
+  public static DoubleSolenoid m_controlPanel;
 
   public ControlPanelSubsystem() {
-    controlPanel = new DoubleSolenoid(frc.robot.Constants.OIConstants.controlPanelForwardChannel, frc.robot.Constants.OIConstants.controlPanelReverseChannel);
-    controlPanel.set(DoubleSolenoid.Value.kForward);
+    m_controlPanel = new DoubleSolenoid(frc.robot.Constants.OIConstants.controlPanelForwardChannel, frc.robot.Constants.OIConstants.controlPanelReverseChannel);
+    m_controlPanel.set(DoubleSolenoid.Value.kForward);
 
   }
 
@@ -28,10 +28,10 @@ public class ControlPanelSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void deployControlPanel(){
-    controlPanel.set(DoubleSolenoid.Value.kReverse);
+  public void deploy(){
+    m_controlPanel.set(DoubleSolenoid.Value.kReverse);
   }
-  public void retractControlPanel(){
-    controlPanel.set(DoubleSolenoid.Value.kForward);
+  public void retract(){
+    m_controlPanel.set(DoubleSolenoid.Value.kForward);
   }
 }

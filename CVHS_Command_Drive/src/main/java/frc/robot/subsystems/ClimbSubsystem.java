@@ -15,11 +15,11 @@ public class ClimbSubsystem extends SubsystemBase {
    * Creates a new ClimbSubsystem.
    */
 
-  public static DoubleSolenoid hook;
+  public static DoubleSolenoid m_hook;
 
   public ClimbSubsystem() {
-    hook  = new DoubleSolenoid(frc.robot.Constants.OIConstants.climbForwardChannel, frc.robot.Constants.OIConstants.climbReverseChannel);
-    hook.set(DoubleSolenoid.Value.kForward);
+    m_hook  = new DoubleSolenoid(frc.robot.Constants.OIConstants.climbForwardChannel, frc.robot.Constants.OIConstants.climbReverseChannel);
+    m_hook.set(DoubleSolenoid.Value.kForward);
   }
 
   @Override
@@ -27,11 +27,11 @@ public class ClimbSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void deployHook(){
-    hook.set(DoubleSolenoid.Value.kReverse);
+  public void extend(){
+    m_hook.set(DoubleSolenoid.Value.kReverse);
     
   }
-  public void retractHook(){
-    hook.set(DoubleSolenoid.Value.kForward);
+  public void retract(){
+    m_hook.set(DoubleSolenoid.Value.kForward);
   }
 }

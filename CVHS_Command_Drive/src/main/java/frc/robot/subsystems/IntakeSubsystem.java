@@ -15,11 +15,11 @@ public class IntakeSubsystem extends SubsystemBase {
    * Creates a new IntakeSubsystem.
    */
 
-  public static DoubleSolenoid intake;
+  public static DoubleSolenoid m_intake;
 
   public IntakeSubsystem() {
-    intake = new DoubleSolenoid(frc.robot.Constants.OIConstants.intakeForwardChannel, frc.robot.Constants.OIConstants.intakeReverseChannel);
-    intake.set(DoubleSolenoid.Value.kForward);
+    m_intake = new DoubleSolenoid(frc.robot.Constants.OIConstants.intakeForwardChannel, frc.robot.Constants.OIConstants.intakeReverseChannel);
+    m_intake.set(DoubleSolenoid.Value.kForward);
 
   }
 
@@ -28,11 +28,11 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void deployIntake(){
-    intake.set(DoubleSolenoid.Value.kReverse);
+  public void deploy(){
+    m_intake.set(DoubleSolenoid.Value.kReverse);
 
   }
-  public void retractIntake(){
-    intake.set(DoubleSolenoid.Value.kForward);
+  public void retract(){
+    m_intake.set(DoubleSolenoid.Value.kForward);
   }
 }
