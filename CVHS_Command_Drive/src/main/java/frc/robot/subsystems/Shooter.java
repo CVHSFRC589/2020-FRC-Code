@@ -36,14 +36,24 @@ public class Shooter extends SubsystemBase {
 
   }
 
-  public void moveElevation(double speed){
+  public void setElevationSpeed(double speed){
     m_elevation.set(speed);
   }
-  public void moveAzimuth(double speed){
+  public void setAzimuthSpeed(double speed){
     m_azimuth.set(speed);
   }
-  public void setFlywheel(double speed){
+  public void setFlywheelSpeed(double speed){
     m_flywheel.set(speed);
+  }
+
+  public double getAzimuthSpeed(){
+    return m_azimuth.get();
+  }
+  public double getElevationSpeed(){
+    return m_elevation.get();
+  }
+  public double getFlywheelSpeed(){
+    return m_flywheel.get();
   }
 
 }

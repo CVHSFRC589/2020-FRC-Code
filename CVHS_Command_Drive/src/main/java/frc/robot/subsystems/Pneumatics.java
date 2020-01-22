@@ -24,17 +24,26 @@ public class Pneumatics extends SubsystemBase {
    */
 
   //public static CANSparkMax climb;
-  public static DoubleSolenoid climb;
-  public static DoubleSolenoid intakeDeploy;
-  public static DoubleSolenoid controlPanel;
+  //public static DoubleSolenoid hook;
+  //public static DoubleSolenoid intake;
+  //public static DoubleSolenoid controlPanel;
   public static Compressor c;
 
   public Pneumatics() {
-   climb  = new DoubleSolenoid(frc.robot.Constants.OIConstants.climbForwardChannel, frc.robot.Constants.OIConstants.climbReverseChannel);
-   intakeDeploy = new DoubleSolenoid(frc.robot.Constants.OIConstants.intakeForwardChannel, frc.robot.Constants.OIConstants.intakeReverseChannel);
-   controlPanel = new DoubleSolenoid(frc.robot.Constants.OIConstants.controlPanelForwardChannel, frc.robot.Constants.OIConstants.controlPanelReverseChannel);
+  // hook  = new DoubleSolenoid(frc.robot.Constants.OIConstants.climbForwardChannel, frc.robot.Constants.OIConstants.climbReverseChannel);
+   //intake = new DoubleSolenoid(frc.robot.Constants.OIConstants.intakeForwardChannel, frc.robot.Constants.OIConstants.intakeReverseChannel);
+   //controlPanel = new DoubleSolenoid(frc.robot.Constants.OIConstants.controlPanelForwardChannel, frc.robot.Constants.OIConstants.controlPanelReverseChannel);
    c = new Compressor(frc.robot.Constants.OIConstants.CompressorPort);
    c.stop();
+
+   //hook.set(DoubleSolenoid.Value.kForward);
+   //intake.set(DoubleSolenoid.Value.kForward);
+//   controlPanel.set(DoubleSolenoid.Value.kForward);
+
+
+   //Still need to do all the SmartDashboard stuff
+   
+
   }
 
   @Override
@@ -52,4 +61,20 @@ public class Pneumatics extends SubsystemBase {
     }
     
   }
+  // public void deployIntake(){
+  //   intake.set(DoubleSolenoid.Value.kReverse);
+
+  // }
+  // public void retractIntake(){
+  //   intake.set(DoubleSolenoid.Value.kForward);
+  // }
+
+  // public void deployHook(){
+  //   hook.set(DoubleSolenoid.Value.kReverse);
+    
+  // }
+  // public void retractHook(){
+  //   hook.set(DoubleSolenoid.Value.kForward);
+  // }
+
 }
