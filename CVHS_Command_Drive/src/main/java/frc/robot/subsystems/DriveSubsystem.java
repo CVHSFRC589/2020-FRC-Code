@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -81,6 +82,11 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public void arcadeDrive(double fwd, double rot) {
     m_drive.arcadeDrive(fwd, rot);
+  }
+
+  public void setDriveMotors(double left, double right, double multiplier){
+    m_leftMotor.set(left*multiplier);
+    m_rightMotor.set(right*multiplier);
   }
 
   /**
