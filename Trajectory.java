@@ -12,6 +12,7 @@ public class Trajectory {
 	public static double ballR = 3.5;
 	public static double outerR = 15;
 	public static double innerR = 6.5;
+	public static double maxYAngle = Math.toRadians(45);
 	
 	public static double getInnerDist(double dist, double xAngle) {
 		if(xAngle == 0) {
@@ -31,17 +32,19 @@ public class Trajectory {
 			for(double testD = dist; testD <= getInnerDist(dist, xAngle); testD += 0.005) {
 				double testInitV = getInitV(testD, testH);
 				double testYAngle = getYAngle(testD, testH, testInitV);
-				double outerOffset = Math.abs(getY(dist, testYAngle, testInitV)-portH);
-				if(outerOffset < (outerR-ballR)/2) {
-					double innerOffset = Math.abs(getY(getInnerDist(dist, xAngle), testYAngle, testInitV)-portH);
-					if(innerOffset < (innerR-ballR)/2) {
-						double innerOpt = (1-(innerOffset/(innerR-ballR))) * 100;
-						double outerOpt = (1-(outerOffset/(outerR-ballR))) * 100;
-						double testOptimal = (innerOpt+outerOpt) / 2;
-						if(testOptimal > optimal) {
-							coords[0] = testD;
-							coords[1] = testH;
-							optimal = testOptimal;
+				if(testYAngle <= maxYAngle) {
+					double outerOffset = Math.abs(getY(dist, testYAngle, testInitV)-portH);
+					if(outerOffset < (outerR-ballR)/2) {
+						double innerOffset = Math.abs(getY(getInnerDist(dist, xAngle), testYAngle, testInitV)-portH);
+						if(innerOffset < (innerR-ballR)/2) {
+							double innerOpt = (1-(innerOffset/(innerR-ballR))) * 100;
+							double outerOpt = (1-(outerOffset/(outerR-ballR))) * 100;
+							double testOptimal = (innerOpt+outerOpt) / 2;
+							if(testOptimal > optimal) {
+								coords[0] = testD;
+								coords[1] = testH;
+								optimal = testOptimal;
+							}
 						}
 					}
 				}
