@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -19,6 +20,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveDistance;
 import frc.robot.commands.HalveDriveSpeed;
+import frc.robot.commands.VariableDrive;
 import frc.robot.subsystems.DriveSubsystem;
 
 import static edu.wpi.first.wpilibj.XboxController.Button;
@@ -39,12 +41,18 @@ public class RobotContainer {
   private final Command m_simpleAuto =
       new DriveDistance(AutoConstants.kAutoDriveDistanceInches, AutoConstants.kAutoDriveSpeed,
                         m_robotDrive);
+  
+  //VariableDrive
+  //VariableDrive drive = 
+   //   new VariableDrive(m_robotDrive);
 
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+  //public Joystick j1 = new Joystick(0);
+  //public Joystick j2 = new Joystick(1);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -53,16 +61,18 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
+    //drive.start();
+
     // Configure default commands
     // Set the default drive command to split-stick arcade drive
-    m_robotDrive.setDefaultCommand(
-        // A split-stick arcade command, with forward/backward controlled by the left
-        // hand, and turning controlled by the right.
-        new DefaultDrive(
-            m_robotDrive,
-            () -> m_driverController.getY(GenericHID.Hand.kLeft),
-            () -> m_driverController.getX(GenericHID.Hand.kRight)));
-
+    // m_robotDrive.setDefaultCommand(
+    //     // A split-stick arcade command, with forward/backward controlled by the left
+    //     // hand, and turning controlled by the right.
+    //     new DefaultDrive(
+    //         m_robotDrive,
+    //         () -> m_driverController.getY(GenericHID.Hand.kLeft),
+    //         () -> m_driverController.getX(GenericHID.Hand.kRight)));
+    
     // Add commands to the autonomous command chooser
     m_chooser.addOption("Simple Auto", m_simpleAuto);
 

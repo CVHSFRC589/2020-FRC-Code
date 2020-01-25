@@ -16,6 +16,9 @@ public class VariableDrive extends CommandBase {
    */
 
   private final DriveSubsystem m_drive;
+  private double x;
+  private double y;
+  private double z;
   
   public VariableDrive(DriveSubsystem drive) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,13 +28,20 @@ public class VariableDrive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    x = 0;
+    y = 0;
+    z = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //m_drive.arcadeDrive();
-    m_drive.setDriveMotors(x, y, z); //can utilize joystick input here 
+    x = frc.robot.RobotContainer.j1.getX();
+    y = frc.robot.RobotContainer.j1.getY();
+    z = (frc.robot.RobotContainer.j1.getZ()*(-1)+1)/2; //multiplying by -1 because the z axis is reversed for some reason
+
+    m_drive.setDriveMotors(x, y, z);; //if setDriveMotors is a cosntinuous method put the variable definitions in these parameters
   }
 
   // Called once the command ends or is interrupted.

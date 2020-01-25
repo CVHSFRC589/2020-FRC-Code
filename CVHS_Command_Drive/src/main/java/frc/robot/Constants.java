@@ -54,12 +54,13 @@ public final class Constants {
     public static final int kAzimuthMotor = 5;
     public static final int kElevationMotor = 6;
 
-    public static final int climbForwardChannel = ;
-    public static final int climbReverseChannel = ;
-    public static final int intakeForwardChannel = ;
-    public static final int intakeReverseChannel = ;
-    public static final int controlPanelForwardChannel = ;
-    public static final int controlPanelReverseChannel = ;
+    //CHANGE CHANNEL NUMBERS TO WHAT IT SHOULD BE LATER
+    public static final int climbForwardChannel = 7;
+    public static final int climbReverseChannel = 8;
+    public static final int intakeForwardChannel = 9;
+    public static final int intakeReverseChannel = 10;
+    public static final int controlPanelForwardChannel = 11;
+    public static final int controlPanelReverseChannel = 12;
 
     public static final int CompressorPort = 0;
   }
