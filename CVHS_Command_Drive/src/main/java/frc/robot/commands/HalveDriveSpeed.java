@@ -13,7 +13,7 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class HalveDriveSpeed extends CommandBase {
   private final DriveSubsystem m_drive;
-
+  
   public HalveDriveSpeed(DriveSubsystem drive) {
     m_drive = drive;
   }
