@@ -17,10 +17,14 @@ package frc.robot;
  */
 public final class Constants {
     public static final class DriveConstants{
-
+        
     }
 
     public static final class ClimberConstants{
-        public static final int[] kHookSolenoidPorts = new int[]{0, 1};
+        public static final int[] kHookSolenoidPorts = new int[]{0, 1};    //an int array for ports was the example's convention, might change to be more readable
+    }
+    
+    public static final class ControlPanelConstants{
+          
     }
 }
