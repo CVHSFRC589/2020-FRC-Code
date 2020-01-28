@@ -16,6 +16,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    //Constants for each subsystem
     public static final class DriveConstants{
         
     }
@@ -25,6 +26,17 @@ public final class Constants {
     }
     
     public static final class ControlPanelConstants{
-          
+          public static final int[] kArmSolenoidPorts = new int[]{};  //put port numbers into the array
+    }
+ 
+    public static final class IntakeConstants{
+         
+    }
+    
+    public static final class PnemuaticsContants{
+        
+    }
+    public static final class ShooterConstants{
+     
     }
 }
