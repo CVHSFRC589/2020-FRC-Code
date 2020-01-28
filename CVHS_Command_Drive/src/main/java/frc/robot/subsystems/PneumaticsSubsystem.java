@@ -18,7 +18,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants.DriveConstants;
 
 
-public class Pneumatics extends SubsystemBase {
+public class PneumaticsSubsystem extends SubsystemBase {
   /**
    * Creates a new Pneumatics.
    */
@@ -29,7 +29,7 @@ public class Pneumatics extends SubsystemBase {
   //public static DoubleSolenoid controlPanel;
   public static Compressor c;
 
-  public Pneumatics() {
+  public PneumaticsSubsystem() {
   // hook  = new DoubleSolenoid(frc.robot.Constants.OIConstants.climbForwardChannel, frc.robot.Constants.OIConstants.climbReverseChannel);
    //intake = new DoubleSolenoid(frc.robot.Constants.OIConstants.intakeForwardChannel, frc.robot.Constants.OIConstants.intakeReverseChannel);
    //controlPanel = new DoubleSolenoid(frc.robot.Constants.OIConstants.controlPanelForwardChannel, frc.robot.Constants.OIConstants.controlPanelReverseChannel);

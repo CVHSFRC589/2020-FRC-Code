@@ -16,7 +16,7 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
-public class Shooter extends SubsystemBase {
+public class ShooterSubsystem extends SubsystemBase {
   /**
    * Creates a new Shooter.
    */
@@ -24,7 +24,7 @@ public class Shooter extends SubsystemBase {
   public static CANSparkMax m_elevation;
   public static CANSparkMax m_flywheel;
 
-  public Shooter() {
+  public ShooterSubsystem() {
     m_azimuth = new CANSparkMax(OIConstants.kAzimuthMotor, MotorType.kBrushless);
     m_elevation = new CANSparkMax(OIConstants.kElevationMotor, MotorType.kBrushless);
     m_flywheel = new CANSparkMax(OIConstants.kShooterMotor, MotorType.kBrushless);

@@ -88,6 +88,11 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightMotor.set(right*multiplier);
   }
 
+  // public void setDriveTalons(double left, double right, double multiplier){
+  //   m_leftMotor.set(ControlMode.PercentOutput, left*multiplier);
+  //   m_rightMotor.set(ControlMode.PercentOutput, right*multiplier);
+  // }
+
   /**
    * Resets the drive encoders to currently read a position of 0.
    */
