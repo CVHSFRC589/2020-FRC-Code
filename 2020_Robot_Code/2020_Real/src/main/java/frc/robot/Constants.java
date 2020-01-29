@@ -35,4 +35,9 @@ public final class Constants {
         public static final int[] kHookSolenoidPorts = new int[]{0, 1};
 
     }
+    public static final class IntakeConstants{
+        public static final int[] kIntakeSolenoidPorts = new int[]{2, 3};
+        public static final int kIntakeMotorPort = 2;
+
+    }
 }
