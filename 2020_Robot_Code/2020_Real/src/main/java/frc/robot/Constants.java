@@ -17,10 +17,21 @@ package frc.robot;
  */
 public final class Constants {
     public static final class DriveConstants{
+        public static final int kLeftMotorPort = 0;
+        public static final int kRightMotorPort = 1;
 
+        //No ports for the encoders because they're built in
+        //public static final int kLeftCANEncoderPort = 0;
+        //public static final int kRightCANEncoderPort = 1;
+        public static final boolean kLeftCANEncoderReversed = false;
+        public static final boolean kRightCANEncoderReversed = false; //Right probably has to be set to true
+
+        public static final int kEncoderCPR = 1024; //change for whatever it turns out to be
+        public static final double kWheelDiameterInches = 6; //wheel diameter 
     }
 
     public static final class ClimberConstants{
         public static final int[] kHookSolenoidPorts = new int[]{0, 1};
+
     }
 }

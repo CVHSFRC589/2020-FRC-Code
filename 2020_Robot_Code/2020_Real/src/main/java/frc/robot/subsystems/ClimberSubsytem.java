@@ -20,6 +20,7 @@ public class ClimberSubsytem extends SubsystemBase {
    * Creates a new ClimberSubsytem.
    */
 
+  //No winch, this solenoid pulls robot up
   DoubleSolenoid m_hookSolenoid = new DoubleSolenoid(ClimberConstants.kHookSolenoidPorts[0], ClimberConstants.kHookSolenoidPorts[1]);
 
   public ClimberSubsytem() {
