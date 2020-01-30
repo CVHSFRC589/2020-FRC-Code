@@ -12,11 +12,13 @@ public class Trajectory {
 	public static double ballR = 3.5;
 	public static double outerR = 15;
 	public static double innerR = 6.5;
-	public static double maxYAngle = Math.toRadians(45);
+	public static double maxYAngle = Math.toRadians(90);
+	public static double minYAngle = Math.toRadians(0);
+	public static double incr = 0.01;
 	
 	public static double getInnerDist(double dist, double xAngle) {
 		if(xAngle == 0) {
-			return dist+29.25;
+			return dist+portD;
 		}
 		// FIX THIS
 		double innerDist = Math.pow(dist*Math.sin(xAngle)+29.25, 2);
@@ -25,78 +27,95 @@ public class Trajectory {
 		return innerDist;
 	}
 	
-	public static double[] getOptimalPeak(double dist, double xAngle) {
-		double[] coords = new double[2];
+	// MINIMUM DISTANCE IS ~18 INCHES, NO MAXIMUM
+	public static double[] getOptimalVals(double dist, double xAngle) {
+		double[] values = new double[2];
 		double optimal = 0;
-		for(double testH = portH; testH < portH+outerR-ballR; testH += 0.005) {
-			for(double testD = dist; testD <= getInnerDist(dist, xAngle); testD += 0.005) {
-				double testInitV = getInitV(testD, testH);
-				double testYAngle = getYAngle(testD, testH, testInitV);
-				if(testYAngle <= maxYAngle) {
-					double outerOffset = Math.abs(getY(dist, testYAngle, testInitV)-portH);
-					if(outerOffset < (outerR-ballR)/2) {
-						double innerOffset = Math.abs(getY(getInnerDist(dist, xAngle), testYAngle, testInitV)-portH);
-						if(innerOffset < (innerR-ballR)/2) {
-							double innerOpt = (1-(innerOffset/(innerR-ballR))) * 100;
+		for(int initVIncr = 0; initVIncr < 300/incr; initVIncr++) {
+			double testInitV = 150 + incr*initVIncr;
+			for(int yAngleIncr = 0; yAngleIncr <= Math.toDegrees(maxYAngle - minYAngle)/incr; yAngleIncr++) {
+				double testYAngle = minYAngle + Math.toRadians(yAngleIncr*incr);
+				double outerOffset = Math.abs(getY(dist, testYAngle, testInitV)-portH);
+				if(outerOffset < (outerR-ballR)-1) {
+					double innerOffset = Math.abs(getY(getInnerDist(dist, xAngle), testYAngle, testInitV)-portH);
+					if(innerOffset < (innerR-ballR)-1) {
+						double peakD = getPeak(testYAngle, testInitV);
+						if(peakD > dist && peakD < getInnerDist(dist, xAngle)) {
+							if(getY(peakD, testYAngle, testInitV) < (portH+outerR-ballR)-1) {
+								double innerOpt = (1-(innerOffset/(innerR-ballR))) * 200;
+								double outerOpt = (1-(outerOffset/(outerR-ballR))) * 100;
+								double testOptimal = innerOpt+outerOpt;
+								if(testOptimal > optimal) {
+									values[0] = testInitV;
+									values[1] = testYAngle;
+									optimal = testOptimal;
+								}
+							}
+						}
+					}
+					else {
+						double innerOpt = (1-(innerOffset/(innerR-ballR))) * 200;
+						double outerOpt = (1-(outerOffset/(outerR-ballR))) * 100;
+						double testOptimal = innerOpt+outerOpt;
+						if(testOptimal > optimal) {
+							values[0] = testInitV;
+							values[1] = testYAngle;
+							optimal = testOptimal;
+						}
+					}
+					
+				}
+			}
+		}
+		return values;
+	}
+	
+	// AT 45 DEGREES, RANGE FROM ~7.5 TO ~19.5 FEET
+	public static double getAngledInitV(double dist, double yAngle, double xAngle) {
+		double initV = 0;
+		double optimal = 0;
+		for(int initVIncr = 0; initVIncr < 1000/incr; initVIncr++) {
+			double testInitV = ((int)(incr*initVIncr*(1/incr)))/(1/incr);
+			double outerOffset = Math.abs(getY(dist, yAngle, testInitV)-portH);
+			if(outerOffset < (outerR-ballR)-1) {
+				double innerOffset = Math.abs(getY(getInnerDist(dist, xAngle), yAngle, testInitV)-portH);
+				if(innerOffset < (innerR-ballR)-1) {
+					double peakD = getPeak(yAngle, testInitV);
+					if(peakD > dist && peakD < getInnerDist(dist, xAngle)) {
+						if(getY(peakD, yAngle, testInitV) < (outerR-ballR)-1) {
+							double innerOpt = (1-(innerOffset/(innerR-ballR))) * 200;
 							double outerOpt = (1-(outerOffset/(outerR-ballR))) * 100;
-							double testOptimal = (innerOpt+outerOpt) / 2;
+							double testOptimal = innerOpt+outerOpt;
 							if(testOptimal > optimal) {
-								coords[0] = testD;
-								coords[1] = testH;
+								initV = testInitV;
 								optimal = testOptimal;
 							}
 						}
 					}
+					else {
+						double innerOpt = (1-(innerOffset/(innerR-ballR))) * 200;
+						double outerOpt = (1-(outerOffset/(outerR-ballR))) * 100;
+						double testOptimal = innerOpt+outerOpt;
+						if(testOptimal > optimal) {
+							initV = testInitV;
+							optimal = testOptimal;
+						}
+					}
+					
 				}
 			}
 		}
-		return coords;
+		return initV;
 	}
 	
-	public static double[] getNormalPeak(double dist, double xAngle) {
-		double[] coords = new double[2];
-		double optimal = 0;
-		double testD = dist + portD/2;
-		for(double testH = portH; testH < portH+outerR-ballR; testH += 0.005) {
-			double testInitV = getInitV(testD, testH);
-			double testYAngle = getYAngle(testD, testH, testInitV);
-			double outerOffset = Math.abs(getY(dist, testYAngle, testInitV)-portH);
-			if(outerOffset < (outerR-ballR)/2) {
-				double innerOffset = Math.abs(getY(getInnerDist(dist, xAngle), testYAngle, testInitV)-portH);
-				if(innerOffset < (innerR-ballR)/2) {
-					double innerOpt = (1-(innerOffset/(innerR-ballR))) * 100;
-					double outerOpt = (1-(outerOffset/(outerR-ballR))) * 100;
-					double testOptimal = (innerOpt+outerOpt) / 2;
-					if(testOptimal > optimal) {
-						coords[0] = testD;
-						coords[1] = testH;
-						optimal = testOptimal;
-					}
-				}
-			}
-		}
-		return coords;
+	public static double getPeak(double yAngle, double initV) {
+		double peakD = Math.pow(initV, 2) * Math.pow(Math.cos(yAngle), 2) * Math.tan(yAngle);
+		peakD /= g;
+		return peakD;
 	}
 	
 	public static double getInnerXAngle(double dist, double xAngle) {
 		return Math.asin((dist*Math.cos(xAngle)) / (getInnerDist(dist, xAngle)));
-	}
-	
-	public static double getYAngle(double peakD, double peakH, double initV) {
-		double theta = Math.PI/2;
-		double acosed = (g*Math.pow(peakD, 2) / Math.pow(initV, 2)) + (peakH-robotH);
-		acosed = acosed / (Math.sqrt(Math.pow(peakH-robotH, 2) + Math.pow(peakD, 2)));
-		theta -= Math.acos(acosed % 1) / 2;
-		theta -= Math.atan(peakD/(peakH-robotH)) / 2;
-		theta += Math.floor(acosed) * Math.PI/4;
-		return theta;
-	}
-	
-	public static double getInitV(double peakD, double peakH) {
-		double vSubO = 2*g*(peakH-robotH);
-		vSubO += (g*Math.pow(peakD, 2)) / (2*(peakH-robotH));
-		vSubO = Math.sqrt(vSubO);
-		return vSubO;
 	}
 	
 	public static double getY(double x, double yAngle, double initV) {
