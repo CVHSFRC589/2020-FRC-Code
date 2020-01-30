@@ -25,12 +25,15 @@ public class IntakeSubsystem extends SubsystemBase {
    * Creates a new IntakeSubsystem.
    */
 
-  //There may be two solenoids, one per side
+  //There may be two solenoids, one per side to deploy the intake system
   public static DoubleSolenoid m_intakeSolenoid = new DoubleSolenoid(IntakeConstants.kIntakeSolenoidPorts[0], IntakeConstants.kIntakeSolenoidPorts[1]);
+  //public static DoubleSolenoid m_intakeSolenoid = new DoubleSolenoid(IntakeConstants.kIntakeSolenoidPorts[2], IntakeConstants.kIntakeSolenoidPorts[3]);
+  
   public static CANSparkMax m_intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorPort, MotorType.kBrushless);
 
   public IntakeSubsystem() {
     m_intakeSolenoid.set(kReverse);
+    m_intakeMotor.set(0);
   }
 
   public void deployIntake(){
