@@ -30,7 +30,8 @@ public class IntakeSubsystem extends SubsystemBase {
   //public static DoubleSolenoid m_intakeSolenoid = new DoubleSolenoid(IntakeConstants.kIntakeSolenoidPorts[2], IntakeConstants.kIntakeSolenoidPorts[3]);
   
   public static CANSparkMax m_intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorPort, MotorType.kBrushless);
-
+  public static CANEncoder m_intakeEncoder = new CANEncoder(m_intakeMotor, EncoderType.kQuadrature, IntakeConstants.kIntakeEncoderCPR);  //EncoderCPR is probably the same as DriveConstants.kEncoderCPR
+  
   public IntakeSubsystem() {
     m_intakeSolenoid.set(kReverse);
     m_intakeMotor.set(0);
