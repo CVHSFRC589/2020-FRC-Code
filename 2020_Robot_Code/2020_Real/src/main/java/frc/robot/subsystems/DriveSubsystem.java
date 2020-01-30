@@ -35,9 +35,16 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
 public void setMotors(double leftSpeed, double rightSpeed, double multiplier){
-  //double z = (Math.abs(multiplier)+1)/2; //set speed from 0.5 to 1
-  m_leftMotor.set(leftSpeed*multiplier); 
-  m_rightMotor.set(rightSpeed*multiplier);
+  //set speed from 0.25 to 1
+  double z = 0.1;
+  if(multiplier<0){
+    z = (1-Math.abs(multiplier))*0.5+0.25;
+  }
+  else{
+    z = multiplier*0.25+0.75;
+  }
+  m_leftMotor.set(leftSpeed*z); 
+  m_rightMotor.set(rightSpeed*z);
 }
 
   @Override
