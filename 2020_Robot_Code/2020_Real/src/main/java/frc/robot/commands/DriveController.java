@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -7,25 +7,20 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/**
- * An example command that uses an example subsystem.
- */
-public class ExampleCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+import frc.robot.subsystems.DriveSubsystem;
 
+public class DriveController extends CommandBase {
   /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
+   * Creates a new DriveController.
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  private final DriveSubsystem drive;
+  
+  
+  public DriveController(DriveSubsystem drivesys) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    drive = drivesys;
   }
 
   // Called when the command is initially scheduled.
@@ -36,6 +31,20 @@ public class ExampleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double z = frc.robot.RobotContainer.j1.getZ(); 
+    double x = frc.robot.RobotContainer.j1.getX(); 
+    double y = frc.robot.RobotContainer.j1.getY(); 
+    //double multiplier = frc.robot.RobotContainer.j1.getZ(); 
+    if(z<-.1){
+      z = (1-Math.abs(z))*0.5+0.25;
+    }
+    else if(z>0.1){
+      z = z*0.25+0.75;
+    }
+    else{
+      z = 0;
+    }
+    drive.setMotors(y-x, -x+y, z);
   }
 
   // Called once the command ends or is interrupted.
