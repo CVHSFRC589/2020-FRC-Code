@@ -15,7 +15,7 @@ import frc.robot.Constants.ClimberConstants;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kForward;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kReverse;
 
-public class ClimberSubsytem extends SubsystemBase {
+public class ClimberSubsystem extends SubsystemBase {
   /**
    * Creates a new ClimberSubsytem.
    */
@@ -23,7 +23,7 @@ public class ClimberSubsytem extends SubsystemBase {
   //No winch, this solenoid pulls robot up
   DoubleSolenoid m_hookSolenoid = new DoubleSolenoid(ClimberConstants.kHookSolenoidPorts[0], ClimberConstants.kHookSolenoidPorts[1]);
 
-  public ClimberSubsytem() {
+  public ClimberSubsystem() {
     m_hookSolenoid.set(kReverse);
   }
 
