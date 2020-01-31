@@ -23,7 +23,7 @@ public class ExtendClimber extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExtendClimber(IntakeSubsystem subsystem) {
+  public ExtendClimber(ClimberSubsystem subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);

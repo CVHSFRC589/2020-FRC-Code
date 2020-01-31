@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 //import frc.robot.commands.ExampleCommand;
 
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ClimberSubsytem;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;

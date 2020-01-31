@@ -40,6 +40,7 @@ public final class Constants {
         public static final int kIntakeMotorPort = 10;
         
         public static final int kIntakeEncoderCPR = 1024; //most likely the same as kEncoderCPR in DriveConstants
+        public static final int kIntakeMotorSpeed = 1;
     }
     public static final class ShooterConstants{
         public static final int kLoadingWheelMotorPort = 20;

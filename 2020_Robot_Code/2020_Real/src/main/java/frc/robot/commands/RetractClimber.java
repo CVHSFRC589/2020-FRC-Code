@@ -24,7 +24,7 @@ public class RetractClimber extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExtendClimber(IntakeSubsystem subsystem) {
+  public RetractClimber(ClimberSubsystem subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
