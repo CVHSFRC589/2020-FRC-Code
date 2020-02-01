@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax;
@@ -27,9 +28,12 @@ public class DriveSubsystem extends SubsystemBase {
   public static CANEncoder m_leftEncoder = new CANEncoder(m_leftMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
   public static CANEncoder m_rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
 
+//JUST FOR TESTING
+  private final DifferentialDrive mkz_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
+
   public DriveSubsystem() {
-    m_leftMotor.set(0);
-    m_rightMotor.set(0);
+    //m_leftMotor.set(0);
+    //m_rightMotor.set(0);
 
     //hopefully also reset encoders, but the Spark MAX API doesn't seem to have an encoder reset
   }
@@ -37,6 +41,11 @@ public class DriveSubsystem extends SubsystemBase {
 public void setMotors(double leftSpeed, double rightSpeed, double multiplier){
   m_leftMotor.set(leftSpeed*multiplier); 
   m_rightMotor.set(rightSpeed*multiplier);
+}
+
+//FOR TESTING
+public void arcadeDrive(double fwd, double rot){
+  mkz_drive.arcadeDrive(fwd, rot);
 }
 
   @Override

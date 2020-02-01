@@ -46,6 +46,6 @@ public class Robot extends TimedRobot {
     //   }
     // }
       m_robotDrive.arcadeDrive(m_stick.getY()*((m_stick.getZ()*(-1)+1)/2), m_stick.getX()*((m_stick.getZ()*(-1)+1)/2));
-    
+      
   }
 }
