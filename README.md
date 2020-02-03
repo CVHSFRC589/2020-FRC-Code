@@ -28,4 +28,4 @@ Other Notes:
 
 -2020_Real is the main project for robot code, use that instead of CVHS_Command_Drive
 
--If you plan to work on any code, please create a branch first and work off of that. Don't merge your branch into master yourself. Thanks!
+-If you plan to work on any code, please create a branch first and work off of that. Thanks!
