@@ -57,8 +57,7 @@ public class DriveController extends CommandBase {
       y = 0;
     }
     // //System.out.print(x);
-    drive.setMotors(y+x, y-x, z);
-    // drive.setMotors(y+x, y-x, z);
+    //drive.setMotors(y+x, y-x, z);
 
     //drive.arcadeDrive(my.getAsDouble(), mx.getAsDouble());
   }

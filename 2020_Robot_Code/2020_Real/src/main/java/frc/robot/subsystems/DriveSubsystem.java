@@ -44,6 +44,10 @@ public void setMotors(double leftSpeed, double rightSpeed, double multiplier){
 }
 
 //FOR TESTING
+/**
+ * @param fwd
+ * @param rot
+ */
 public void arcadeDrive(double fwd, double rot){
   mkz_drive.arcadeDrive(fwd, rot);
 }
