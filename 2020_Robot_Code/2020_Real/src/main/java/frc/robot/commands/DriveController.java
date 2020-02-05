@@ -18,10 +18,17 @@ public class DriveController extends CommandBase {
    * Creates a new DriveController.
    */
   private final DriveSubsystem drive;
-  private DoubleSupplier mz;
-  private DoubleSupplier mx;
-  private DoubleSupplier my;
+  private final DoubleSupplier mz;
+  private final DoubleSupplier mx;
+  private final DoubleSupplier my;
   
+  /**
+   * 
+   * @param drivesys
+   * @param xx
+   * @param yy
+   * @param zz
+   */
   public DriveController(DriveSubsystem drivesys, DoubleSupplier xx, DoubleSupplier yy, DoubleSupplier zz) {
     // Use addRequirements() here to declare subsystem dependencies.
     drive = drivesys;
@@ -57,7 +64,7 @@ public class DriveController extends CommandBase {
       y = 0;
     }
     // //System.out.print(x);
-    //drive.setMotors(y+x, y-x, z);
+    drive.setMotors(y+x, y-x, z);
 
     //drive.arcadeDrive(my.getAsDouble(), mx.getAsDouble());
   }

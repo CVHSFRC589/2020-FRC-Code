@@ -39,7 +39,7 @@ public class RobotContainer {
   // private final ExampleCommand m_autoCommand = new
   // ExampleCommand(m_exampleSubsystem);
 
-  private final DriveTestSubsystem m_drive = new DriveTestSubsystem();
+  private final DriveSubsystem m_drive = new DriveSubsystem();
   // private final Command drive = new DriveController(m_drive);
 
   // Driver's joystick(s)
@@ -54,18 +54,18 @@ public class RobotContainer {
     // m_drive.setDefaultCommand(new DriveController(m_drive, () -> j1.getX(), () ->
     // j1.getY(), () -> j1.getZ()));
 
-    // m_drive.setDefaultCommand(
-    //   new DriveController(
-    //     m_drive, 
-    //     () -> j1.getX(), 
-    //     () -> j1.getY(), 
-    //     () -> j1.getZ()));
-
     m_drive.setDefaultCommand(
-      new DefaultDrive(
+      new DriveController(
         m_drive, 
+        () -> j1.getX(), 
         () -> j1.getY(), 
-        () -> j1.getX()));
+        () -> j1.getZ()));
+
+    // m_drive.setDefaultCommand(
+    //   new DefaultDrive(
+    //     m_drive, 
+    //     () -> j1.getY(), 
+    //     () -> j1.getX()));
 
   }
 
