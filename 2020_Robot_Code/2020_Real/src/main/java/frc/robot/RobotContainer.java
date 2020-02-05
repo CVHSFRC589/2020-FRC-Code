@@ -15,6 +15,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.DriveTestSubsystem;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveController;
+
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -39,8 +40,10 @@ public class RobotContainer {
   // private final ExampleCommand m_autoCommand = new
   // ExampleCommand(m_exampleSubsystem);
 
-  private final DriveSubsystem m_drive = new DriveSubsystem();
-  // private final Command drive = new DriveController(m_drive);
+  //private final DriveSubsystem m_drive = new DriveSubsystem();
+  
+  // USE m_driveTest with default drive (which runs basic arcade)
+   private final DriveTestSubsystem m_driveTest = new DriveTestSubsystem();
 
   // Driver's joystick(s)
   public final static Joystick j1 = new Joystick(0);
@@ -54,18 +57,18 @@ public class RobotContainer {
     // m_drive.setDefaultCommand(new DriveController(m_drive, () -> j1.getX(), () ->
     // j1.getY(), () -> j1.getZ()));
 
-    m_drive.setDefaultCommand(
-      new DriveController(
-        m_drive, 
-        () -> j1.getX(), 
-        () -> j1.getY(), 
-        () -> j1.getZ()));
-
     // m_drive.setDefaultCommand(
-    //   new DefaultDrive(
+    //   new DriveController(
     //     m_drive, 
+    //     () -> j1.getX(), 
     //     () -> j1.getY(), 
-    //     () -> j1.getX()));
+    //     () -> j1.getZ()));
+
+    m_driveTest.setDefaultCommand(
+      new DefaultDrive(
+        m_driveTest, 
+        () -> j1.getY(), 
+        () -> j1.getX()));
 
   }
 

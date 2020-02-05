@@ -49,7 +49,7 @@ public class DriveController extends CommandBase {
      double z = mz.getAsDouble();
      double x = mx.getAsDouble();
      double y = my.getAsDouble(); 
-    //double multiplier = frc.robot.RobotContainer.j1.getZ(); 
+     
     if(z<0){
       z = (1-Math.abs(z))*0.5+0.25;
     }
@@ -63,10 +63,15 @@ public class DriveController extends CommandBase {
     if((y<0 && y>-0.1)||(y>0 && y<0.1)){
       y = 0;
     }
+
     // //System.out.print(x);
     drive.setMotors(y+x, y-x, z);
+    //.setMotors(0.3, 0.3, 0.5);
+   // System.out.print("********bob*************************************************************************************************************************");
 
-    //drive.arcadeDrive(my.getAsDouble(), mx.getAsDouble());
+
+
+   // drive.arcadeDrive(my.getAsDouble(), mx.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.

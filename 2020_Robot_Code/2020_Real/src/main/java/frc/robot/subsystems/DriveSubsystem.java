@@ -21,12 +21,12 @@ public class DriveSubsystem extends SubsystemBase {
   /**
    * Creates a new DriveSubsystem.
    */
-  public static CANSparkMax m_leftMotor = new CANSparkMax(DriveConstants.kLeftMotorPort, MotorType.kBrushless);
-  public static CANSparkMax m_rightMotor = new CANSparkMax(DriveConstants.kRightMotorPort, MotorType.kBrushless);
+  public final CANSparkMax m_leftMotor = new CANSparkMax(DriveConstants.kLeftMotorPort, MotorType.kBrushless);
+  public final CANSparkMax m_rightMotor = new CANSparkMax(DriveConstants.kRightMotorPort, MotorType.kBrushless);
 
-  //Built in CAN Encoders 
-  public static CANEncoder m_leftEncoder = new CANEncoder(m_leftMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
-  public static CANEncoder m_rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
+  // //Built in CAN Encoders 
+  // public static CANEncoder m_leftEncoder = new CANEncoder(m_leftMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
+  // public static CANEncoder m_rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
 
 //JUST FOR TESTING
   private final DifferentialDrive mkz_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
@@ -39,9 +39,14 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
 public void setMotors(double leftSpeed, double rightSpeed, double multiplier){
-  m_leftMotor.set(leftSpeed*multiplier); 
-  m_rightMotor.set(rightSpeed*multiplier);
+  System.out.print("mOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+   m_leftMotor.set(leftSpeed*multiplier); 
+   m_rightMotor.set(rightSpeed*multiplier);
+  //m_leftMotor.set(0.2); 
+  //m_rightMotor.set(0.2);
+ // mkz_drive.arcadeDrive(leftSpeed, rightSpeed);
 }
+
 
 //FOR TESTING
 /**
@@ -52,8 +57,4 @@ public void arcadeDrive(double fwd, double rot){
   mkz_drive.arcadeDrive(fwd, rot);
 }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
 }

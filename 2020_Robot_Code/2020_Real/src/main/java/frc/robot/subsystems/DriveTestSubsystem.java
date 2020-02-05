@@ -21,8 +21,10 @@ public class DriveTestSubsystem extends SubsystemBase {
   /**
    * Creates a new DriveTestSubsystem.
    */
-  private final CANSparkMax m_leftMotor = new CANSparkMax(1, MotorType.kBrushless);
-  private final CANSparkMax m_rightMotor = new CANSparkMax(2, MotorType.kBrushless);
+  private static final CANSparkMax m_leftMotor = new CANSparkMax(DriveConstants.kLeftMotorPort, MotorType.kBrushless);
+  private static final CANSparkMax m_rightMotor = new CANSparkMax(DriveConstants.kRightMotorPort, MotorType.kBrushless);
+
+
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
   public DriveTestSubsystem() {
@@ -35,6 +37,13 @@ public class DriveTestSubsystem extends SubsystemBase {
    */
   public void arcadeDrive(double fwd, double rot){
     m_drive.arcadeDrive(fwd, rot);
+    //m_leftMotor.set(0.2);
+    //m_rightMotor.set(0.2);
+  }
+
+  public void setMotors(){
+    m_leftMotor.set(0.5);
+    m_rightMotor.set(0.5);
   }
   
   @Override

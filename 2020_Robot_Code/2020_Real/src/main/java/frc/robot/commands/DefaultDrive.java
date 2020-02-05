@@ -38,12 +38,14 @@ public class DefaultDrive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.arcadeDrive(m_forward.getAsDouble(), m_rotation.getAsDouble());
+   m_drive.arcadeDrive(m_forward.getAsDouble(), m_rotation.getAsDouble());
+    //m_drive.setMotors();
   }
 
   // Called once the command ends or is interrupted.
