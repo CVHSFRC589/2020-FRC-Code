@@ -15,6 +15,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants.ShooterConstants;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+//import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class ShooterSubsystem extends SubsystemBase {
   /**
    * Creates a new ShooterSubsystem.
@@ -29,9 +35,33 @@ public class ShooterSubsystem extends SubsystemBase {
   
   //Might have a solenoid to gatekeep power cells (between storage and shooting system)
   
+  public NetworkTable table;
+  public NetworkTableEntry tx;
+  public NetworkTableEntry ty;
+  public NetworkTableEntry ta;
+
   public ShooterSubsystem() {
     m_loadingWheel.set(0);
     m_shootingWheel.set(0);
+    table = NetworkTableInstance.getDefault().getTable("limelight");
+    tx = table.getEntry("tx");
+    ty = table.getEntry("ty");
+    ta = table.getEntry("ta");
+
+  }
+
+  public void updateLimeLightValues() {
+    try{
+      tx = table.getEntry("tx");
+      //ty = table.getEntry("ty");
+      //ta = table.getEntry("ta");      
+    } catch(NullPointerException e){
+      SmartDashboard.putString("Errors", "yep");
+    }
+
+
+    double xOffset = tx.getDouble(0.0);
+
   }
 
   public void setLoadingMotor(double speed){
@@ -42,6 +72,10 @@ public class ShooterSubsystem extends SubsystemBase {
   }
   public void setAzimuthMotor(double speed){
     m_azimuthControl.set(speed);
+  }
+
+  public void xOffsetCorrection(){
+    
   }
   
   //TODO: make getter method for position of azimuth motor and speed of loading and shooting motors
