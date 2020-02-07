@@ -62,7 +62,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @param rot the commanded rotation
    */
   public void arcadeDrive(double fwd, double rot) {
-    m_drive.arcadeDrive(-fwd/1.5, rot/1.5);
+    m_drive.arcadeDrive(-fwd, rot);
     // m_leftMotor.set(0.4);
     // m_rightMotor.set(0.4);
   }

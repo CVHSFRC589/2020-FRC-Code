@@ -64,11 +64,20 @@ public class RobotContainer {
     //     () -> j1.getY(), 
     //     () -> j1.getZ()));
 
+    // m_driveTest.setDefaultCommand(
+    //   new DefaultDrive(
+    //     m_driveTest, 
+    //     () -> j1.getY(), 
+    //     () -> j1.getX()));
+
     m_driveTest.setDefaultCommand(
       new DefaultDrive(
         m_driveTest, 
         () -> j1.getY(), 
-        () -> j1.getX()));
+        () -> j1.getX(),
+        () -> j1.getX(), 
+        () -> j1.getY(),
+        () -> j1.getZ())) ;
 
   }
 
