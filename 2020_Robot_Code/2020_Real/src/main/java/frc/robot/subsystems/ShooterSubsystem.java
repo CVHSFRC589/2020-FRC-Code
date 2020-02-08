@@ -81,14 +81,12 @@ public class ShooterSubsystem extends SubsystemBase {
   public void correctAzimuth() {
     //while((-.001 < xOffset)&&(xOffset < .001))
     //{
-     tx = table.getEntry("tx");
-     xOffset = tx.getDouble(0.0);
-     azimuthSpeed = xOffset / -20.50;
-    double r;
-    if ((xOffset > -.5) &&(xOffset<.5)) {
-    azimuthSpeed = azimuthSpeed*3;
-    } 
-    //azimuthSpeed = r*azimuthSpeed;
+    tx = table.getEntry("tx");
+    xOffset = tx.getDouble(0.0);
+    azimuthSpeed = xOffset / -20.50;
+      if ((xOffset > -.5) &&(xOffset<.5)) {
+     azimuthSpeed = azimuthSpeed*3;
+      } 
     m_azimuthControl.set(azimuthSpeed);
    // }
     
@@ -105,6 +103,8 @@ public class ShooterSubsystem extends SubsystemBase {
   }
   public double AzimuthxPos()
   {
+    tx = table.getEntry("tx");
+    xOffset = tx.getDouble(0.0);
     return xOffset;
   }
   

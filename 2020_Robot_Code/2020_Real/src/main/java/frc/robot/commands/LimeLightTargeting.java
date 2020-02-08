@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -8,27 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
-//import frc.robot.subsystems.IntakeSubsystem;
 
-/**
- * An example command that uses an example subsystem.
- */
-public class AzimuthAiming extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final ShooterSubsystem m_subsystem;
-  
-
+public class ToggleFeedStreamingCommand extends CommandBase {
   /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
+   * Creates a new ToggleFeedStreamingCommand.
    */
-  public AzimuthAiming(ShooterSubsystem subsystem) {
-    m_subsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+
+  public final LimelightSubsystem m_light;
+
+  public ToggleFeedStreamingCommand(LimelightSubsystem subsystem) {
+    m_light = subsystem;
+    addRequirements(m_light); //declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -39,10 +30,7 @@ public class AzimuthAiming extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(LimelightSubsystem.getLimelightTargeting() == true){
-      m_subsystem.correctAzimuth();
-    }
-    
+    m_light.toggleAimAssist();
   }
 
   // Called once the command ends or is interrupted.
