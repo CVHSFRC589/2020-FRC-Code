@@ -39,6 +39,10 @@ public class ShooterSubsystem extends SubsystemBase {
   public NetworkTableEntry tx;
   public NetworkTableEntry ty;
   public NetworkTableEntry ta;
+  public double xOffset;
+  private double integral;
+  private double moveDistance;
+ private  double azimuthSpeed;
 
   public ShooterSubsystem() {
     m_loadingWheel.set(0);
@@ -60,8 +64,30 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
 
-    double xOffset = tx.getDouble(0.0);
+    xOffset = tx.getDouble(0.0);
 
+  }
+
+
+/*
+  public void calculatePI() {
+    double error = xOffset;
+    integral += (error*.02);
+
+    
+  }
+*/
+
+  public void correctAzimuth() {
+     azimuthSpeed = xOffset / -20.50;
+    double r;
+    if ((xOffset > -.5) &&(xOffset<.5)) {
+    azimuthSpeed = azimuthSpeed*3;
+    } 
+    //azimuthSpeed = r*azimuthSpeed;
+    m_azimuthControl.set(azimuthSpeed);
+
+    
   }
 
   public void setLoadingMotor(double speed){
@@ -73,10 +99,20 @@ public class ShooterSubsystem extends SubsystemBase {
   public void setAzimuthMotor(double speed){
     m_azimuthControl.set(speed);
   }
+  public double AzimuthxPos()
+  {
+    return xOffset;
+  }
+  
+  public double getAzimuthSpeed()
+  {return azimuthSpeed; }
 
-  public void xOffsetCorrection(){
+  /*
+  public void xOffsetCorrection()
+  {
     
   }
+  */
   
   //TODO: make getter method for position of azimuth motor and speed of loading and shooting motors
   //also make one for the solenoid if we end up using it

@@ -18,7 +18,6 @@ public class LimelightSubsystem extends SubsystemBase {
   /**
    * Creates a new Limelight.
    */
-  public NetworkTable data;
   public NetworkTable table;
   public NetworkTableEntry tx;
   public NetworkTableEntry ty;
@@ -31,7 +30,7 @@ public class LimelightSubsystem extends SubsystemBase {
   public double dist;
   public double yNegative;
   public double yRadians;
-  public double magicNumber = 96.65;
+  public double magicNumber = 70.5;
 
   public double goodX, goodY, goodA;
 
@@ -59,7 +58,7 @@ public class LimelightSubsystem extends SubsystemBase {
   public void updateLimeLightValues() {
     try{
       // tx = data.getEntry("tx");
-      ty = data.getEntry("ty");
+      ty = table.getEntry("ty");
       // ta = data.getEntry("ta");      
     } catch(NullPointerException e){
       SmartDashboard.putString("Errors", "yep");
@@ -102,9 +101,11 @@ public class LimelightSubsystem extends SubsystemBase {
   }
 
   public void getDistance() {
+    double limeLightDefAngle = 16.3;
+    yNegative = yNegative + limeLightDefAngle;
     yRadians = Math.toRadians(yNegative);
     tyTangent = Math.tan(yRadians);
-    targetElevation = magicNumber  - limelightHeight;
+    targetElevation = magicNumber;
     dist = targetElevation / tyTangent;
     // dist should be around 159 in
   }
