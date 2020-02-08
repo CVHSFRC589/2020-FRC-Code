@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -7,37 +7,44 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.IntakeSubsystem;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/**
- * An example command that uses an example subsystem.
- */
-public class DeactivateIntake extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final IntakeSubsystem m_subsystem;
+import frc.robot.subsystems.DriveSubsystem;
 
+public class ConstantDrive extends CommandBase {
   /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
+   * Creates a new ConstantDrive.
    */
-  public DeactivateIntake(IntakeSubsystem subsystem) {
-    m_subsystem = subsystem;
+
+  private double speed = 0;
+  private DriveSubsystem drive;
+
+  public ConstantDrive(DriveSubsystem d, double s) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    speed = s;
+    drive = d;
+    addRequirements(drive);
+
   }
+
+  // @Override
+  // protected void setInterruptible(boolean interruptible){
+
+  // }
+
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.deactivateIntake(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    //drive.setMotors(speed, -speed, 1);
+    drive.tankDrive(speed, speed, 1);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,5 +56,10 @@ public class DeactivateIntake extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  //@Override
+  protected void interrupted(){
+    end(true);
   }
 }

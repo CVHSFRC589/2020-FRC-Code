@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 //import frc.robot.commands.ExampleCommand;
 
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.commands.ConstantDrive;
 import frc.robot.commands.DriveController;
 import frc.robot.commands.DriveController;
 
@@ -25,6 +26,8 @@ import frc.robot.commands.UpdateLimelight;
 //import frc.robot.subsystems.ExampleSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -41,14 +44,16 @@ public class RobotContainer {
   // private final ExampleCommand m_autoCommand = new
   // ExampleCommand(m_exampleSubsystem);
 
-  //private final DriveSubsystem m_drive = new DriveSubsystem();
+  private final DriveSubsystem m_drive = new DriveSubsystem();
   
   // USE m_driveTest with default drive (which runs basic arcade)
-   private final DriveSubsystem m_driveTest = new DriveSubsystem();
+   //private final DriveSubsystem m_driveTest = new DriveSubsystem();
 
   // Driver's joystick(s)
-  public final static Joystick j1 = new Joystick(0);
+  public static final Joystick j1 = new Joystick(0);
+  public static final Button deployIntake = new JoystickButton(j1, 1);
 
+  public Command constDrive;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -56,30 +61,19 @@ public class RobotContainer {
     // Configure the button bindings
     m_LimelightSubsystem.setDefaultCommand(new UpdateLimelight(m_LimelightSubsystem));
     configureButtonBindings();
-    // m_drive.setDefaultCommand(new DriveController(m_drive, () -> j1.getX(), () ->
-    // j1.getY(), () -> j1.getZ()));
 
-    // m_drive.setDefaultCommand(
-    //   new DriveController(
-    //     m_drive, 
-    //     () -> j1.getX(), 
-    //     () -> j1.getY(), 
-    //     () -> j1.getZ()));
-
-    // m_driveTest.setDefaultCommand(
-    //   new DefaultDrive(
-    //     m_driveTest, 
-    //     () -> j1.getY(), 
-    //     () -> j1.getX()));
-
-    m_driveTest.setDefaultCommand(
+    m_drive.setDefaultCommand(
       new DriveController(
-        m_driveTest, 
+        m_drive, 
         () -> j1.getY(), 
         () -> j1.getX(),
         () -> j1.getX(), 
         () -> j1.getY(),
         () -> j1.getZ())) ;
+
+    //constDrive = new ConstantDrive(m_drive, 0.3);
+    // constDrive.setInterruptible(true);
+    deployIntake.toggleWhenPressed(new ConstantDrive(m_drive, 0.5));
 
   }
 

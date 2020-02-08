@@ -27,7 +27,7 @@ public class DriveSubsystem extends SubsystemBase {
   private static final CANSparkMax m_leftMotor = new CANSparkMax(DriveConstants.kLeftMotorPort, MotorType.kBrushless);
   private static final CANSparkMax m_rightMotor = new CANSparkMax(DriveConstants.kRightMotorPort, MotorType.kBrushless);
 
- 
+  
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
   public DriveSubsystem() {
@@ -42,6 +42,10 @@ public class DriveSubsystem extends SubsystemBase {
     m_drive.arcadeDrive(-fwd, rot);
     //m_leftMotor.set(0.2);
     //m_rightMotor.set(0.2);
+  }
+
+  public void tankDrive(double left, double right, double multiplier){
+    m_drive.tankDrive(left*multiplier, right*multiplier);
   }
 
   public void setMotors(double left, double right, double multiplier){

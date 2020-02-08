@@ -31,12 +31,13 @@ public class RetractClimber extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_subsystem.retractHook();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.retractHook();
+   
   }
 
   // Called once the command ends or is interrupted.

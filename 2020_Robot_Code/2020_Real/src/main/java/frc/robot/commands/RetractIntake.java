@@ -31,15 +31,16 @@ public class RetractIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_subsystem.retractIntake();
+
+    //Experimental feature suggested by Mr.G -> turn off motor if intake is retracted
+    //m_subsystem.deactivateIntake(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.retractIntake();
-
-    //Experimental feature suggested by Mr.G -> turn off motor if intake is retracted
-    //m_subsystem.deactivateIntake(0);
+   
   }
 
   // Called once the command ends or is interrupted.

@@ -32,12 +32,13 @@ public class ExtendClimber extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_subsystem.deployHook();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.deployHook();
+   
   }
 
   // Called once the command ends or is interrupted.

@@ -79,8 +79,10 @@ public class DriveController extends CommandBase {
     if(m_rot>=-0.2 && m_rot<=0.2){
       m_rot = 0;
     }
-
-    m_drive.arcadeDrive(m_for*z, m_rot*z);
+    
+    Math.pow(m_for, 10);
+    Math.pow(m_rot, 1/2); 
+    m_drive.arcadeDrive(m_for*z, z*m_rot);
     // m_drive.setMotors(y+x, -(y-x), z);
   }
 
