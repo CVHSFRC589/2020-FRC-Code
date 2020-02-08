@@ -31,7 +31,8 @@ public class LimelightSubsystem extends SubsystemBase {
   public double yNegative;
   public double yRadians;
   public double magicNumber = 70.5;
-
+  private boolean limelightTargeting;
+  public static boolean limelightTargetingStatic = true;
   public double goodX, goodY, goodA;
 
   public LimelightSubsystem() {
@@ -39,6 +40,7 @@ public class LimelightSubsystem extends SubsystemBase {
     tx = table.getEntry("tx");
     ty = table.getEntry("ty");
     ta = table.getEntry("ta");
+    limelightTargetingStatic = limelightTargeting;
 
     /*
      * data = NetworkTableInstance.getDefault().getTable("visiondata"); tx =
@@ -60,7 +62,7 @@ public class LimelightSubsystem extends SubsystemBase {
       // tx = data.getEntry("tx");
       ty = table.getEntry("ty");
       // ta = data.getEntry("ta");      
-    } catch(NullPointerException e){
+    } catch(final NullPointerException e){
       SmartDashboard.putString("Errors", "yep");
     }
 
@@ -99,9 +101,13 @@ public class LimelightSubsystem extends SubsystemBase {
     // aimTurret(xPosition-tx);
     // rotateRobot(0-ty);
   }
+  public static boolean getLimelightTargeting()
+  {
+    return limelightTargetingStatic;
+  }
 
   public void getDistance() {
-    double limeLightDefAngle = 16.3;
+    final double limeLightDefAngle = 16.3;
     yNegative = yNegative + limeLightDefAngle;
     yRadians = Math.toRadians(yNegative);
     tyTangent = Math.tan(yRadians);
