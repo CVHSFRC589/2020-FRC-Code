@@ -1,5 +1,7 @@
+package frc.robot;
+
 import java.util.ArrayList;
-import java.math.*;
+import java.lang.Math;
 
 import org.apache.commons.math3.fitting.*;
 
@@ -30,6 +32,7 @@ public class Trajectory {
 	//spin is in revolutions/second
 	//curve is array of polynomial factors
 	
+	@SuppressWarnings("unchecked")
 	public static ArrayList<Double>[] getPoints(double initV, double yAngle, double spin) {
 		ArrayList<Double> x = new ArrayList<>();
 		ArrayList<Double> y = new ArrayList<>();
@@ -137,6 +140,7 @@ public class Trajectory {
 		return objs;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static ArrayList<Double[]>[] getOptimalInitVs(double xAngle, double yAngle, double distIncr, double maxDist, int degree) {
 		ArrayList<ArrayList<Double>[]> allPoints = new ArrayList<>();
 		ArrayList<Double[]> allCurves = new ArrayList<>();
