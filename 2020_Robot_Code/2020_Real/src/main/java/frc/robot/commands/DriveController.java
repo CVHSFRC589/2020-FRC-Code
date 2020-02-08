@@ -15,41 +15,55 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveController extends CommandBase {
   /**
-   * Creates a new DriveController.
+   * Creates a new DefaultDrive.
    */
-  private final DriveSubsystem drive;
-  private final DoubleSupplier mz;
-  private final DoubleSupplier mx;
-  private final DoubleSupplier my;
+  private final DriveSubsystem m_drive;
+  private final DoubleSupplier m_forward;
+  private final DoubleSupplier m_rotation;
+
+  private final DoubleSupplier xx;
+  private final DoubleSupplier yy;
+  private final DoubleSupplier zz;
   
+
   /**
-   * 
-   * @param drivesys
-   * @param xx
-   * @param yy
-   * @param zz
+   * @param subsystem
+   * @param forward
+   * @param rotation
    */
-  public DriveController(DriveSubsystem drivesys, DoubleSupplier xx, DoubleSupplier yy, DoubleSupplier zz) {
+  public DriveController(DriveSubsystem subsystem, DoubleSupplier forward, DoubleSupplier rotation, DoubleSupplier x, DoubleSupplier y, DoubleSupplier z) {
     // Use addRequirements() here to declare subsystem dependencies.
-    drive = drivesys;
-    mz = zz;
-    mx = xx;
-    my = yy;
-    addRequirements(drive);
+    m_drive = subsystem;
+    m_forward = forward;
+    m_rotation = rotation;
+    addRequirements(m_drive);
+
+    xx = x;
+    yy = y; 
+    zz = z;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  }
 
+  }
+ 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     double z = mz.getAsDouble();
-     double x = mx.getAsDouble();
-     double y = my.getAsDouble(); 
-     
+    double x = xx.getAsDouble();
+    double y = yy.getAsDouble();
+    double z = zz.getAsDouble();
+    if(x>=-.1 && x<=0.1){
+      x = 0;
+    }
+    if(y>=-.1 && y<=0.1){
+      y = 0;
+    }
+    
+    //Set the z axis from 0.25 to 1
+    z = -z;
     if(z<0){
       z = (1-Math.abs(z))*0.5+0.25;
     }
@@ -57,26 +71,23 @@ public class DriveController extends CommandBase {
       z = z*0.25+0.75;
     }
 
-    if((x<0 && x>-0.1)||(x>0 && x<0.1)){
-      x = 0;
+    double m_for = m_forward.getAsDouble();
+    double m_rot = m_rotation.getAsDouble();
+    if(m_for>=-0.2 && m_for<=0.2){
+      m_for = 0;
     }
-    if((y<0 && y>-0.1)||(y>0 && y<0.1)){
-      y = 0;
+    if(m_rot>=-0.2 && m_rot<=0.2){
+      m_rot = 0;
     }
 
-    // //System.out.print(x);
-    drive.setMotors(y+x, y-x, z);
-    //.setMotors(0.3, 0.3, 0.5);
-   // System.out.print("********bob*************************************************************************************************************************");
-
-
-
-   // drive.arcadeDrive(my.getAsDouble(), mx.getAsDouble());
+    m_drive.arcadeDrive(m_for*z, m_rot*z);
+    // m_drive.setMotors(y+x, -(y-x), z);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.

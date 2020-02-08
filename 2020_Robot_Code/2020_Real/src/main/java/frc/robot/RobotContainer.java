@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 //import frc.robot.commands.ExampleCommand;
 
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.DriveTestSubsystem;
-import frc.robot.commands.DefaultDrive;
+import frc.robot.commands.DriveController;
 import frc.robot.commands.DriveController;
 
 import frc.robot.subsystems.ClimberSubsystem;
@@ -43,7 +42,7 @@ public class RobotContainer {
   //private final DriveSubsystem m_drive = new DriveSubsystem();
   
   // USE m_driveTest with default drive (which runs basic arcade)
-   private final DriveTestSubsystem m_driveTest = new DriveTestSubsystem();
+   private final DriveSubsystem m_driveTest = new DriveSubsystem();
 
   // Driver's joystick(s)
   public final static Joystick j1 = new Joystick(0);
@@ -71,7 +70,7 @@ public class RobotContainer {
     //     () -> j1.getX()));
 
     m_driveTest.setDefaultCommand(
-      new DefaultDrive(
+      new DriveController(
         m_driveTest, 
         () -> j1.getY(), 
         () -> j1.getX(),
