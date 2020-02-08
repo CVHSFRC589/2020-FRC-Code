@@ -51,9 +51,43 @@ public class RobotContainer {
 
   // Driver's joystick(s)
   public static final Joystick j1 = new Joystick(0);
-  public static final Button deployIntake = new JoystickButton(j1, 1);
 
-  public Command constDrive;
+  Button extendClimber;
+  Button retractClimber;
+
+  Button deployIntake;
+  Button retractIntake;
+  Button toggleIntakeActivated;
+  Button reverseIntakeWheels;
+
+  Button alignToTarget;
+  Button shootBalls;
+
+  Button constantDrive; //Mainly a test
+
+  //Button number assignments    no numbers are final
+  final int climberExtend = 1; //j2
+  final int climberRetract = 2; //j2
+  final int intakeDeploy = 4;  
+  final int intakeRetract = 5; //j2
+  final int intakeToggle = 3; //j2
+  final int intakeReverse = 10; //j2
+  final int targetAlign = 2; 
+  final int shoot = 1;
+  final int constDrive = 7; 
+
+  {
+    extendClimber = new JoystickButton(j1, climberExtend);
+    retractClimber = new JoystickButton(j1, climberRetract);
+
+    deployIntake = new JoystickButton(j1, intakeDeploy);
+    retractIntake = new JoystickButton(j1, intakeRetract);
+    toggleIntakeActivated = new JoystickButton(j1, intakeToggle);
+    reverseIntakeWheels = new JoystickButton(j1, intakeReverse);
+
+    constantDrive = new JoystickButton(j1, constDrive);
+  }
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -71,9 +105,8 @@ public class RobotContainer {
         () -> j1.getY(),
         () -> j1.getZ())) ;
 
-    //constDrive = new ConstantDrive(m_drive, 0.3);
-    // constDrive.setInterruptible(true);
-    deployIntake.toggleWhenPressed(new ConstantDrive(m_drive, 0.5));
+    constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
+    //make a button with a when pressed that feeds DriveController negative inputs (to reverse the motors)
 
   }
 
