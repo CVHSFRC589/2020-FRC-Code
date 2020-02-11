@@ -27,7 +27,8 @@ public class DriveSubsystem extends SubsystemBase {
   private static final CANSparkMax m_leftMotor = new CANSparkMax(DriveConstants.kLeftMotorPort, MotorType.kBrushless);
   private static final CANSparkMax m_rightMotor = new CANSparkMax(DriveConstants.kRightMotorPort, MotorType.kBrushless);
 
-  
+  private final CANEncoder leftEncoder = new CANEncoder(m_leftMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
+  private final CANEncoder rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
   public DriveSubsystem() {
@@ -64,4 +65,12 @@ public class DriveSubsystem extends SubsystemBase {
   public void setMaxOutput(double maxOutput){
     m_drive.setMaxOutput(maxOutput);
   }
+
+  public double getLeft(){
+    return leftEncoder.getPosition();
+  }
+  public double getRight(){
+    return rightEncoder.getPosition();
+  }
+
 }
