@@ -29,6 +29,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   
   boolean m_driveForward = true;
+  private final CANEncoder leftEncoder = new CANEncoder(m_leftMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
+  private final CANEncoder rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
+
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
   public DriveSubsystem() {
     
@@ -74,4 +77,11 @@ public class DriveSubsystem extends SubsystemBase {
   public void switchDriveDirection(){
     m_driveForward = !m_driveForward;
   }
+  public double getLeft(){
+    return leftEncoder.getPosition();
+  }
+  public double getRight(){
+    return rightEncoder.getPosition();
+  }
+
 }
