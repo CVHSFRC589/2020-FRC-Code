@@ -102,8 +102,8 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-    m_LimelightSubsystem.setDefaultCommand(new UpdateLimelight(m_LimelightSubsystem));
-    configureButtonBindings();
+    // m_LimelightSubsystem.setDefaultCommand(new UpdateLimelight(m_LimelightSubsystem));
+    // configureButtonBindings();
 
     m_drive.setDefaultCommand(
       new DriveController(
