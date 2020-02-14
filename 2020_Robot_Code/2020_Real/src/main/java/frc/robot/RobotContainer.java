@@ -74,8 +74,9 @@ public class RobotContainer {
   final int intakeToggle = 3; //j2
   final int intakeReverse = 10; //j2
   final int targetAlign = 2; 
+  final int shoot = 1;
+  final int constDrive = 7;
  // final int shoot = 1;
-  final int constDrive = 1; 
   final int switchDriveDirection = 6;
 
   {
