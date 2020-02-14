@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.ConstantDrive;
 import frc.robot.commands.DriveController;
+import frc.robot.commands.SwitchDriveDirection;
 import frc.robot.commands.DriveController;
 
 import frc.robot.subsystems.ClimberSubsystem;
@@ -75,6 +76,8 @@ public class RobotContainer {
   final int targetAlign = 2; 
   final int shoot = 1;
   final int constDrive = 7;
+ // final int shoot = 1;
+  final int switchDriveDirection = 6;
 
   {
     extendClimber = new JoystickButton(j1, climberExtend);
@@ -87,6 +90,12 @@ public class RobotContainer {
 
     constantDrive = new JoystickButton(j1, constDrive);
   }
+
+
+  //The joysticks
+  Joystick m_leftJoystick = new Joystick(1);
+  Joystick m_rightJoystick = new Joystick(2);
+
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -117,7 +126,7 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    new JoystickButton(m_leftJoystick, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive));
   }
 
   /**
