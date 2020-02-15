@@ -37,8 +37,6 @@ public class ShooterSubsystem extends SubsystemBase {
   
   public NetworkTable table;
   public NetworkTableEntry tx;
-  public NetworkTableEntry ty;
-  public NetworkTableEntry ta;
   public double xOffset;
   //private double integral;
   //private double moveDistance;

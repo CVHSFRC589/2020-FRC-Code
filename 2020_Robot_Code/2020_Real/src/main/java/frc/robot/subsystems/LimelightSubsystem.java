@@ -37,23 +37,38 @@ public class LimelightSubsystem extends SubsystemBase {
 
   // Public methods
   public void updateLimeLightValues() {
+    //Get the new yangle value from the network table
     try{
       ty = table.getEntry("ty");
       SmartDashboard.putString("Errors", "nah");   
     } catch(final NullPointerException e){
       SmartDashboard.putString("Errors", "yep");
     }
+    //turn the network table value into a double
     yAngle = ty.getDouble(0.0);
     getDistance();
+    //Display the values on the Smart Dashboard
     SmartDashboard.putNumber("Distance inches", dist);
     SmartDashboard.putNumber("Network Table Y", yAngle);
+  }
 
-    //SmartDashboard.putNumber("Target Elevation", targetElevation);
-     //SmartDashboard.putNumber("tyTangent", tyTangent);
-     //SmartDashboard.putNumber("yRadians", yRadians);
+  public void getDistance() {
+    //Angle (in degrees) the limelight is mounted at
+    final double limeLightDefAngle = 16.3; //NEW VALUE NEEDED
+    //Add the mount angle to the yangle gotten
+    yAngle = yAngle + limeLightDefAngle;
+    //Convert the new yangle into radians for the tangent
+    yRadians = Math.toRadians(yAngle);
+    //Get the tangent of the new yangle
+    tyTangent = Math.tan(yRadians);
+    //Divide the tangent by the magic number gotten from a sample at 166.6in from target straight on
+    dist = 70.5 / tyTangent;           //NEW NUMBER MAY NEED TO BE GOTTEN WITH NEW ROBOT
+    //plug the number into the desmos graph
+    dist = dist * 1.096 - 16.0466;     //Desmos correction graph REQUIRES TESTING WITH NEW ROBOT
   }
 
   public void toggleAimAssist() {
+    //If its true, make it false and say its not aiming and vice versa
     if (limelightTargetingStatic = true) {
       limelightTargetingStatic = false;
       SmartDashboard.putNumber("No longer aiming", 0);
@@ -61,15 +76,6 @@ public class LimelightSubsystem extends SubsystemBase {
       limelightTargetingStatic = true;
       SmartDashboard.putNumber("Aiming", 1);
     }
-  }
-
-  public void getDistance() {
-    final double limeLightDefAngle = 16.3;
-    yAngle = yAngle + limeLightDefAngle;
-    yRadians = Math.toRadians(yAngle);
-    tyTangent = Math.tan(yRadians);
-    dist = 70.5 / tyTangent;           //NEW NUMBER MAY NEED TO BE GOTTEN WITH NEW ROBOT
-    dist = dist * 1.096 - 16.0466;     //Desmos correction graph REQUIRES TESTING WITH NEW ROBOT
   }
   
   public static boolean getLimelightTargeting()
