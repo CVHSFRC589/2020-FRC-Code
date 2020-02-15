@@ -45,7 +45,7 @@ public final class Constants {
     public static final class ShooterConstants{
         public static final int kLoadingWheelMotorPort = 22;
         public static final int kMainWheelMotorPort = 21;
-        public static final int kAzimuthMotorPort = 1; //30;
+        public static final int kAzimuthMotorPort = 30; //30;
 
         public static final int leftLimitInputChannel = 1;
         public static final int rightLimitInputChannel = 2;
