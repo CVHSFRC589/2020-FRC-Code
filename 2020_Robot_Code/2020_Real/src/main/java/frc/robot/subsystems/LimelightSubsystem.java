@@ -13,6 +13,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.LimeLightTargeting;
 
 public class LimelightSubsystem extends SubsystemBase {
   /**
@@ -22,7 +23,7 @@ public class LimelightSubsystem extends SubsystemBase {
   public NetworkTableEntry tx;
   public NetworkTableEntry ty;
   public NetworkTableEntry ta;
-  private boolean aiming;
+  private static boolean aiming;
   public double yDegr;
   public double limelightHeight = 25;
   public double tyTangent;
@@ -84,11 +85,11 @@ public class LimelightSubsystem extends SubsystemBase {
   }
 
   public void toggleAimAssist() {
-    if (aiming = true) {
-      aiming = false;
+    if (limelightTargetingStatic = true) {
+      limelightTargetingStatic = false;
       SmartDashboard.putNumber("No longer aiming", 0);
     } else {
-      aiming = true;
+      limelightTargetingStatic = true;
       SmartDashboard.putNumber("Aiming", 1);
     }
   }
@@ -103,7 +104,7 @@ public class LimelightSubsystem extends SubsystemBase {
   }
   public static boolean getLimelightTargeting()
   {
-    return limelightTargetingStatic;
+    return limelightTargetingStatic;  
   }
 
   public void getDistance() {

@@ -10,14 +10,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LimelightSubsystem;
 
-public class ToggleFeedStreamingCommand extends CommandBase {
+public class LimeLightTargeting extends CommandBase {
   /**
    * Creates a new ToggleFeedStreamingCommand.
    */
 
   public final LimelightSubsystem m_light;
 
-  public ToggleFeedStreamingCommand(LimelightSubsystem subsystem) {
+  public LimeLightTargeting(LimelightSubsystem subsystem) {
     m_light = subsystem;
     addRequirements(m_light); //declare subsystem dependencies.
   }

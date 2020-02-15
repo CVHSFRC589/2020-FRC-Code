@@ -40,25 +40,23 @@ public class ShooterSubsystem extends SubsystemBase {
   public NetworkTableEntry ty;
   public NetworkTableEntry ta;
   public double xOffset;
-  private double integral;
-  private double moveDistance;
+  //private double integral;
+  //private double moveDistance;
  private  double azimuthSpeed;
+ private double integral;
 
   public ShooterSubsystem() {
     m_loadingWheel.set(0);
     m_shootingWheel.set(0);
     table = NetworkTableInstance.getDefault().getTable("limelight");
     tx = table.getEntry("tx");
-    ty = table.getEntry("ty");
-    ta = table.getEntry("ta");
+
 
   }
 
   public void updateLimeLightValues() {
     try{
       tx = table.getEntry("tx");
-      //ty = table.getEntry("ty");
-      //ta = table.getEntry("ta");      
     } catch(NullPointerException e){
       SmartDashboard.putString("Errors", "yep");
     }
@@ -69,18 +67,18 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
 
-/*
+
   public void calculatePI() {
     double error = xOffset;
     integral += (error*.02);
 
     
   }
-*/
+
 
   public void correctAzimuth() {
-    //while((-.001 < xOffset)&&(xOffset < .001))
-    //{
+    while((-.01 < xOffset)||(xOffset < .01))
+    {
     tx = table.getEntry("tx");
     xOffset = tx.getDouble(0.0);
     azimuthSpeed = xOffset / -20.50;
@@ -88,7 +86,7 @@ public class ShooterSubsystem extends SubsystemBase {
      azimuthSpeed = azimuthSpeed*3;
       } 
     m_azimuthControl.set(azimuthSpeed);
-   // }
+    }
     
   }
 
@@ -118,7 +116,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
   */
   
-  //TODO: make getter method for position of azimuth motor and speed of loading and shooting motors
+  //TODO: (seems to be done?) make getter method for position of azimuth motor and speed of loading and shooting motors
   //also make one for the solenoid if we end up using it
   
   @Override
