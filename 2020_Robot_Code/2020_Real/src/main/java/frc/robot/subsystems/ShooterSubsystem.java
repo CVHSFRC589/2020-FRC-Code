@@ -19,6 +19,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 //import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -33,6 +34,10 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kQuadrature, ShooterConstants.kEncoderCPR);
   public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kQuadrature, ShooterConstants.kEncoderCPR);
   
+  public DigitalInput leftLimit = new DigitalInput(1);
+  public DigitalInput rightLimit = new DigitalInput(2);
+
+
   //Might have a solenoid to gatekeep power cells (between storage and shooting system)
   
   public NetworkTable table;
@@ -71,7 +76,10 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shootingWheel.set(speed);
   }
   public void setAzimuthMotor(double speed){
-    m_azimuthControl.set(speed);
+    if(!(leftLimit.get() || rightLimit.get()))
+      m_azimuthControl.set(speed);
+    else
+      m_azimuthControl.set(0);
   }
 
   public void xOffsetCorrection(){

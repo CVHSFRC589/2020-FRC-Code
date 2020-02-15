@@ -48,5 +48,7 @@ public final class Constants {
         public static final int kAzimuthMotorPort = 22;
 
         public static final int kEncoderCPR = 1024;   //adjust for actual cpr
+
+        public static final double shootingSpeed = 1;  //might change this to shootingRPM
     }
 }

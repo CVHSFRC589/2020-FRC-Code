@@ -110,9 +110,9 @@ public class RobotContainer {
         m_drive, 
         () -> j1.getY(), 
         () -> j1.getX(),
-        () -> j1.getZ())) ;
-
-   // constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
+        () -> j1.getZ()));
+    
+    constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
     //make a button with a when pressed that feeds DriveController negative inputs (to reverse the motors)
 
   }
