@@ -19,7 +19,7 @@ public class Trajectory {
 	final public static Double maxYAngle = Math.toRadians(45); //rad
 	final public static Double minYAngle = Math.toRadians(0); //rad
 	final public static Double vIncr = 0.0625; //inches/second
-	final public static Double maxV = 1000.0; //inches/second
+	final public static Double maxV = 400.0; //inches/second
 	final public static Double timeIncr = 0.01; //seconds
 	final public static Double density = 0.000043714; //pounds/inches^3
 	final public static Double ballM = 0.3086471671; //pounds
@@ -122,23 +122,26 @@ public class Trajectory {
 		Double outerPassed = 0.0;
 		Double innerPassed = 0.0;
 		Double[] curve = new Double[degree+1];
-		for(int testTrajectoryNum = 0; testTrajectoryNum < maxV/vIncr; testTrajectoryNum++) {
+		for(int testTrajectoryNum = 0; testTrajectoryNum < allTrajectories.size(); testTrajectoryNum++) {
 			Double[] testPeak = getPeak(allTrajectories.get(testTrajectoryNum).points);
-			Double outerOffset = Math.abs(getY(dist, allTrajectories.get(testTrajectoryNum).curve)-portH);
-			if(outerOffset < (outerR-ballR)) {
+			Double[] testCurve = allTrajectories.get(testTrajectoryNum).curve;
+			Double outerOffset = Math.pow(getY(dist, testCurve)-portH, 2);
+			outerOffset += Math.pow(getInner(dist, xAngle)[1], 2);
+			outerOffset = Math.sqrt(outerOffset);
+			if(outerOffset < outerR-ballR-0.5) {
 				outerPassed++;
-				Double innerOffset = Math.abs(getY(getInner(dist, xAngle)[0], allTrajectories.get(testTrajectoryNum).curve)-portH);
-				if(innerOffset < (innerR-ballR)) {
+				Double innerOffset = Math.abs(getY(getInner(dist, xAngle)[0], testCurve)-portH);
+				if(innerOffset < innerR-ballR-1) {
 					innerPassed++;
 					if(testPeak[0] > dist && testPeak[0] < getInner(dist, xAngle)[0]) {
-						if(testPeak[1] < (outerR-ballR)-1) {
+						if(Math.abs(testPeak[1]-portH) < outerR-ballR-1) {
 							Double innerOpt = (1-(innerOffset/(innerR-ballR))) * bestInner;
 							Double outerOpt = (1-(outerOffset/(outerR-ballR))) * bestOuter;
 							Double testOptimal = innerOpt+outerOpt;
 							if(testOptimal > optimal) {
 								initV = allTrajectories.get(testTrajectoryNum).initV;
 								optimal = testOptimal;
-								curve = allTrajectories.get(testTrajectoryNum).curve;
+								curve = testCurve;
 							}
 						}
 					}
@@ -149,7 +152,7 @@ public class Trajectory {
 						if(testOptimal > optimal) {
 							initV = allTrajectories.get(testTrajectoryNum).initV;
 							optimal = testOptimal;
-							curve = allTrajectories.get(testTrajectoryNum).curve;
+							curve = testCurve;
 						}
 					}
 				}
@@ -158,7 +161,7 @@ public class Trajectory {
 					if(outerOpt > optimal) {
 						initV = allTrajectories.get(testTrajectoryNum).initV;
 						optimal = outerOpt;
-						curve = allTrajectories.get(testTrajectoryNum).curve;
+						curve = testCurve;
 					}
 				}
 			}
@@ -248,13 +251,10 @@ public class Trajectory {
 	}
 	
 	public static Double getSpin(Double initV) {
-		return 5.0;
+		return 0.0;
 	}
 	
 	public static Double[] getInner(Double dist, Double xAngle) {
-		if(xAngle == 0) {
-			return new Double[] {dist+portD, 0.0};
-		}
 		Double a = dist*Math.cos(xAngle)+portD;
 		Double b = dist*Math.sin(xAngle);
 		Double innerDist = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
