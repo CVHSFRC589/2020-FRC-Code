@@ -26,8 +26,8 @@ public class SwitchDriveDirection extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   // System.out.print("*********************" + m_driveSubsystem + "***************************");
     m_driveSubsystem.switchDriveDirection();
+    System.out.println("command inititalized");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,6 +43,6 @@ public class SwitchDriveDirection extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -68,9 +68,9 @@ public class DriveController extends CommandBase {
     // }
     
     // m_drive.arcadeDrive(m_for*z, z*m_rot);
-    //System.out.println("******************************************");
-
-     m_drive.arcadeDrive(m_forward.getAsDouble(), m_rotation.getAsDouble());
+    
+    m_drive.arcadeDrive(m_forward.getAsDouble(), m_rotation.getAsDouble());
+    System.out.println("*********************commandcalledindrivecontroller*********************");
 
   }
 
