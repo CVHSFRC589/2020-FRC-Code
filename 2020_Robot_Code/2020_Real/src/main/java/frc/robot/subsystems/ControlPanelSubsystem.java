@@ -14,7 +14,7 @@ public class ControlPanelSubsystem extends SubsystemBase {
    * Creates a new ControlPanelSubsystem.
    */
   public ControlPanelSubsystem() {
-
+    
   }
 
   @Override

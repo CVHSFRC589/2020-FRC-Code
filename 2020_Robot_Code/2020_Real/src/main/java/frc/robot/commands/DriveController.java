@@ -21,8 +21,6 @@ public class DriveController extends CommandBase {
   private final DoubleSupplier m_forward;
   private final DoubleSupplier m_rotation;
 
-  private final DoubleSupplier xx;
-  private final DoubleSupplier yy;
   private final DoubleSupplier zz;
   
 
@@ -31,14 +29,12 @@ public class DriveController extends CommandBase {
    * @param forward
    * @param rotation
    */
-  public DriveController(DriveSubsystem subsystem, DoubleSupplier forward, DoubleSupplier rotation, DoubleSupplier x, DoubleSupplier y, DoubleSupplier z) {
+  public DriveController(DriveSubsystem subsystem, DoubleSupplier forward, DoubleSupplier rotation, DoubleSupplier z) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = subsystem;
     m_forward = forward;
     m_rotation = rotation;
     addRequirements(m_drive);
-    xx = x;
-    yy = y; 
     zz = z;
   }
 
@@ -51,15 +47,7 @@ public class DriveController extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // double x = xx.getAsDouble();
-    // double y = yy.getAsDouble();
     // double z = zz.getAsDouble();
-    // if(x>=-.1 && x<=0.1){
-    //   x = 0;
-    // }
-    // if(y>=-.1 && y<=0.1){
-    //   y = 0;
-    // }
     
     // //Set the z axis from 0.25 to 1
     // z = -z;
@@ -79,11 +67,8 @@ public class DriveController extends CommandBase {
     //   m_rot = 0;
     // }
     
-    // Math.pow(m_for, 10);
-    // Math.pow(m_rot, 1/2); 
     // m_drive.arcadeDrive(m_for*z, z*m_rot);
-    // m_drive.setMotors(y+x, -(y-x), z);
-//    System.out.println("******************************************");
+    //System.out.println("******************************************");
 
      m_drive.arcadeDrive(m_forward.getAsDouble(), m_rotation.getAsDouble());
 

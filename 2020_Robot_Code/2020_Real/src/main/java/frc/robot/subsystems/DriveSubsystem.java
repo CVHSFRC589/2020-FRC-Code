@@ -27,10 +27,10 @@ public class DriveSubsystem extends SubsystemBase {
   private static final CANSparkMax m_leftMotor = new CANSparkMax(DriveConstants.kLeftMotorPort, MotorType.kBrushless);
   private static final CANSparkMax m_rightMotor = new CANSparkMax(DriveConstants.kRightMotorPort, MotorType.kBrushless);
 
-  
+  private boolean m_driveForward = true;
   //boolean m_driveForward = true;
-  private final CANEncoder leftEncoder = new CANEncoder(m_leftMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
-  private final CANEncoder rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
+  private final CANEncoder leftEncoder = new CANEncoder(m_leftMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
+  private final CANEncoder rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
   public DriveSubsystem() {
@@ -42,16 +42,14 @@ public class DriveSubsystem extends SubsystemBase {
    * @param rot
    */
   public void arcadeDrive(double fwd, double rot){
-    // if(true)
-    //   m_drive.arcadeDrive(-fwd, rot);
-    // else
-    //   m_drive.arcadeDrive(fwd, -rot);
+    if(m_driveForward)
+       m_drive.arcadeDrive(-fwd, rot);
+    else
+       m_drive.arcadeDrive(fwd, -rot);
+
    // System.out.println("******************************************");
 
-    m_drive.arcadeDrive(fwd, -rot);
-
-    //m_leftMotor.set(0.2);
-    //m_rightMotor.set(0.2);
+   // m_drive.arcadeDrive(-fwd, rot);
   }
 
   public void tankDrive(double left, double right, double multiplier){
@@ -78,10 +76,11 @@ public class DriveSubsystem extends SubsystemBase {
     m_drive.setMaxOutput(maxOutput);
   }
 
-  // public void switchDriveDirection(){
-  //   m_driveForward = !m_driveForward;
-  //   System.out.println("*********************" + m_driveForward + "*********************");
-  // }
+  public void switchDriveDirection(){
+    m_driveForward = !m_driveForward;
+    //System.out.println("*********************" + m_driveForward + "*********************");
+  }
+
   public double getLeft(){
     return leftEncoder.getPosition();
   }
