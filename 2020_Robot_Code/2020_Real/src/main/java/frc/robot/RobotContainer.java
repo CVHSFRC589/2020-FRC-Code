@@ -16,6 +16,7 @@ import frc.robot.commands.ConstantDrive;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DriveController;
 import frc.robot.commands.ExtendClimber;
+import frc.robot.commands.RetractClimber;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.SwitchDriveDirection;
@@ -84,8 +85,7 @@ public class RobotContainer {
   final int intakeRetract = 5; //j2
   final int intakeToggle = 3; //j2
   final int intakeReverse = 10; //j2
-  final int targetAlign = 2; 
-  final int shoot = 1;
+  final int targetAlign = 2;
   final int constDrive = 7;
   final int switchDriveDirection = 6;
 
@@ -116,6 +116,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     //Default command for drive
+    //used for arcadedrive
     m_drive.setDefaultCommand(
       new DriveController(
         m_drive, 
@@ -141,9 +142,10 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    //configure button bindings for each command, constants can be found
     new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive));
     new JoystickButton(j1, climberExtend).whenPressed(new ExtendClimber(m_climb));
-    new JoystickButton(j1, climberRetract).whenPressed(new ExtendClimber(m_climb));
+    new JoystickButton(j1, climberRetract).whenPressed(new RetractClimber(m_climb));
     new JoystickButton(j1, intakeDeploy).whenPressed(new DeployIntake(m_intake));
     new JoystickButton(j1, intakeRetract).whenPressed(new RetractIntake(m_intake));
     // new JoystickButton(j1, intakeToggle).whenPressed(new ToggleIntake(m_intake));
