@@ -15,16 +15,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class ActivateIntake extends CommandBase {
+public class ToggleIntake extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem m_subsystem;
-
+  private static boolean m_runMotor = true;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ActivateIntake(IntakeSubsystem subsystem) {
+  public ToggleIntake(IntakeSubsystem subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -33,7 +33,18 @@ public class ActivateIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.activateIntake(IntakeConstants.kIntakeMotorSpeed);
+    //If you want to run the motor, activate the intake wheels
+    //And set runMotor to false (so the next time the command is called the intake is toggled off)
+    if(m_runMotor){
+      m_subsystem.activateIntake(IntakeConstants.kIntakeMotorSpeed);
+      m_runMotor = false;
+    }
+    //If runMotor is false, turn off the intake wheels
+    //Set m_runMotor to true (so the next time the command is called the intake is toggled on)
+    else{
+      m_subsystem.deactivateIntake(0.0);
+      m_runMotor = true;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.

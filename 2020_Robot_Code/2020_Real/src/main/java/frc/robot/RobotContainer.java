@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 //import frc.robot.commands.ExampleCommand;
 
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.ConstantDrive;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DriveController;
@@ -65,17 +66,6 @@ public class RobotContainer {
   public static final Joystick j1 = new Joystick(0);
   public static final Joystick j2 = new Joystick(1);
 
-  Button extendClimber;
-  Button retractClimber;
-
-  Button deployIntake;
-  Button retractIntake;
-  Button toggleIntakeActivated;
-  Button reverseIntakeWheels;
-
-  Button alignToTarget;
-  Button shootBalls;
-
   Button constantDrive; //Mainly a test
 
   //Button number assignments    no numbers are final
@@ -89,18 +79,7 @@ public class RobotContainer {
   final int constDrive = 7;
   final int switchDriveDirection = 6;
 
-  {
-    // extendClimber = new JoystickButton(j1, climberExtend);
-    // retractClimber = new JoystickButton(j1, climberRetract);
-
-    // deployIntake = new JoystickButton(j1, intakeDeploy);
-    // retractIntake = new JoystickButton(j1, intakeRetract);
-    // toggleIntakeActivated = new JoystickButton(j1, intakeToggle);
-    // reverseIntakeWheels = new JoystickButton(j1, intakeReverse);
-
-    constantDrive = new JoystickButton(j1, constDrive);
-  }
-
+  {constantDrive = new JoystickButton(j1, constDrive);}
 
   //The joysticks
   //Joystick m_leftJoystick = new Joystick(1);
@@ -143,11 +122,11 @@ public class RobotContainer {
   private void configureButtonBindings() {
     //configure button bindings for each command, constants can be found
     new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive));
-    new JoystickButton(j1, climberExtend).whenPressed(new ExtendClimber(m_climb));
-    new JoystickButton(j1, climberRetract).whenPressed(new RetractClimber(m_climb));
+    //new JoystickButton(j1, climberExtend).whenPressed(new ExtendClimber(m_climb));
+    //new JoystickButton(j1, climberRetract).whenPressed(new RetractClimber(m_climb));
     new JoystickButton(j1, intakeDeploy).whenPressed(new DeployIntake(m_intake));
+    new JoystickButton(j1, intakeToggle).whenPressed(new ToggleIntake(m_intake));
     new JoystickButton(j1, intakeRetract).whenPressed(new RetractIntake(m_intake));
-    // new JoystickButton(j1, intakeToggle).whenPressed(new ToggleIntake(m_intake));
     new JoystickButton(j1, intakeReverse).whenPressed(new ReverseIntake(m_intake));
   }
 
