@@ -46,32 +46,32 @@ public class DriveController extends CommandBase {
  
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    // double z = zz.getAsDouble();
-    
-    // //Set the z axis from 0.25 to 1
-    // z = -z;
-    // if(z<0){
-    //   z = (1-Math.abs(z))*0.5+0.25;
-    // }
-    // else {
-    //   z = z*0.25+0.75;
-    // }
+  public void execute() {    
+    //Set the z axis from 0.25 to 1
+    double z = zz.getAsDouble();
+    z = -z;
+    if(z<0){
+      z = (1-Math.abs(z))*0.5+0.25;
+    }
+    else {
+      z = z*0.25+0.75;
+    }
 
-    // double m_for = m_forward.getAsDouble();
-    // double m_rot = m_rotation.getAsDouble();
-    // if(m_for>=-0.2 && m_for<=0.2){
-    //   m_for = 0;
-    // }
-    // if(m_rot>=-0.2 && m_rot<=0.2){
-    //   m_rot = 0;
-    // }
+    //Set driver joystick deadzones
+    double m_for = m_forward.getAsDouble();
+    double m_rot = m_rotation.getAsDouble();
+    if(m_for>=-0.2 && m_for<=0.2){
+      m_for = 0;
+    }
+    if(m_rot>=-0.2 && m_rot<=0.2){
+      m_rot = 0;
+    }
     
-    // m_drive.arcadeDrive(m_for*z, z*m_rot);
+    //Arcade drive with z multiplier
+    m_drive.arcadeDrive(m_for*z, z*m_rot);
     
-    m_drive.arcadeDrive(m_forward.getAsDouble(), m_rotation.getAsDouble());
-    //System.out.println("*********************commandcalledindrivecontroller*********************");
-
+    //Arcade Drive without a multiplier
+    //m_drive.arcadeDrive(m_forward.getAsDouble(), m_rotation.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.

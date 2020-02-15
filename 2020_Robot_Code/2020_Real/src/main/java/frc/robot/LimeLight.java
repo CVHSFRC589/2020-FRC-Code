@@ -1,4 +1,6 @@
-package oi.limelightvision.limelight.frc;
+//package oi.limelightvision.limelight.frc;
+
+package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -6,7 +8,13 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import oi.limelightvision.limelight.frc.ControlMode.*;
+import frc.robot.ControlMode;
+import frc.robot.ControlMode.Advanced_Crosshair;
+import frc.robot.ControlMode.Advanced_Target;
+import frc.robot.ControlMode.CamMode;
+import frc.robot.ControlMode.LedMode;
+import frc.robot.ControlMode.Snapshot;
+import frc.robot.ControlMode.StreamType;
 
 /**
 *   Lime Light Class was started by Corey Applegate of Team 3244
