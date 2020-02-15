@@ -80,21 +80,21 @@ public class RobotContainer {
   final int switchDriveDirection = 6;
 
   {
-    extendClimber = new JoystickButton(j1, climberExtend);
-    retractClimber = new JoystickButton(j1, climberRetract);
+    // extendClimber = new JoystickButton(j1, climberExtend);
+    // retractClimber = new JoystickButton(j1, climberRetract);
 
-    deployIntake = new JoystickButton(j1, intakeDeploy);
-    retractIntake = new JoystickButton(j1, intakeRetract);
-    toggleIntakeActivated = new JoystickButton(j1, intakeToggle);
-    reverseIntakeWheels = new JoystickButton(j1, intakeReverse);
+    // deployIntake = new JoystickButton(j1, intakeDeploy);
+    // retractIntake = new JoystickButton(j1, intakeRetract);
+    // toggleIntakeActivated = new JoystickButton(j1, intakeToggle);
+    // reverseIntakeWheels = new JoystickButton(j1, intakeReverse);
 
     constantDrive = new JoystickButton(j1, constDrive);
   }
 
 
   //The joysticks
-  Joystick m_leftJoystick = new Joystick(1);
-  Joystick m_rightJoystick = new Joystick(2);
+  //Joystick m_leftJoystick = new Joystick(1);
+  //Joystick m_rightJoystick = new Joystick(2);
 
 
   /**
@@ -102,7 +102,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-    // m_LimelightSubsystem.setDefaultCommand(new UpdateLimelight(m_LimelightSubsystem));
+   // m_LimelightSubsystem.setDefaultCommand(new UpdateLimelight(m_LimelightSubsystem));
     configureButtonBindings();
 
     m_drive.setDefaultCommand(
@@ -110,13 +110,9 @@ public class RobotContainer {
         m_drive, 
         () -> j1.getY(), 
         () -> j1.getX(),
-        () -> j1.getX(), 
-        () -> j1.getY(),
-        () -> j1.getZ()  
-      )
-    ) ;
+        () -> j1.getZ())) ;
 
-    constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
+   // constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
     //make a button with a when pressed that feeds DriveController negative inputs (to reverse the motors)
 
   }
@@ -128,7 +124,13 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_leftJoystick, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive));
+    new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive));
+    // new JoystickButton(j1, climberExtend);
+    // new JoystickButton(j1, climberRetract);
+    // new JoystickButton(j1, intakeDeploy);
+    // new JoystickButton(j1, intakeRetract);
+    // new JoystickButton(j1, intakeToggle);
+    // new JoystickButton(j1, intakeReverse);
   }
 
   /**

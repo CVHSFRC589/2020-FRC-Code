@@ -26,7 +26,7 @@ public class SwitchDriveDirection extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.print("*********************" + m_driveSubsystem + "***************************");
+   // System.out.print("*********************" + m_driveSubsystem + "***************************");
     m_driveSubsystem.switchDriveDirection();
   }
 
