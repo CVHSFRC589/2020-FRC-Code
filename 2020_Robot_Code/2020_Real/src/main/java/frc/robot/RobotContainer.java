@@ -125,15 +125,13 @@ public class RobotContainer {
         () -> j1.getZ()));
     
     //Default command for shooter
-    m_shoot.setDefaultCommand(
-      new ManualAiming(m_shoot, 
-      () -> j2.getZ()));
+    // m_shoot.setDefaultCommand(
+    //   new ManualAiming(m_shoot, 
+    //   () -> j2.getZ()));
 
 
     
-    constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
-    //make a button with a when pressed that feeds DriveController negative inputs (to reverse the motors)
-
+    //constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
   }
 
   /**

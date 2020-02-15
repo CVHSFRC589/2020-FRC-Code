@@ -33,12 +33,14 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANSparkMax m_shootingWheel = new CANSparkMax(ShooterConstants.kMainWheelMotorPort, MotorType.kBrushless); //shooting wheel
   public static CANSparkMax m_azimuthControl = new CANSparkMax(ShooterConstants.kAzimuthMotorPort, MotorType.kBrushless); //motor to control turret's horizontal motion
   
+
   public static CANEncoder m_loaderEncoder = new CANEncoder(m_loadingWheel, EncoderType.kQuadrature, ShooterConstants.kEncoderCPR);
   public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kQuadrature, ShooterConstants.kEncoderCPR);
   public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kQuadrature, ShooterConstants.kEncoderCPR);
   
-  public DigitalInput m_leftLimit = new DigitalInput(1);
-  public DigitalInput m_rightLimit = new DigitalInput(2);
+  //Turret limit switches
+  public DigitalInput m_leftLimit = new DigitalInput(ShooterConstants.leftLimitInputChannel);
+  public DigitalInput m_rightLimit = new DigitalInput(ShooterConstants.rightLimitInputChannel);
 
 
   //Might have a solenoid to gatekeep power cells (between storage and shooting system)
@@ -56,6 +58,7 @@ public class ShooterSubsystem extends SubsystemBase {
     ty = table.getEntry("ty");
     ta = table.getEntry("ta");
 
+    m_loadingWheel.setSmartCurrentLimit(ShooterConstants.azimuthMaxCurrentLimit);
   }
 
   public void updateLimeLightValues() {
@@ -79,7 +82,8 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shootingWheel.set(speed);
   }
   public void setAzimuthMotor(double azimuthSpeed){
-    if((m_leftLimit.get() && (azimuthSpeed<0))||(m_rightLimit.get() &&(azimuthSpeed>0))){
+    //DigitalInput returns false if limit switch was hit
+    if((m_leftLimit.get() && (azimuthSpeed>0))||(m_rightLimit.get() &&(azimuthSpeed<0))){
       m_azimuthControl.set(azimuthSpeed);
     }
     else {
@@ -88,10 +92,36 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setAzimuthMotorJoystick(Double azimuthSpeed){
-    if((m_leftLimit.get() && (azimuthSpeed<0))||(m_rightLimit.get() &&(azimuthSpeed>0))){
+    //TEST LIMIT SWITCHES
+    // if(m_leftLimit.get()){
+    //   System.out.print("&& Left Limit HIT &&");
+    // }
+    // if(!m_leftLimit.get()){
+    //   System.out.print("&& Left Limit HITN'T &&");
+    // }
+
+    // if(!m_rightLimit.get()){
+    //   System.out.print("&& Right Limit FALSE &&");
+    // }
+    // if(m_rightLimit.get()){
+    //   System.out.print("&& Right Limit TRUE &&");
+    // }
+    //System.out.println("LEFT: " + m_leftLimit.get());
+    System.out.println("RIGHT: " + m_rightLimit.get());
+     
+    //If neither limit switch is hit, we're fine (set the motors to the desired speed)
+    if(m_leftLimit.get() && m_rightLimit.get()){
       m_azimuthControl.set(azimuthSpeed);
     }
-    else {
+    //If the left limit switch was hit and we're moving right, we're fine
+    //If the right limit switch was hit and we're moving left, we're fine
+    //If both the above and not both switches are hit at the same time 
+    else if(((!m_leftLimit.get() && (azimuthSpeed>0)) || (!m_rightLimit.get() &&(azimuthSpeed<0))) && ((m_leftLimit.get() || m_rightLimit.get()))){
+      m_azimuthControl.set(azimuthSpeed);
+    }
+    //If a limit switch was hit and we're not moving toward the center, set the motor to 0
+    else{
+      //System.out.println("IM TRIGGGGGGGGGEREEDDDDDDDDDDDDDDDDD");
       m_azimuthControl.set(0);
     }
   }

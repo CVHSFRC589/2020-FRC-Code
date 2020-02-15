@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -45,10 +46,10 @@ public class DriveSubsystem extends SubsystemBase {
   public void arcadeDrive(double fwd, double rot){
     if(m_driveForward){
        m_drive.arcadeDrive(-fwd, rot);
-       System.out.println("**");
+      // System.out.println("Forward drive");
     }
     if(!m_driveForward){
-       System.out.println("******************arcade drive called movin backwards*******************");
+       System.out.println("****arcade drive called movin backwards***********");
        m_drive.arcadeDrive(fwd, -rot);
     }
   }

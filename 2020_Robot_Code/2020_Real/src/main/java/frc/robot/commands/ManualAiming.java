@@ -24,7 +24,7 @@ public class ManualAiming extends CommandBase {
 
   public ManualAiming(ShooterSubsystem tShoot, DoubleSupplier z) {
     m_shoot = tShoot;
-    m_rotationalSpeed = z;
+    m_rotationalSpeed = z; //set m_rotationalSpeed to z
     // Use addRequirements() here to declare subsystem dependencies.4
     addRequirements(m_shoot);
   }
@@ -37,7 +37,9 @@ public class ManualAiming extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double m_rotSpeed = m_rotationalSpeed.getAsDouble();
+    //TODO:
+    //double m_rotSpeed = m_rotationalSpeed.getAsDouble();  //USE THIS FOR ACTUAL AZIMUTH CONTROL
+    double m_rotSpeed = 0; //THIS IS SET TO 0 FOR TESTING 
     //Azimuth joystick deadzones
     if(m_rotSpeed<0.4 && m_rotSpeed>0){
       m_rotSpeed = 0;

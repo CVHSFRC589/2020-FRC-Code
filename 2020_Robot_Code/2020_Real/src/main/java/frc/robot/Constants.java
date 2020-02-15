@@ -18,8 +18,8 @@ package frc.robot;
 public final class Constants {
     //Constants for each subsystem
     public static final class DriveConstants{
-        public static final int kLeftMotorPort = 1;
-        public static final int kRightMotorPort = 2;
+        public static final int kLeftMotorPort = 1; //1
+        public static final int kRightMotorPort = 2; //2
 
         //No ports for the encoders because they're built in
         //public static final int kLeftCANEncoderPort = 0;
@@ -45,10 +45,15 @@ public final class Constants {
     public static final class ShooterConstants{
         public static final int kLoadingWheelMotorPort = 22;
         public static final int kMainWheelMotorPort = 21;
-        public static final int kAzimuthMotorPort = 30; //30;
+        public static final int kAzimuthMotorPort = 1; //30;
+
+        public static final int leftLimitInputChannel = 1;
+        public static final int rightLimitInputChannel = 2;
 
         public static final int kEncoderCPR = 1024;   //adjust for actual cpr
 
-        public static final double shootingSpeed = 1;  //might change this to shootingRPM
+        public static final double shootingSpeed = 1;  //change this to shootingRPM
+    
+        public static final int azimuthMaxCurrentLimit = 40; //in Amps 
     }
 }
