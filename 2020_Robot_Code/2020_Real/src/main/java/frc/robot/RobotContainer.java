@@ -103,7 +103,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     // m_LimelightSubsystem.setDefaultCommand(new UpdateLimelight(m_LimelightSubsystem));
-    // configureButtonBindings();
+    configureButtonBindings();
 
     m_drive.setDefaultCommand(
       new DriveController(
@@ -112,7 +112,9 @@ public class RobotContainer {
         () -> j1.getX(),
         () -> j1.getX(), 
         () -> j1.getY(),
-        () -> j1.getZ())) ;
+        () -> j1.getZ()  
+      )
+    ) ;
 
     constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
     //make a button with a when pressed that feeds DriveController negative inputs (to reverse the motors)

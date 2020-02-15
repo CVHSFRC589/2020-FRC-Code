@@ -33,6 +33,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final CANEncoder rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
+
   public DriveSubsystem() {
     
   }
