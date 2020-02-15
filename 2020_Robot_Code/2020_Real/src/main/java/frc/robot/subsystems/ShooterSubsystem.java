@@ -10,6 +10,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.EncoderType;
+
+import java.util.function.DoubleSupplier;
+
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -75,11 +78,34 @@ public class ShooterSubsystem extends SubsystemBase {
   public void setShootingMotor(double speed){
     m_shootingWheel.set(speed);
   }
-  public void setAzimuthMotor(double speed){
-    if(!(m_leftLimit.get() || m_rightLimit.get()))
-      m_azimuthControl.set(speed);
-    else
+  public void setAzimuthMotor(double azimuthSpeed){
+    if((m_leftLimit.get() && (azimuthSpeed<0))||(m_rightLimit.get() &&(azimuthSpeed>0))){
+      m_azimuthControl.set(azimuthSpeed);
+    }
+    else {
       m_azimuthControl.set(0);
+    }
+  }
+
+  public void setAzimuthMotorJoystick(Double azimuthSpeed){
+    if((m_leftLimit.get() && (azimuthSpeed<0))||(m_rightLimit.get() &&(azimuthSpeed>0))){
+      m_azimuthControl.set(azimuthSpeed);
+    }
+    else {
+      m_azimuthControl.set(0);
+    }
+  }
+
+  public boolean setAzimuthMotorAutomatic(double azimuthSpeed){
+    boolean limitHit = false;
+    if((m_leftLimit.get() && (azimuthSpeed>0)) || (m_rightLimit.get() && (azimuthSpeed<0))){
+      m_azimuthControl.set(azimuthSpeed);
+    }
+    else {
+      m_azimuthControl.set(0);
+      limitHit=true;
+    }
+    return limitHit;
   }
 
   public void xOffsetCorrection(){
