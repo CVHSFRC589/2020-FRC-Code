@@ -20,6 +20,10 @@ import frc.robot.commands.RetractIntake;
 import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.SwitchDriveDirection;
 import frc.robot.commands.DriveController;
+import frc.robot.commands.UpdateLimelight;
+import frc.robot.commands.ManualAiming;
+import frc.robot.commands.ManuallyShoot;
+
 
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ControlPanelSubsystem;
@@ -27,8 +31,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.commands.UpdateLimelight;
-//import frc.robot.subsystems.ExampleSubsystem;
+
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -50,6 +53,7 @@ public class RobotContainer {
   // ExampleCommand(m_exampleSubsystem);
 
   private final DriveSubsystem m_drive = new DriveSubsystem();
+  private final ShooterSubsystem m_shoot = new ShooterSubsystem();
   private final ClimberSubsystem m_climb = new ClimberSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   
@@ -58,6 +62,7 @@ public class RobotContainer {
 
   // Driver's joystick(s)
   public static final Joystick j1 = new Joystick(0);
+  public static final Joystick j2 = new Joystick(1);
 
   Button extendClimber;
   Button retractClimber;
@@ -82,7 +87,6 @@ public class RobotContainer {
   final int targetAlign = 2; 
   final int shoot = 1;
   final int constDrive = 7;
- // final int shoot = 1;
   final int switchDriveDirection = 6;
 
   {
@@ -111,12 +115,19 @@ public class RobotContainer {
    // m_LimelightSubsystem.setDefaultCommand(new UpdateLimelight(m_LimelightSubsystem));
     configureButtonBindings();
 
+    //Default command for drive
     m_drive.setDefaultCommand(
       new DriveController(
         m_drive, 
-        () -> j1.getY(), 
+        () -> j1.getY(),  //can set to j2.getZ() to use twist reading on joystick
         () -> j1.getX(),
         () -> j1.getZ()));
+    
+    //Default command for shooter
+    m_shoot.setDefaultCommand(
+      new ManualAiming(m_shoot, 
+      () -> j2.getZ()));
+
     
     constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
     //make a button with a when pressed that feeds DriveController negative inputs (to reverse the motors)

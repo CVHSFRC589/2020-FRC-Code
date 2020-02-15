@@ -34,8 +34,8 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kQuadrature, ShooterConstants.kEncoderCPR);
   public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kQuadrature, ShooterConstants.kEncoderCPR);
   
-  public DigitalInput leftLimit = new DigitalInput(1);
-  public DigitalInput rightLimit = new DigitalInput(2);
+  public DigitalInput m_leftLimit = new DigitalInput(1);
+  public DigitalInput m_rightLimit = new DigitalInput(2);
 
 
   //Might have a solenoid to gatekeep power cells (between storage and shooting system)
@@ -76,7 +76,7 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shootingWheel.set(speed);
   }
   public void setAzimuthMotor(double speed){
-    if(!(leftLimit.get() || rightLimit.get()))
+    if(!(m_leftLimit.get() || m_rightLimit.get()))
       m_azimuthControl.set(speed);
     else
       m_azimuthControl.set(0);

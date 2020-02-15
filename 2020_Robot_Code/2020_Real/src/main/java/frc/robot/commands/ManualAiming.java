@@ -18,15 +18,15 @@ public class ManualAiming extends CommandBase {
    * Creates a new ManualAiming.
    */
 
-  private ShooterSubsystem shoot;
-  private DoubleSupplier xx;
+  private ShooterSubsystem m_shoot;
+  private DoubleSupplier m_rotationalSpeed;
   
 
   public ManualAiming(ShooterSubsystem tShoot, DoubleSupplier x) {
-    shoot = tShoot;
-    xx = x;
+    m_shoot = tShoot;
+    m_rotationalSpeed = x;
     // Use addRequirements() here to declare subsystem dependencies.4
-    addRequirements(shoot);
+    addRequirements(m_shoot);
   }
 
   // Called when the command is initially scheduled.
@@ -37,7 +37,7 @@ public class ManualAiming extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shoot.setAzimuthMotor(xx.getAsDouble());
+    m_shoot.setAzimuthMotor(m_rotationalSpeed.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
@@ -46,8 +46,8 @@ public class ManualAiming extends CommandBase {
   }
 
   // Returns true when the command should end.
-  @Override
+  //@Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

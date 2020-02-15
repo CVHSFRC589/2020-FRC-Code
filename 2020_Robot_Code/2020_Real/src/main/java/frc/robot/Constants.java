@@ -37,15 +37,15 @@ public final class Constants {
     }
     public static final class IntakeConstants{
         public static final int[] kIntakeSolenoidPorts = new int[]{2, 3};
-        public static final int kIntakeMotorPort = 10;
+        public static final int kIntakeMotorPort = 40;
         
         public static final int kIntakeEncoderCPR = 1024; //most likely the same as kEncoderCPR in DriveConstants
         public static final int kIntakeMotorSpeed = 1;
     }
     public static final class ShooterConstants{
-        public static final int kLoadingWheelMotorPort = 20;
+        public static final int kLoadingWheelMotorPort = 22;
         public static final int kMainWheelMotorPort = 21;
-        public static final int kAzimuthMotorPort = 22;
+        public static final int kAzimuthMotorPort = 30; //30;
 
         public static final int kEncoderCPR = 1024;   //adjust for actual cpr
 
