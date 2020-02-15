@@ -36,7 +36,7 @@ public final class Constants {
 
     }
     public static final class IntakeConstants{
-        public static final int[] kIntakeSolenoidPorts = new int[]{10, 11};
+        public static final int[] kIntakeSolenoidPorts = new int[]{2, 3};
         public static final int kIntakeMotorPort = 10;
         
         public static final int kIntakeEncoderCPR = 1024; //most likely the same as kEncoderCPR in DriveConstants

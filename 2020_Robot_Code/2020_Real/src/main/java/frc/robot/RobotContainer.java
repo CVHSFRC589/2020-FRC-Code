@@ -13,7 +13,11 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.ConstantDrive;
+import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DriveController;
+import frc.robot.commands.ExtendClimber;
+import frc.robot.commands.RetractIntake;
+import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.SwitchDriveDirection;
 import frc.robot.commands.DriveController;
 
@@ -46,6 +50,8 @@ public class RobotContainer {
   // ExampleCommand(m_exampleSubsystem);
 
   private final DriveSubsystem m_drive = new DriveSubsystem();
+  private final ClimberSubsystem m_climb = new ClimberSubsystem();
+  private final IntakeSubsystem m_intake = new IntakeSubsystem();
   
   // USE m_driveTest with default drive (which runs basic arcade)
    //private final DriveSubsystem m_driveTest = new DriveSubsystem();
@@ -125,12 +131,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive));
-    // new JoystickButton(j1, climberExtend);
-    // new JoystickButton(j1, climberRetract);
-    // new JoystickButton(j1, intakeDeploy);
-    // new JoystickButton(j1, intakeRetract);
-    // new JoystickButton(j1, intakeToggle);
-    // new JoystickButton(j1, intakeReverse);
+    new JoystickButton(j1, climberExtend).whenPressed(new ExtendClimber(m_climb));
+    new JoystickButton(j1, climberRetract).whenPressed(new ExtendClimber(m_climb));
+    new JoystickButton(j1, intakeDeploy).whenPressed(new DeployIntake(m_intake));
+    new JoystickButton(j1, intakeRetract).whenPressed(new RetractIntake(m_intake));
+    // new JoystickButton(j1, intakeToggle).whenPressed(new ToggleIntake(m_intake));
+    new JoystickButton(j1, intakeReverse).whenPressed(new ReverseIntake(m_intake));
   }
 
   /**
