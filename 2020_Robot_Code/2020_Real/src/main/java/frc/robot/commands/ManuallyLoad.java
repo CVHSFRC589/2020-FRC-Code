@@ -13,38 +13,34 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 import frc.robot.Constants.ShooterConstants;
 
-public class ManuallyShoot extends CommandBase {
+public class ManuallyLoad extends CommandBase {
   /**
-   * Creates a new ManuallyShoot.
+   * Creates a new ManuallyLoad.
    */
   ShooterSubsystem shoot;
-  private static boolean runShooter = false;
-  public ManuallyShoot(ShooterSubsystem tempShoot) {
+  private static boolean runLoad = false;
+  public ManuallyLoad(ShooterSubsystem tShoot) {
+    shoot = tShoot;
     // Use addRequirements() here to declare subsystem dependencies.
-    shoot = tempShoot;
     addRequirements(shoot);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(runShooter){
-      shoot.setShootingMotor(ShooterConstants.shootingSpeed);
-      runShooter = false;
+    if(runLoad){
+      shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
+      runLoad = false;
     }
     else{
-      shoot.setShootingMotor(0);
-      runShooter = true;
+      shoot.setLoadingMotor(0);
+      runLoad = true;
     }
-   // shoot.setLoadingMotor(ShooterConstants.loadingSpeed); //set this constant to one for the loading motor
-   // System.out.println("CALLED ***************" + ShooterConstants.shootingSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   // shoot.setShootingMotor(ShooterConstants.shootingSpeed);
-   // shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
   }
 
   // Called once the command ends or is interrupted.

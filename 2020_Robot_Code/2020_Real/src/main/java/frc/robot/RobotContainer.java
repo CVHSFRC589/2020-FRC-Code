@@ -25,6 +25,7 @@ import frc.robot.commands.DriveController;
 import frc.robot.commands.UpdateLimelight;
 import frc.robot.commands.ManualAiming;
 import frc.robot.commands.ManuallyShoot;
+import frc.robot.commands.ManuallyLoad;
 
 
 import frc.robot.subsystems.ClimberSubsystem;
@@ -78,6 +79,8 @@ public class RobotContainer {
   final int targetAlign = 2;
   final int constDrive = 7;
   final int switchDriveDirection = 6;
+  final int loadBall = 2;
+  final int shootBall = 1;
 
   {constantDrive = new JoystickButton(j1, constDrive);}
 
@@ -128,6 +131,8 @@ public class RobotContainer {
     new JoystickButton(j1, intakeToggle).whenPressed(new ToggleIntake(m_intake));
     new JoystickButton(j1, intakeRetract).whenPressed(new RetractIntake(m_intake));
     new JoystickButton(j1, intakeReverse).whenPressed(new ReverseIntake(m_intake));
+    new JoystickButton(j1, shootBall).whenPressed(new ManuallyShoot(m_shoot));
+    new JoystickButton(j1, loadBall).whenPressed(new ManuallyLoad(m_shoot));
   }
 
   /**

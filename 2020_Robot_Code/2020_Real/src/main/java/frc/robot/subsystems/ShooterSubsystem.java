@@ -34,9 +34,9 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANSparkMax m_azimuthControl = new CANSparkMax(ShooterConstants.kAzimuthMotorPort, MotorType.kBrushless); //motor to control turret's horizontal motion
   
 
-  public static CANEncoder m_loaderEncoder = new CANEncoder(m_loadingWheel, EncoderType.kQuadrature, ShooterConstants.kEncoderCPR);
-  public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kQuadrature, ShooterConstants.kEncoderCPR);
-  public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kQuadrature, ShooterConstants.kEncoderCPR);
+  public static CANEncoder m_loaderEncoder = new CANEncoder(m_loadingWheel, EncoderType.kHallSensor, ShooterConstants.kEncoderCPR);
+  public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kHallSensor, ShooterConstants.kEncoderCPR);
+  public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kHallSensor, ShooterConstants.kEncoderCPR);
   
   //Turret limit switches
   public DigitalInput m_leftLimit = new DigitalInput(ShooterConstants.leftLimitInputChannel);
@@ -58,6 +58,7 @@ public class ShooterSubsystem extends SubsystemBase {
     ty = table.getEntry("ty");
     ta = table.getEntry("ta");
 
+    m_shootingWheel.restoreFactoryDefaults();
     m_loadingWheel.setSmartCurrentLimit(ShooterConstants.azimuthMaxCurrentLimit);
   }
 
