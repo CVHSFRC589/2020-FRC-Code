@@ -30,13 +30,9 @@ public final class Constants {
         //For every 10.7 turns of the motor shaft the gear turns 1
         //The encoder has 42 ticks per revolution
         //42*10.7 = 449.4 counts per revolution
-        //Change these two lines based on the robot info
         public static final double kWheelDiameterInches = 6; //wheel diameter 
-        public static final double kGearRatio = 10.71; //gear ratio
-        public static final double kEncoderTPR = 42; //encoder ticks per revolution (without multiplying by gear ratio)
-        //Don't change the next three lines
-        public static final double kEncoderCPR = kEncoderTPR*kGearRatio;  // 449.4 counts per revolution
-        public static final double kEncoderIPR = kWheelDiameterInches*Math.PI; // 18.85 inches per revolution
+        public static final int kEncoderCPR = 450;
+        public static final double kEncoderIPR = kWheelDiameterInches*Math.PI; // 18.85 inches per revolution 
         public static final double kEncoderCPI = kEncoderCPR/kEncoderIPR; // 23.84 counts per inch
     }
 
