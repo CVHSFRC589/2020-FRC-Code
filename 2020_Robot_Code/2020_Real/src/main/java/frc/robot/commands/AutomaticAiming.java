@@ -19,8 +19,11 @@ public class AutomaticAiming extends CommandBase {
    * Creates a new AutomaticAiming.
    */
   ShooterSubsystem shoot;
-  public AutomaticAiming(ShooterSubsystem tempShoot) {
+  LimeLight limey;
+
+  public AutomaticAiming(ShooterSubsystem tempShoot, LimeLight lime) {
     shoot = tempShoot;
+    limey = lime;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shoot);
   }
@@ -33,6 +36,18 @@ public class AutomaticAiming extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(limey.getIsTargetFound()){ //If we're aligned with the target stop moving
+      shoot.setAzimuthMotor(0);
+    }
+    else{
+      double x = limey.getdegRotationToTarget(); //could change this else statement 
+      if(x<0){  //if left of target turn right
+        shoot.setAzimuthMotor(0.2);
+      }
+      else if(x>0){  //if right of target turn left
+        shoot.setAzimuthMotor(-0.2);
+      }
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +58,6 @@ public class AutomaticAiming extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

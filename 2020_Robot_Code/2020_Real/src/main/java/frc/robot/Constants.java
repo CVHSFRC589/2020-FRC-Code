@@ -27,8 +27,17 @@ public final class Constants {
         public static final boolean kLeftCANEncoderReversed = false;
         public static final boolean kRightCANEncoderReversed = false; //Right probably has to be set to true
 
-        public static final int kEncoderCPR = 1024; //change for whatever it turns out to be
+        //For every 10.7 turns of the motor shaft the gear turns 1
+        //The encoder has 42 ticks per revolution
+        //42*10.7 = 449.4 counts per revolution
+        //Change these two lines based on the robot info
         public static final double kWheelDiameterInches = 6; //wheel diameter 
+        public static final double kGearRatio = 10.71; //gear ratio
+        public static final double kEncoderTPR = 42; //encoder ticks per revolution (without multiplying by gear ratio)
+        //Don't change the next three lines
+        public static final double kEncoderCPR = kEncoderTPR*kGearRatio;  // 449.4 counts per revolution
+        public static final double kEncoderIPR = kWheelDiameterInches*Math.PI; // 18.85 inches per revolution
+        public static final double kEncoderCPI = kEncoderCPR/kEncoderIPR; // 23.84 counts per inch
     }
 
     public static final class ClimberConstants{
@@ -51,7 +60,7 @@ public final class Constants {
         public static final int rightLimitInputChannel = 2;
 
         public static final int kEncoderCPR = 1024;   //adjust for actual cpr
-        public static final double shootingSpeed = -1;  //-0.52
+        public static final double shootingSpeed = -0.52;  //-0.52
         public static final double loadingSpeed = 1;
     
         public static final int azimuthMaxCurrentLimit = 40; //in Amps 

@@ -77,16 +77,12 @@ public class RobotContainer {
   final int intakeToggle = 3; //j2
   final int intakeReverse = 10; //j2
   final int targetAlign = 2;
-  final int constDrive = 7;
+//  final int constDrive = 7;
   final int switchDriveDirection = 6;
   final int loadBall = 2;
   final int shootBall = 1;
 
-  {constantDrive = new JoystickButton(j1, constDrive);}
-
-  //The joysticks
-  //Joystick m_leftJoystick = new Joystick(1);
-  //Joystick m_rightJoystick = new Joystick(2);
+//  {constantDrive = new JoystickButton(j1, constDrive);}
 
 
   /**
