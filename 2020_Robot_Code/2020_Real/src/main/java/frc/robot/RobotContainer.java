@@ -70,19 +70,19 @@ public class RobotContainer {
   Button constantDrive; //Mainly a test
 
   //Button number assignments    no numbers are final
-  final int climberExtend = 1; //j2
-  final int climberRetract = 2; //j2
-  final int intakeDeploy = 4;  
-  final int intakeRetract = 5; //j2
-  final int intakeToggle = 3; //j2
-  final int intakeReverse = 10; //j2
-  final int targetAlign = 2;
-//  final int constDrive = 7;
+  final int climberExtend = 1; //j1
+  final int climberRetract = 2; //j1
+  final int intakeDeploy = 4; //j1
+  final int intakeRetract = 5; //j1
+  final int intakeToggle = 3; //j1
+  final int intakeReverse = 10; //j1
+  final int targetAlign = 2; //j1
+  final int constDrive = 7;
   final int switchDriveDirection = 6;
-  final int loadBall = 2;
-  final int shootBall = 1;
+  final int loadBall = 2; //j2
+  final int shootBall = 1; //j2
 
-//  {constantDrive = new JoystickButton(j1, constDrive);}
+  {constantDrive = new JoystickButton(j1, constDrive);}
 
 
   /**
@@ -109,7 +109,7 @@ public class RobotContainer {
 
 
     
-    //constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
+    constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
   }
 
   /**
@@ -127,8 +127,8 @@ public class RobotContainer {
     new JoystickButton(j1, intakeToggle).whenPressed(new ToggleIntake(m_intake));
     new JoystickButton(j1, intakeRetract).whenPressed(new RetractIntake(m_intake));
     new JoystickButton(j1, intakeReverse).whenPressed(new ReverseIntake(m_intake));
-    new JoystickButton(j1, shootBall).whenPressed(new ManuallyShoot(m_shoot));
-    new JoystickButton(j1, loadBall).whenPressed(new ManuallyLoad(m_shoot));
+    new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
+    new JoystickButton(j2, loadBall).whenPressed(new ManuallyLoad(m_shoot));
   }
 
   /**

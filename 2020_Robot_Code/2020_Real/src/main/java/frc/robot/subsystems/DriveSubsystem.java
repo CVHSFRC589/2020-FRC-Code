@@ -27,16 +27,21 @@ public class DriveSubsystem extends SubsystemBase {
    */
   private static final CANSparkMax m_leftMotor = new CANSparkMax(DriveConstants.kLeftMotorPort, MotorType.kBrushless);
   private static final CANSparkMax m_rightMotor = new CANSparkMax(DriveConstants.kRightMotorPort, MotorType.kBrushless);
+  
 
   // private boolean m_driveForward = true;
   boolean m_driveForward = true;
-  private final CANEncoder leftEncoder = new CANEncoder(m_leftMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
-  private final CANEncoder rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
+  //private final CANEncoder leftEncoder = new CANEncoder(m_leftMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
+  //private final CANEncoder rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
+
+  private final CANEncoder leftEncoder = m_leftMotor.getEncoder();
+  private final CANEncoder rightEncoder = m_rightMotor.getEncoder();
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
   public DriveSubsystem() {
-    
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
   }
 
   /**

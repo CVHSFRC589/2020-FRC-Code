@@ -40,6 +40,7 @@ public class ConstantDrive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -48,10 +49,12 @@ public class ConstantDrive extends CommandBase {
     //drive.setMotors(speed, -speed, 1);
     
     //(Encoder ticks / Ticks per inch) = inches
-    int distTraveled = (int)(drive.getLeft() /  DriveConstants.kEncoderCPI);
-    if(distTraveled >= 120){
+
+    int distTraveled = (int)(Math.abs(drive.getLeft()*10.7) /  DriveConstants.kEncoderCPI);
+    if(distTraveled >= 60){
       finishedTraveling = true;
     }
+    System.out.println(Math.abs(drive.getLeft()) + "||||" + distTraveled);
     drive.tankDrive(speed, speed, 1);
   }
 

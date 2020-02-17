@@ -17,6 +17,8 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.DriveConstants;
+
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -34,9 +36,9 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANSparkMax m_azimuthControl = new CANSparkMax(ShooterConstants.kAzimuthMotorPort, MotorType.kBrushless); //motor to control turret's horizontal motion
   
 
-  public static CANEncoder m_loaderEncoder = new CANEncoder(m_loadingWheel, EncoderType.kHallSensor, ShooterConstants.kEncoderCPR);
-  public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kHallSensor, ShooterConstants.kEncoderCPR);
-  public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kHallSensor, ShooterConstants.kEncoderCPR);
+  public static CANEncoder m_loaderEncoder = new CANEncoder(m_loadingWheel, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
+  public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
+  public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   
   //Turret limit switches
   public DigitalInput m_leftLimit = new DigitalInput(ShooterConstants.leftLimitInputChannel);
