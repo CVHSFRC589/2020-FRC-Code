@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.AutomaticAiming;
-import frc.robot.commands.ConstantDrive;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DriveController;
 import frc.robot.commands.ExtendClimber;
@@ -109,7 +109,9 @@ public class RobotContainer {
     //   new ManualAiming(m_shoot, 
     //   () -> j2.getZ()));
 
-    constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
+
+    
+    constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
   }
 
   /**

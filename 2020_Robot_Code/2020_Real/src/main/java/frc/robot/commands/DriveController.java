@@ -69,7 +69,7 @@ public class DriveController extends CommandBase {
     
     //Arcade drive with z multiplier
     m_drive.arcadeDrive(m_for*z, z*m_rot);
-    
+    System.out.println("left encoder: " + m_drive.getLeft());
     //Arcade Drive without a multiplier
     //m_drive.arcadeDrive(m_forward.getAsDouble(), m_rotation.getAsDouble());
   }
