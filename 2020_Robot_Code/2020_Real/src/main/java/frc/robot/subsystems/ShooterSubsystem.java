@@ -58,22 +58,14 @@ public class ShooterSubsystem extends SubsystemBase {
     } catch(NullPointerException e){
       SmartDashboard.putString("Errors", "yep");
     }
-
-
     xOffset = tx.getDouble(0.0);
-
   }
-
-
 
   public void calculatePI()
    {
     double error = xOffset;
     integral += (error*.02);
-
-    
   }
-
 
   public void correctAzimuth() 
   {
