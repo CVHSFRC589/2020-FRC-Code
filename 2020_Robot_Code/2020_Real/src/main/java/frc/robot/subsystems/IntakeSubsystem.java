@@ -31,7 +31,7 @@ public class IntakeSubsystem extends SubsystemBase {
   //public static DoubleSolenoid m_intakeSolenoid = new DoubleSolenoid(IntakeConstants.kIntakeSolenoidPorts[2], IntakeConstants.kIntakeSolenoidPorts[3]);
   
   public static CANSparkMax m_intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorPort, MotorType.kBrushless);
-  public static CANEncoder m_intakeEncoder = new CANEncoder(m_intakeMotor, EncoderType.kQuadrature, DriveConstants.kEncoderCPR);  //EncoderCPR is probably the same as DriveConstants.kEncoderCPR
+  public static CANEncoder m_intakeEncoder = new CANEncoder(m_intakeMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);  //EncoderCPR is probably the same as DriveConstants.kEncoderCPR
   
   public IntakeSubsystem() {
     m_intakeSolenoid.set(kReverse);
@@ -45,10 +45,7 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeSolenoid.set(kReverse);
   }
 
-  public void activateIntake(double speed){
-    m_intakeMotor.set(speed);
-  }
-  public void deactivateIntake(double speed){
+  public void setIntake(double speed){
     m_intakeMotor.set(speed);
   }
 

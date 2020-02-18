@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Motors;
 
 import frc.robot.LimeLight;
 import frc.robot.ControlMode;
@@ -58,6 +59,6 @@ public class AutomaticAiming extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return limey.getIsTargetFound();
   }
 }

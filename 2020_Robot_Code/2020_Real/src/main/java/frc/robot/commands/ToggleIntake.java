@@ -36,13 +36,13 @@ public class ToggleIntake extends CommandBase {
     //If you want to run the motor, activate the intake wheels
     //And set runMotor to false (so the next time the command is called the intake is toggled off)
     if(m_runMotor){
-      m_subsystem.activateIntake(IntakeConstants.kIntakeMotorSpeed);
+      m_subsystem.setIntake(IntakeConstants.kIntakeMotorSpeed);
       m_runMotor = false;
     }
     //If runMotor is false, turn off the intake wheels
     //Set m_runMotor to true (so the next time the command is called the intake is toggled on)
     else{
-      m_subsystem.deactivateIntake(0.0);
+      m_subsystem.setIntake(0.0);
       m_runMotor = true;
     }
   }
