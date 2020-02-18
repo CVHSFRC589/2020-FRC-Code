@@ -22,10 +22,11 @@ public class LimelightSubsystem extends SubsystemBase {
   public NetworkTable table;
   public NetworkTableEntry ty;
   public double limelightHeight = 25;
-  public double tyTangent;
+  private double tyTangent;
   public double dist;
-  public double yAngle;
-  public double yRadians; 
+  public double yAngleDegrees;
+  public double yAngleRadians; 
+  public static double point3Angle;
   public static boolean limelightTargetingStatic = true;
 
   public LimelightSubsystem() {
@@ -45,22 +46,22 @@ public class LimelightSubsystem extends SubsystemBase {
       SmartDashboard.putString("Errors", "yep");
     }
     //turn the network table value into a double
-    yAngle = ty.getDouble(0.0);
+    yAngleDegrees = ty.getDouble(0.0);
     getDistance();
     //Display the values on the Smart Dashboard
     SmartDashboard.putNumber("Distance inches", dist);
-    SmartDashboard.putNumber("Network Table Y", yAngle);
+    SmartDashboard.putNumber("Network Table Y", yAngleDegrees);
   }
 
   public void getDistance() {
     //Angle (in degrees) the limelight is mounted at
     final double limeLightDefAngle = 16.3; //NEW VALUE NEEDED
     //Add the mount angle to the yangle gotten
-    yAngle = yAngle + limeLightDefAngle;
+    yAngleDegrees = yAngleDegrees + limeLightDefAngle;
     //Convert the new yangle into radians for the tangent
-    yRadians = Math.toRadians(yAngle);
+    yAngleRadians = Math.toRadians(yAngleDegrees);
     //Get the tangent of the new yangle
-    tyTangent = Math.tan(yRadians);
+    tyTangent = Math.tan(yAngleRadians);
     //Divide the tangent by the magic number gotten from a sample at 166.6in from target straight on
     dist = 70.5 / tyTangent;           //NEW NUMBER MAY NEED TO BE GOTTEN WITH NEW ROBOT
     //plug the number into the desmos graph
@@ -76,6 +77,23 @@ public class LimelightSubsystem extends SubsystemBase {
       limelightTargetingStatic = true;
       SmartDashboard.putNumber("Aiming", 1);
     }
+  }
+
+  public void calculate3PointGoalAngle(){  //this code is a mess im sorry
+    NetworkTableEntry tx = table.getEntry("tx");
+    double xAngle = tx.getDouble(0.0);
+    double limelightDistFromWall; //From Distance Sensors
+    double limelightXDistFromTarget;
+    xAngle = Math.toRadians(xAngle);
+    limelightXDistFromTarget = Math.sin(xAngle) * dist;
+    double distTo3Point = Math.sqrt((limelightDistFromWall*limelightDistFromWall) + (limelightXDistFromTarget *limelightXDistFromTarget));
+    double angleCLime2Pt3Pt = Math.acos(distTo3Point*distTo3Point - dist*dist -855.5625/ (2*dist*855.5625));
+    point3Angle = Math.asin((29.25 * Math.sin(angleCLime2Pt3Pt)) / distTo3Point);
+  }
+
+  public double get3PointAngle(){
+    calculate3PointGoalAngle();
+    return point3Angle;
   }
   
   public static boolean getLimelightTargeting()

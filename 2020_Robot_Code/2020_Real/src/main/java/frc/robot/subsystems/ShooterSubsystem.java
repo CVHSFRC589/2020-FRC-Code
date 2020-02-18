@@ -40,8 +40,8 @@ public class ShooterSubsystem extends SubsystemBase {
   public double xOffset;
   //private double integral;
   //private double moveDistance;
- private  double azimuthSpeed;
- private double integral;
+  private  double azimuthSpeed;
+  private double integral;
 
   public ShooterSubsystem() {
     m_loadingWheel.set(0);
@@ -61,11 +61,13 @@ public class ShooterSubsystem extends SubsystemBase {
     xOffset = tx.getDouble(0.0);
   }
 
+  /*
   public void calculatePI()
    {
     double error = xOffset;
     integral += (error*.02);
   }
+  */
 
   public void correctAzimuth() 
   {
@@ -75,12 +77,13 @@ public class ShooterSubsystem extends SubsystemBase {
     xOffset = tx.getDouble(0.0);
     azimuthSpeed = xOffset / -20.500000;
       if ((xOffset > -.5) &&(xOffset<.5)) {
-     azimuthSpeed = azimuthSpeed*3;
-      } 
+     azimuthSpeed = azimuthSpeed*5;
+      }
+      }
     m_azimuthControl.set(azimuthSpeed);
     }
     
-  }
+
 
   public void setLoadingMotor(double speed){
     m_loadingWheel.set(speed);
