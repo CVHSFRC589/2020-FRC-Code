@@ -17,6 +17,7 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Motors.Manager;
 import frc.robot.Constants.DriveConstants;
 
 
@@ -40,6 +41,10 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   
+  //Manager is used for PID control
+  //Manager.initialize(m_loadingWheel);
+  //Manager m_shootManager = new Manager(m_shootingWheel);
+
   //Turret limit switches
   public DigitalInput m_leftLimit = new DigitalInput(ShooterConstants.leftLimitInputChannel);
   public DigitalInput m_rightLimit = new DigitalInput(ShooterConstants.rightLimitInputChannel);

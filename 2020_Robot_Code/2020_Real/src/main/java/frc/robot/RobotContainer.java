@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.AutomaticAiming;
 import frc.robot.commands.ConstantDrive;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DriveController;
@@ -52,6 +53,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final LimelightSubsystem m_LimelightSubsystem = new LimelightSubsystem();
+  private final LimeLight m_lime = new LimeLight("limelight");
   // private final ExampleCommand m_autoCommand = new
   // ExampleCommand(m_exampleSubsystem);
 
@@ -102,13 +104,11 @@ public class RobotContainer {
         () -> j1.getX(),
         () -> j1.getZ()));
     
-    //Default command for shooter
+    //Default command for shooter (MANUAL)
     // m_shoot.setDefaultCommand(
     //   new ManualAiming(m_shoot, 
     //   () -> j2.getZ()));
 
-
-    
     constantDrive.toggleWhenPressed(new ConstantDrive(m_drive, 0.5), true);
   }
 
@@ -127,6 +127,9 @@ public class RobotContainer {
     new JoystickButton(j1, intakeToggle).whenPressed(new ToggleIntake(m_intake));
     new JoystickButton(j1, intakeRetract).whenPressed(new RetractIntake(m_intake));
     new JoystickButton(j1, intakeReverse).whenPressed(new ReverseIntake(m_intake));
+    //Automated Shooting
+    new JoystickButton(j1, targetAlign).whenPressed(new AutomaticAiming(m_shoot, m_lime));
+    //Manual Shooting
     new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
     new JoystickButton(j2, loadBall).whenPressed(new ManuallyLoad(m_shoot));
   }
