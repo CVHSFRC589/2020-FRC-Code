@@ -26,12 +26,12 @@ public class Trajectory {
 	final public static Double bestOuter = 100.0; //unitless
 	final public static int defaultDegree = 4; //polynomial degree
 	final public static Double defaultYAngle = Math.toRadians(45); //rad
-	//dist is in inches
-	//initV is in inches/second
-	//xAngle is in rad
-	//yAngle is in rad
-	//spin is in revolutions/second
-	//curve is array of polynomial factors
+	// dist is in inches
+	// initV is in inches/second
+	// xAngle is in rad
+	// yAngle is in rad
+	// spin is in revolutions/second
+	// curve is array of polynomial factors
 	
 	// constructs a trajectory containing points, the polynomial curve, and the initial velocity
 	public ArrayList<Double>[] points;
@@ -79,13 +79,13 @@ public class Trajectory {
 			Double outerOffset = Math.pow(getY(inner[3], testCurve)-portH, 2);
 			outerOffset += Math.pow(inner[1], 2);
 			outerOffset = Math.sqrt(outerOffset);
-			if(outerOffset < outerR-ballR-0.5) {
+			if(outerOffset < outerR-ballR-1) {
 				outerPassed++;
 				Double innerOffset = Math.abs(getY(inner[0], testCurve)-portH);
 				if(innerOffset < innerR-ballR-1) {
 					innerPassed++;
 					if(testPeak[0] > inner[3] && testPeak[0] < inner[0]) {
-						if(Math.abs(testPeak[1]-portH) < outerR-ballR-1) {
+						if(Math.abs(testPeak[1]-portH) < outerR-ballR) {
 							Double innerOpt = (1-(innerOffset/(innerR-ballR))) * bestInner;
 							Double outerOpt = (1-(outerOffset/(outerR-ballR))) * bestOuter;
 							Double testOptimal = innerOpt+outerOpt;
@@ -220,7 +220,7 @@ public class Trajectory {
 	
 	// translates initial velocity to spin, not implemented yet [will probably use a polynomial fit to find values]
 	public static Double getSpin(Double initV) {
-		return 0.0;
+		return 5.0;
 	}
 	
 	// finds information about the inner port from outer port information
@@ -230,7 +230,7 @@ public class Trajectory {
 		Double b = dist*Math.sin(xAngle);
 		Double innerDist = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
 		Double targetXAngle = Math.atan(b/a);
-		return new Double[] {innerDist, b/a*portD, targetXAngle, (dist*Math.cos(xAngle))*Math.cos(targetXAngle)};
+		return new Double[] {innerDist, b/a*portD, targetXAngle, innerDist - (portD/Math.cos(targetXAngle))};
 	}
 	
 	// returns arraylist of all trajectories at some angle over a range of initial velocities, only run once during initialization (takes a second or two)!
