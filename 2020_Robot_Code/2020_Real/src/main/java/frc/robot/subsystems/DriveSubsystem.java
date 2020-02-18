@@ -31,11 +31,11 @@ public class DriveSubsystem extends SubsystemBase {
 
   // private boolean m_driveForward = true;
   boolean m_driveForward = true;
-  //private final CANEncoder leftEncoder = new CANEncoder(m_leftMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
-  //private final CANEncoder rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
+  // private final CANEncoder leftEncoder = new CANEncoder(m_leftMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
+  // private final CANEncoder rightEncoder = new CANEncoder(m_rightMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
 
-  private final CANEncoder leftEncoder = m_leftMotor.getEncoder();
-  private final CANEncoder rightEncoder = m_rightMotor.getEncoder();
+  private final CANEncoder leftEncoder = m_leftMotor.getEncoder(EncoderType.kHallSensor, 42);
+  private final CANEncoder rightEncoder = m_rightMotor.getEncoder(EncoderType.kHallSensor, 42);
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
@@ -94,6 +94,12 @@ public class DriveSubsystem extends SubsystemBase {
   }
   public double getRight(){
     return rightEncoder.getPosition();
+  }
+  public void setLeft(int position){
+    leftEncoder.setPosition(position);
+  }
+  public void setRight(int position){
+    rightEncoder.setPosition(position);
   }
 
 }

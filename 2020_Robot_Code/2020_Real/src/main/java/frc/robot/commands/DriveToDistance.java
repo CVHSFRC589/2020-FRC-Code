@@ -14,34 +14,36 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class ConstantDrive extends CommandBase {
+public class DriveToDistance extends CommandBase {
   /**
    * Creates a new ConstantDrive.
    */
 
-  private double speed = 0;
+  private double distance = 0;
   private DriveSubsystem drive;
   private boolean finishedTraveling = false;
+  private double initialEncoderValue;
 
-  public ConstantDrive(DriveSubsystem d, double s) {
+  public DriveToDistance(DriveSubsystem d, double s) {
     // Use addRequirements() here to declare subsystem dependencies.
-    speed = s;
+    distance = s;
     drive = d;
     addRequirements(drive);
-
+    
   }
-
+  
   // @Override
   // protected void setInterruptible(boolean interruptible){
-
-  // }
-
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-
-  }
+    
+    // }
+    
+    
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+      drive.setLeft(0);
+      System.out.println("init: " + drive.getLeft());
+    }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -50,13 +52,16 @@ public class ConstantDrive extends CommandBase {
     
     //(Encoder ticks / Ticks per inch) = inches
 
-    int distTraveled = (int)(Math.abs(drive.getLeft()*10.7) /  DriveConstants.kEncoderCPI);
-    if(distTraveled >= 60){
+    //drive.getLeft() gives revolutions of motor shaft
+    //divide by 10.7(gear ratio - 10.7 revolutions of the motor shaft makes one revolution of the actual wheel) to get revolutions of actual wheel
+    //multiply by wheel circumference to get inches traveled
+    int distTraveled = (int)((drive.getLeft()-initialEncoderValue)/DriveConstants.gearRatio * DriveConstants.kEncoderIPR);
+    if(Math.abs(distTraveled) >= distance){
       finishedTraveling = true;
     }
-    System.out.println(Math.abs(drive.getLeft()) + "||||" + distTraveled);
-    drive.tankDrive(speed, speed, 1);
+    drive.tankDrive(0.7, 0.7, 1);
   }
+
 
   // Called once the command ends or is interrupted.
   @Override

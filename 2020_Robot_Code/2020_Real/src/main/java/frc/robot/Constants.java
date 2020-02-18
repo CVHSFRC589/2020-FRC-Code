@@ -30,10 +30,11 @@ public final class Constants {
         //For every 10.7 turns of the motor shaft the gear turns 1
         //The encoder has 42 ticks per revolution
         //42*10.7 = 449.4 counts per revolution
-        public static final double kWheelDiameterInches = 6; //wheel diameter 
+        public static final double kWheelDiameterInches = 6; //wheel diameter
+        public static final double gearRatio = 10.7;
         public static final int kEncoderCPR = 450;
-        public static final double kEncoderIPR = kWheelDiameterInches*Math.PI; // 18.85 inches per revolution 
-        public static final double kEncoderCPI = kEncoderCPR/kEncoderIPR; // 23.84 counts per inch
+        public static final double kEncoderIPR = kWheelDiameterInches*Math.PI; // 18.85 inches per revolution (circumference)
+        public static final double kEncoderCPI = 0.583333333333; //idk why this even works
     }
 
     public static final class ClimberConstants{
