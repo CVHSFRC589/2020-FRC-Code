@@ -17,6 +17,7 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.ControlMode.StreamType;
 import frc.robot.Motors.Manager;
 import frc.robot.Motors;
 import frc.robot.Constants.DriveConstants;
@@ -28,6 +29,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.ControlMode;
+import frc.robot.LimeLight;
 
 public class ShooterSubsystem extends SubsystemBase {
   /**
@@ -36,7 +39,6 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANSparkMax m_loadingWheel = new CANSparkMax(ShooterConstants.kLoadingWheelMotorPort, MotorType.kBrushless); //loading wheel
   public static CANSparkMax m_shootingWheel = new CANSparkMax(ShooterConstants.kMainWheelMotorPort, MotorType.kBrushless); //shooting wheel
   public static CANSparkMax m_azimuthControl = new CANSparkMax(ShooterConstants.kAzimuthMotorPort, MotorType.kBrushless); //motor to control turret's horizontal motion
-  
 
   public static CANEncoder m_loaderEncoder = new CANEncoder(m_loadingWheel, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
@@ -44,6 +46,11 @@ public class ShooterSubsystem extends SubsystemBase {
   
   //Manager is used for PID control
   Manager m_Manager = new Manager();
+  //Control Mode stuff
+  ControlMode m_cameraController = new ControlMode();
+  LimeLight m_limeLight = new LimeLight("limelight");
+  private int m_cameraMode = 0; //0 -> targeting mode, 1 -> camera stream
+  private StreamType m_streamMode = StreamType.kStandard; //0 -> standard (side-by-side), 1 -> Picture in Picture main, 2 -> Picture in picture secondary
 
   //Turret limit switches
   public DigitalInput m_leftLimit = new DigitalInput(ShooterConstants.leftLimitInputChannel);
@@ -85,6 +92,13 @@ public class ShooterSubsystem extends SubsystemBase {
 
     double xOffset = tx.getDouble(0.0);
 
+  }
+
+  public boolean getTargetFound(){
+    return m_limeLight.getIsTargetFound();
+  }
+  public double getDegRotToTarget(){
+    return m_limeLight.getdegRotationToTarget();
   }
 
   public void setLoadingMotor(double speed){
@@ -158,6 +172,28 @@ public class ShooterSubsystem extends SubsystemBase {
   //TODO: make getter method for position of azimuth motor and speed of loading and shooting motors
   //also make one for the solenoid if we end up using it
   
+  public void switchCameraMode(){
+    if(m_cameraMode == 0){
+      m_cameraMode = 1;
+    }
+    else{
+      m_cameraMode = 0;
+    }
+  }
+
+  public void changeStreamMode(){
+    if(m_streamMode == StreamType.kStandard){
+      m_streamMode = StreamType.kPiPMain;
+    }
+    else if(m_streamMode == StreamType.kPiPMain){
+      m_streamMode = StreamType.kPiPSecondary;
+    }
+    else{
+      m_streamMode = StreamType.kStandard;
+    }
+    m_limeLight.setStream(m_streamMode);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
