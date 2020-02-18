@@ -19,6 +19,8 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Motors.Manager;
+import frc.robot.Motors;
 //import sun.awt.FwDispatcher;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -42,6 +44,8 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
+    Manager.initialize(m_leftMotor);
+    Manager.initialize(m_rightMotor);
   }
 
   /**
@@ -50,6 +54,7 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public void arcadeDrive(double fwd, double rot){
     if(m_driveForward){
+      //Manager.setPIDSpeed(m_leftMotor, 0.3);
        m_drive.arcadeDrive(-fwd, rot);
       // System.out.println("Forward drive");
     }
