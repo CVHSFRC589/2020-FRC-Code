@@ -79,18 +79,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     }
   }
 
-  //UNCOMMENT LINES 83 - 98 IMPORTANT
-  // public void calculate3PointGoalAngle(){  //this code is a mess im sorry
-  //   NetworkTableEntry tx = table.getEntry("tx");
-  //   double xAngle = tx.getDouble(0.0);
-  //   double limelightDistFromWall; //From Distance Sensors
-  //   double limelightXDistFromTarget;
-  //   xAngle = Math.toRadians(xAngle);
-  //   limelightXDistFromTarget = Math.sin(xAngle) * dist;
-  //   double distTo3Point = Math.sqrt((limelightDistFromWall*limelightDistFromWall) + (limelightXDistFromTarget *limelightXDistFromTarget));
-  //   double angleCLime2Pt3Pt = Math.acos(distTo3Point*distTo3Point - dist*dist -855.5625/ (2*dist*855.5625));
-  //   point3Angle = Math.asin((29.25 * Math.sin(angleCLime2Pt3Pt)) / distTo3Point);
-  // }
+  public void calculate3PointGoalAngle(){  //this code is a mess im sorry
+    NetworkTableEntry tx = table.getEntry("tx");
+    double xAngle = tx.getDouble(0.0);
+    double limelightDistFromWall = 0; //From Distance Sensors
+    double limelightXDistFromTarget = 0;
+    xAngle = Math.toRadians(xAngle);
+    limelightXDistFromTarget = Math.sin(xAngle) * dist;
+    double distTo3Point = Math.sqrt((limelightDistFromWall*limelightDistFromWall) + (limelightXDistFromTarget *limelightXDistFromTarget));
+    double angleCLime2Pt3Pt = Math.acos(distTo3Point*distTo3Point - dist*dist -855.5625/ (2*dist*855.5625));
+    point3Angle = Math.asin((29.25 * Math.sin(angleCLime2Pt3Pt)) / distTo3Point);
+  }
 
   // public double get3PointAngle(){
   //   calculate3PointGoalAngle();
