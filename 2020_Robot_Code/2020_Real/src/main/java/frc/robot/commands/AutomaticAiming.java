@@ -10,7 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.Motors;
+import frc.robot.Manager;
 
 import frc.robot.LimeLight;
 import frc.robot.ControlMode;

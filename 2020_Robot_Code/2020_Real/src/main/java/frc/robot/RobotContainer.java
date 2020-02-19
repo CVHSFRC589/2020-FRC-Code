@@ -15,6 +15,8 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.AutomaticAiming;
+import frc.robot.commands.ChangeCameraMode;
+import frc.robot.commands.ChangeStreamMode;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DriveController;
 import frc.robot.commands.DrivePID;
@@ -84,6 +86,8 @@ public class RobotContainer {
   final int switchDriveDirection = 6;
   final int loadBall = 2; //j2
   final int shootBall = 1; //j2
+  final int changeStreamMode = 6; //j1
+  final int switchCameraMode = 11; //j1
 
   {constantDrive = new JoystickButton(j1, constDrive);}
 
@@ -138,6 +142,8 @@ public class RobotContainer {
     //Manual Shooting
     new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
     new JoystickButton(j2, loadBall).whenPressed(new ManuallyLoad(m_shoot));
+    new JoystickButton(j1, changeStreamMode).whenPressed(new ChangeStreamMode(m_shoot));
+    new JoystickButton(j1, switchCameraMode).whenPressed(new ChangeCameraMode(m_shoot));
   }
 
   /**
