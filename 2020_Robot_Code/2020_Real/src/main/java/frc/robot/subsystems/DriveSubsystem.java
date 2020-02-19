@@ -54,7 +54,7 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public void arcadeDrive(double fwd, double rot){
     if(m_driveForward){
-      //Manager.setPIDSpeed(m_leftMotor, 0.3);
+      Manager.setPIDSpeed(m_leftMotor, 0.5);
        m_drive.arcadeDrive(-fwd, rot);
       // System.out.println("Forward drive");
     }
