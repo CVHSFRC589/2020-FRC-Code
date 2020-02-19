@@ -103,17 +103,17 @@ public class RobotContainer {
 
     //Default command for drive
     //used for arcadedrive
-    // m_drive.setDefaultCommand(
-    //   new DriveController(
-    //     m_drive, 
-    //     () -> j1.getY(),  //can set to j2.getZ() to use twist reading on joystick
-    //     () -> j1.getX(),
-    //     () -> j1.getZ()));
+    m_drive.setDefaultCommand(
+      new DriveController(
+        m_drive, 
+        () -> j1.getY(),  //can set to j2.getZ() to use twist reading on joystick
+        () -> j1.getX(),
+        () -> j1.getZ()));
     // m_drive.setDefaultCommand(
     //   new DrivePID(
     //     m_drive));
-    m_shoot.setDefaultCommand(
-      new ShootPID(m_shoot));
+    // m_shoot.setDefaultCommand(
+    //   new ShootPID(m_shoot));
     
     //Default command for shooter (MANUAL)
     // m_shoot.setDefaultCommand(
@@ -122,7 +122,7 @@ public class RobotContainer {
 
 
     
-    //constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
+    constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
   }
 
   /**
