@@ -82,8 +82,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
   public void calculate3PointGoalAngle(){  //this code is a mess im sorry
     NetworkTableEntry tx = table.getEntry("tx");
     double xAngle = tx.getDouble(0.0);
-    double limelightDistFromWall; //From Distance Sensors
-    double limelightXDistFromTarget;
+    double limelightDistFromWall = 0; //From Distance Sensors
+    double limelightXDistFromTarget = 0;
     xAngle = Math.toRadians(xAngle);
     limelightXDistFromTarget = Math.sin(xAngle) * dist;
     double distTo3Point = Math.sqrt((limelightDistFromWall*limelightDistFromWall) + (limelightXDistFromTarget *limelightXDistFromTarget));

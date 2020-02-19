@@ -111,7 +111,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setAzimuthMotor(double azimuthSpeed){
     tx = table.getEntry("tx");
-    xOffset = tx.getDouble(0.0);
+    double xOffset = tx.getDouble(0.0);
 
     if((-.75 < xOffset)||(xOffset < .75))
     {
