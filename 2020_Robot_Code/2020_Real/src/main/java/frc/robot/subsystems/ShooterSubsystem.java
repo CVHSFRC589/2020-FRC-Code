@@ -18,8 +18,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.ControlMode.StreamType;
-import frc.robot.Motors.Manager;
-import frc.robot.Motors;
+import frc.robot.Manager;
 import frc.robot.Constants.DriveConstants;
 
 
@@ -45,7 +44,9 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   
   //Manager is used for PID control
-  Manager m_Manager = new Manager();
+  Manager loaderPID = new Manager(m_loadingWheel);
+  Manager shooterPID = new Manager(m_shootingWheel);
+
   //Control Mode stuff
   ControlMode m_cameraController = new ControlMode();
   LimeLight m_limeLight = new LimeLight("limelight");
@@ -75,9 +76,8 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shootingWheel.restoreFactoryDefaults();
     m_loadingWheel.setSmartCurrentLimit(ShooterConstants.azimuthMaxCurrentLimit);
 
-    Manager.initialize(m_shootingWheel);
-    Manager.initialize(m_loadingWheel);
-    Manager.initializePID(); //probably should initialize in robot init or something
+    shooterPID.initializePID();
+    loaderPID.initializePID();
   }
 
   public void updateLimeLightValues() {
@@ -102,11 +102,10 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setLoadingMotor(double speed){
-    Manager.setPIDSpeed(m_loadingWheel, speed);
-    m_loadingWheel.set(speed);
+    loaderPID.setPIDSpeed(speed);
   }
   public void setShootingMotor(double speed){
-    m_shootingWheel.set(speed);
+    shooterPID.setPIDSpeed(speed);
   }
   public void setAzimuthMotor(double azimuthSpeed){
     //DigitalInput returns false if limit switch was hit
