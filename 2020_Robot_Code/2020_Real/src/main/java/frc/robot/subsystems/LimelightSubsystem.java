@@ -14,106 +14,90 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class LimelightSubsystem extends SubsystemBase {
-  /**
-   * Creates a new Limelight.
-   */
-  public NetworkTable data;
-  public NetworkTable table;
-  public NetworkTableEntry tx;
-  public NetworkTableEntry ty;
-  public NetworkTableEntry ta;
-  private boolean aiming;
-  public double yDegr;
-  public double limelightHeight = 25;
-  public double tyTangent;
-  public double targetElevation;
-  public double dist;
-  public double yNegative;
-  public double yRadians;
-  public double magicNumber = 96.65;
 
-  public double goodX, goodY, goodA;
 
-  public LimelightSubsystem() {
-    table = NetworkTableInstance.getDefault().getTable("limelight");
-    tx = table.getEntry("tx");
-    ty = table.getEntry("ty");
-    ta = table.getEntry("ta");
-
-    /*
-     * data = NetworkTableInstance.getDefault().getTable("visiondata"); tx =
-     * data.getEntry("tx"); ty = data.getEntry("ty"); ta = data.getEntry("ta");
+  public class LimelightSubsystem extends SubsystemBase {
+    /**
+     * Creates a new Limelight.
      */
-    goodX = 0;
-    goodY = 0;
-    goodA = 0;
-    aiming = false;
-    dist = 0;
-
-    // toggle = new JoystickButton(frc.robot.Robot.j1, 10);
-
-  }
-
-  // Public methods
-  public void updateLimeLightValues() {
-    try{
-      // tx = data.getEntry("tx");
-      ty = data.getEntry("ty");
-      // ta = data.getEntry("ta");      
-    } catch(NullPointerException e){
-      SmartDashboard.putString("Errors", "yep");
+    public NetworkTable table;
+    public NetworkTableEntry ty;
+    public double limelightHeight = 25;
+    private double tyTangent;
+    public double dist;
+    public double yAngleDegrees;
+    public double yAngleRadians; 
+    public static double point3Angle;
+    public static boolean limelightTargetingStatic = true;
+  
+    public LimelightSubsystem() {
+      table = NetworkTableInstance.getDefault().getTable("limelight");
+      ty = table.getEntry("ty");
+      limelightTargetingStatic = false;
+      // toggle = new JoystickButton(frc.robot.Robot.j1, 10);
     }
 
-
-    // double x = tx.getDouble(0.0);
-     yNegative = ty.getDouble(0.0);
-     //TEMPORARY AIM CORRECTION, NOT PERFECT
-    // yNegative = yNegative;
-     // double area = ta.getDouble(0.0);
-
-    SmartDashboard.putNumber("Distance inches", dist);
-    SmartDashboard.putNumber("Network Table Y", yNegative);
-    SmartDashboard.putNumber("Target Elevation", targetElevation);
-    SmartDashboard.putNumber("tyTangent", tyTangent);
-    SmartDashboard.putNumber("yRadians", yRadians);
-    SmartDashboard.putString("Errors", "nah");
-
+   // Public methods
+   public void updateLimeLightValues() {
+    //Get the new yangle value from the network table
+    try{
+      ty = table.getEntry("ty");
+      SmartDashboard.putString("Errors", "nah");   
+    } catch(final NullPointerException e){
+      SmartDashboard.putString("Errors", "yep");
+    }
+    //turn the network table value into a double
+    yAngleDegrees = ty.getDouble(0.0);
     getDistance();
+    //Display the values on the Smart Dashboard
+    SmartDashboard.putNumber("Distance inches", dist);
+    SmartDashboard.putNumber("Network Table Y", yAngleDegrees);
+  }
+  public void getDistance() {
+    //Angle (in degrees) the limelight is mounted at
+    final double limeLightDefAngle = 16.3; //NEW VALUE NEEDED
+    //Add the mount angle to the yangle gotten
+    yAngleDegrees = yAngleDegrees + limeLightDefAngle;
+    //Convert the new yangle into radians for the tangent
+    yAngleRadians = Math.toRadians(yAngleDegrees);
+    //Get the tangent of the new yangle
+    tyTangent = Math.tan(yAngleRadians);
+    //Divide the tangent by the magic number gotten from a sample at 166.6in from target straight on
+    dist = 70.5 / tyTangent;           //NEW NUMBER MAY NEED TO BE GOTTEN WITH NEW ROBOT
+    //plug the number into the desmos graph
+    dist = dist * 1.096 - 16.0466;     //Desmos correction graph REQUIRES TESTING WITH NEW ROBOT
   }
 
   public void toggleAimAssist() {
-    if (aiming = true) {
-      aiming = false;
+    //If its true, make it false and say its not aiming and vice versa
+    if (limelightTargetingStatic = true) {
+      limelightTargetingStatic = false;
       SmartDashboard.putNumber("No longer aiming", 0);
     } else {
-      aiming = true;
+      limelightTargetingStatic = true;
       SmartDashboard.putNumber("Aiming", 1);
     }
   }
 
-  public void correctAim() {
-    // bennetsMath();
-    // IF HOOD
-    // aimTurret(yPosition-yDegr);
-    // IF AZIMUTH
-    // aimTurret(xPosition-tx);
-    // rotateRobot(0-ty);
+  public void calculate3PointGoalAngle(){  //this code is a mess im sorry
+    NetworkTableEntry tx = table.getEntry("tx");
+    double xAngle = tx.getDouble(0.0);
+    double limelightDistFromWall; //From Distance Sensors
+    double limelightXDistFromTarget;
+    xAngle = Math.toRadians(xAngle);
+    limelightXDistFromTarget = Math.sin(xAngle) * dist;
+    double distTo3Point = Math.sqrt((limelightDistFromWall*limelightDistFromWall) + (limelightXDistFromTarget *limelightXDistFromTarget));
+    double angleCLime2Pt3Pt = Math.acos(distTo3Point*distTo3Point - dist*dist -855.5625/ (2*dist*855.5625));
+    point3Angle = Math.asin((29.25 * Math.sin(angleCLime2Pt3Pt)) / distTo3Point);
   }
 
-  public void getDistance() {
-    yRadians = Math.toRadians(yNegative);
-    tyTangent = Math.tan(yRadians);
-    targetElevation = magicNumber  - limelightHeight;
-    dist = targetElevation / tyTangent;
-    // dist should be around 159 in
+  public double get3PointAngle(){
+    calculate3PointGoalAngle();
+    return point3Angle;
   }
-
-  public void bennetsMath() {
-    double yAngle = yRadians;
-    yAngle = yAngle + 0;
-    if(aiming){
-    
-    }
-  }
+  
+  public static boolean getLimelightTargeting()
+  {
+    return limelightTargetingStatic;  
+  } 
 }

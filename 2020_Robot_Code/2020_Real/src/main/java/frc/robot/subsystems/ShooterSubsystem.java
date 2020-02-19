@@ -62,16 +62,12 @@ public class ShooterSubsystem extends SubsystemBase {
   
   public NetworkTable table;
   public NetworkTableEntry tx;
-  public NetworkTableEntry ty;
-  public NetworkTableEntry ta;
 
   public ShooterSubsystem() {
     m_loadingWheel.set(0);
     m_shootingWheel.set(0);
     table = NetworkTableInstance.getDefault().getTable("limelight");
     tx = table.getEntry("tx");
-    ty = table.getEntry("ty");
-    ta = table.getEntry("ta");
 
     m_shootingWheel.restoreFactoryDefaults();
     m_loadingWheel.setSmartCurrentLimit(ShooterConstants.azimuthMaxCurrentLimit);
@@ -82,9 +78,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void updateLimeLightValues() {
     try{
-      tx = table.getEntry("tx");
-      //ty = table.getEntry("ty");
-      //ta = table.getEntry("ta");      
+      tx = table.getEntry("tx");    
     } catch(NullPointerException e){
       SmartDashboard.putString("Errors", "yep");
     }
@@ -116,6 +110,19 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setAzimuthMotor(double azimuthSpeed){
+    tx = table.getEntry("tx");
+    xOffset = tx.getDouble(0.0);
+
+    if((-.75 < xOffset)||(xOffset < .75))
+    {
+      azimuthSpeed = 0;
+    } else {
+      azimuthSpeed = xOffset / -20.500000;
+      if ((xOffset > -1.5) && (xOffset<1.5)) { //if the angle is this small, the P will be too low to move the azimuth control
+        azimuthSpeed = azimuthSpeed*3;    //Number needs to be tested on 2020Bot, currently arbitrary
+      }
+     }
+
     //DigitalInput returns false if limit switch was hit
     if((m_leftLimit.get() && (azimuthSpeed>0))||(m_rightLimit.get() &&(azimuthSpeed<0))){
       m_azimuthControl.set(azimuthSpeed);
