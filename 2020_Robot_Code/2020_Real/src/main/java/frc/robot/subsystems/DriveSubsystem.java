@@ -19,8 +19,7 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Motors.Manager;
-import frc.robot.Motors;
+import frc.robot.Manager;
 //import sun.awt.FwDispatcher;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -30,6 +29,8 @@ public class DriveSubsystem extends SubsystemBase {
   private static final CANSparkMax m_leftMotor = new CANSparkMax(DriveConstants.kLeftMotorPort, MotorType.kBrushless);
   private static final CANSparkMax m_rightMotor = new CANSparkMax(DriveConstants.kRightMotorPort, MotorType.kBrushless);
   
+  Manager leftManager = new Manager(m_leftMotor);
+  Manager rightManager = new Manager(m_rightMotor);
 
   // private boolean m_driveForward = true;
   boolean m_driveForward = true;
@@ -44,8 +45,9 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
-    Manager.initialize(m_leftMotor);
-    Manager.initialize(m_rightMotor);
+   
+    leftManager.initializePID();
+    rightManager.initializePID();
   }
 
   /**
@@ -54,15 +56,19 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public void arcadeDrive(double fwd, double rot){
     if(m_driveForward){
-      Manager.setPIDSpeed(m_leftMotor, 0.5);
-      //  m_drive.arcadeDrive(-fwd, rot);
-      // System.out.println("Forward drive");
+       m_drive.arcadeDrive(-fwd, rot);
+      System.out.println("Forward drive");
     }
     if(!m_driveForward){
        m_drive.arcadeDrive(fwd, -rot);
     }
   }
-
+  public void drivePID(){
+    leftManager.setPIDSpeed(1);
+    System.out.println("yes 1");
+    rightManager.setPIDSpeed(1);
+    System.out.println("yes 2");
+  }
   public void tankDrive(double left, double right, double multiplier){
    if(m_driveForward)
      m_drive.tankDrive(left*multiplier, right*multiplier);

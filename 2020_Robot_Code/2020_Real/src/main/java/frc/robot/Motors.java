@@ -19,8 +19,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  */
 public class Motors {
     public static class Manager{
-        public static double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
-        private static CANPIDController m_pidController;
+        public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
+        private CANPIDController m_pidController;
         public static void initialize(CANSparkMax motor) {
             motor.set(0);
             motor.restoreFactoryDefaults();
