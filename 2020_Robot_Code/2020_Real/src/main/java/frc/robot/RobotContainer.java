@@ -17,6 +17,7 @@ import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.AutomaticAiming;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DriveController;
+import frc.robot.commands.DrivePID;
 import frc.robot.commands.ExtendClimber;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.RetractIntake;
@@ -27,6 +28,7 @@ import frc.robot.commands.UpdateLimelight;
 import frc.robot.commands.ManualAiming;
 import frc.robot.commands.ManuallyShoot;
 import frc.robot.commands.ManuallyLoad;
+import frc.robot.commands.DrivePID;
 
 
 import frc.robot.subsystems.ClimberSubsystem;
@@ -35,7 +37,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
-
+ 
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -96,12 +98,15 @@ public class RobotContainer {
 
     //Default command for drive
     //used for arcadedrive
+    // m_drive.setDefaultCommand(
+    //   new DriveController(
+    //     m_drive, 
+    //     () -> j1.getY(),  //can set to j2.getZ() to use twist reading on joystick
+    //     () -> j1.getX(),
+    //     () -> j1.getZ()));
     m_drive.setDefaultCommand(
-      new DriveController(
-        m_drive, 
-        () -> j1.getY(),  //can set to j2.getZ() to use twist reading on joystick
-        () -> j1.getX(),
-        () -> j1.getZ()));
+      new DrivePID(
+        m_drive));
     
     //Default command for shooter (MANUAL)
     // m_shoot.setDefaultCommand(
