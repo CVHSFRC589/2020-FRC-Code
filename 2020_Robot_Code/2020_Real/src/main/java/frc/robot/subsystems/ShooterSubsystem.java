@@ -86,7 +86,10 @@ public class ShooterSubsystem extends SubsystemBase {
     double xOffset = tx.getDouble(0.0);
 
   }
-
+  public void shootPID(){
+    m_shooterPID.setPIDSpeed(1);
+    m_loaderPID.setPIDSpeed(1);
+  }
   public boolean getTargetFound(){
     return m_limeLight.getIsTargetFound();
   }
@@ -111,7 +114,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setAzimuthMotor(double azimuthSpeed){
     tx = table.getEntry("tx");
-    xOffset = tx.getDouble(0.0);
+    double xOffset = tx.getDouble(0.0);
 
     if((-.75 < xOffset)||(xOffset < .75))
     {

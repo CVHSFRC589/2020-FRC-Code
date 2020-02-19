@@ -22,6 +22,7 @@ import frc.robot.commands.ExtendClimber;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.ReverseIntake;
+import frc.robot.commands.ShootPID;
 import frc.robot.commands.SwitchDriveDirection;
 import frc.robot.commands.DriveController;
 import frc.robot.commands.UpdateLimelight;
@@ -104,9 +105,11 @@ public class RobotContainer {
     //     () -> j1.getY(),  //can set to j2.getZ() to use twist reading on joystick
     //     () -> j1.getX(),
     //     () -> j1.getZ()));
-    m_drive.setDefaultCommand(
-      new DrivePID(
-        m_drive));
+    // m_drive.setDefaultCommand(
+    //   new DrivePID(
+    //     m_drive));
+    m_shoot.setDefaultCommand(
+      new ShootPID(m_shoot));
     
     //Default command for shooter (MANUAL)
     // m_shoot.setDefaultCommand(
@@ -115,7 +118,7 @@ public class RobotContainer {
 
 
     
-    constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
+    //constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
   }
 
   /**
@@ -134,7 +137,7 @@ public class RobotContainer {
     new JoystickButton(j1, intakeRetract).whenPressed(new RetractIntake(m_intake));
     new JoystickButton(j1, intakeReverse).whenPressed(new ReverseIntake(m_intake));
     //Automated Shooting
-    new JoystickButton(j1, targetAlign).whenPressed(new AutomaticAiming(m_shoot));
+    // new JoystickButton(j1, targetAlign).whenPressed(new AutomaticAiming(m_shoot));
     //Manual Shooting
     new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
     new JoystickButton(j2, loadBall).whenPressed(new ManuallyLoad(m_shoot));

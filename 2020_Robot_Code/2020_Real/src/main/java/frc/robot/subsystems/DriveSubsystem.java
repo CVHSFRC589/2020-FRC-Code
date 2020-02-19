@@ -65,9 +65,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
   public void drivePID(){
     leftManager.setPIDSpeed(1);
-    System.out.println("yes 1");
     rightManager.setPIDSpeed(1);
-    System.out.println("yes 2");
   }
   public void tankDrive(double left, double right, double multiplier){
    if(m_driveForward)
