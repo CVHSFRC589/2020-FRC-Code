@@ -45,7 +45,8 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   
   //Manager is used for PID control
-  Manager m_Manager = new Manager();
+  Manager m_ManagerLoading = new Manager();
+  Manager m_ManagerShooting = new Manager();
   //Control Mode stuff
   ControlMode m_cameraController = new ControlMode();
   LimeLight m_limeLight = new LimeLight("limelight");
@@ -75,9 +76,10 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shootingWheel.restoreFactoryDefaults();
     m_loadingWheel.setSmartCurrentLimit(ShooterConstants.azimuthMaxCurrentLimit);
 
-    Manager.initialize(m_shootingWheel);
-    Manager.initialize(m_loadingWheel);
-    Manager.initializePID(); //probably should initialize in robot init or something
+    m_ManagerLoading.initialize(m_loadingWheel);
+    m_ManagerShooting.initialize(m_shootingWheel);
+    m_ManagerLoading.initializePID(); 
+    m_ManagerShooting.initializePID(); 
   }
 
   public void updateLimeLightValues() {
@@ -88,7 +90,6 @@ public class ShooterSubsystem extends SubsystemBase {
     } catch(NullPointerException e){
       SmartDashboard.putString("Errors", "yep");
     }
-
 
     double xOffset = tx.getDouble(0.0);
 
@@ -101,13 +102,21 @@ public class ShooterSubsystem extends SubsystemBase {
     return m_limeLight.getdegRotationToTarget();
   }
 
+  //Motors (regular and PID control)
   public void setLoadingMotor(double speed){
-    Manager.setPIDSpeed(m_loadingWheel, speed);
     m_loadingWheel.set(speed);
   }
+  public void setLoadingMotorPID(double speed){
+    m_ManagerLoading.setPIDSpeed(speed);
+  }
+
   public void setShootingMotor(double speed){
     m_shootingWheel.set(speed);
   }
+  public void setShootingMotorPID(double speed){
+    m_ManagerShooting.setPIDSpeed(m_shootingWheel, speed);
+  }
+
   public void setAzimuthMotor(double azimuthSpeed){
     //DigitalInput returns false if limit switch was hit
     if((m_leftLimit.get() && (azimuthSpeed>0))||(m_rightLimit.get() &&(azimuthSpeed<0))){
