@@ -130,7 +130,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
   }
 
-  //change this to take a double supplier
+  
   public void setAzimuthMotorJoystick(Double azimuthSpeed){
     //TEST LIMIT SWITCHES
     // if(m_leftLimit.get()){
