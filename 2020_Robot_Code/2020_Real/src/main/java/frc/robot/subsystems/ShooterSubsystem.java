@@ -31,6 +31,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.ControlMode;
 import frc.robot.LimeLight;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kForward;
+import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kReverse;
+
 public class ShooterSubsystem extends SubsystemBase {
   /**
    * Creates a new ShooterSubsystem.
@@ -42,6 +46,8 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANEncoder m_loaderEncoder = new CANEncoder(m_loadingWheel, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
+  
+  public static DoubleSolenoid m_gateSolenoid = new DoubleSolenoid(ShooterConstants.kGateForwardChannel, ShooterConstants.kGateReverseChannel);
   
   //Manager is used for PID control
   Manager m_loaderPID = new Manager(m_loadingWheel);
@@ -74,6 +80,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     m_shooterPID.initializePID();
     m_loaderPID.initializePID();
+    
+    m_gateSolenoid.set(kForward);
   }
 
   public void updateLimeLightValues() {
@@ -209,6 +217,13 @@ public class ShooterSubsystem extends SubsystemBase {
       m_streamMode = StreamType.kStandard;
     }
     m_limeLight.setStream(m_streamMode);
+  }
+  
+  public void openGate(){
+     m_gateSolenoid.set(kReverse); 
+  }
+  public void closeGate(){
+     m_gateSolenoid.set(kForward);
   }
 
   @Override
