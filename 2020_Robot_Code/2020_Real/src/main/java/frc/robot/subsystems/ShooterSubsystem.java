@@ -155,8 +155,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public boolean setAzimuthMotorAutomatic(double azimuthSpeed){
-    tx = table.getEntry("tx");
-    double xOffset = tx.getDouble(0.0);
+    Limelight.gettxValue();
 
     if((-.75 < xOffset)||(xOffset < .75))
     {
