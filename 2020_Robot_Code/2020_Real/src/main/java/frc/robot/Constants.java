@@ -18,8 +18,8 @@ package frc.robot;
 public final class Constants {
     //Constants for each subsystem
     public static final class DriveConstants{
-        public static final int kLeftMotorPort = 11; //11
-        public static final int kRightMotorPort = 12; //12
+        public static final int kLeftMotorPort = 1; //11
+        public static final int kRightMotorPort = 2; //12
 
         //No ports for the encoders because they're built in
         //public static final int kLeftCANEncoderPort = 0;
@@ -51,6 +51,10 @@ public final class Constants {
         public static final int kLoadingWheelMotorPort = 22;
         public static final int kMainWheelMotorPort = 21;
         public static final int kAzimuthMotorPort = 30; //30;
+
+        public static final int kGateForwardChannel = 4;
+        public static final int kGateReverseChannel = 5;
+
 
         public static final int leftLimitInputChannel = 1;
         public static final int rightLimitInputChannel = 2;
