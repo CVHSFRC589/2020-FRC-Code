@@ -36,6 +36,7 @@ import frc.robot.commands.DrivePID;
 
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ControlPanelSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -61,6 +62,7 @@ public class RobotContainer {
   private final DriveSubsystem m_drive = new DriveSubsystem();
   private final ShooterSubsystem m_shoot = new ShooterSubsystem();
   private final ClimberSubsystem m_climb = new ClimberSubsystem();
+  private final LEDSubsystem m_led = new LEDSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   
   // USE m_driveTest with default drive (which runs basic arcade)
