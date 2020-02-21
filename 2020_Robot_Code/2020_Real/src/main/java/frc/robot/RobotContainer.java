@@ -56,10 +56,7 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final LimelightSubsystem m_LimelightSubsystem = new LimelightSubsystem();
-  // private final ExampleCommand m_autoCommand = new
-  // ExampleCommand(m_exampleSubsystem);
 
   private final DriveSubsystem m_drive = new DriveSubsystem();
   private final ShooterSubsystem m_shoot = new ShooterSubsystem();
@@ -76,21 +73,22 @@ public class RobotContainer {
   Button constantDrive; //Mainly a test
 
   //Button number assignments    no numbers are final
-  final int climberExtend = 1; //j1
-  final int climberRetract = 2; //j1
-  final int intakeDeploy = 4; //j1
-  final int intakeRetract = 5; //j1
-  final int intakeToggle = 3; //j1
-  final int intakeReverse = 10; //j1
-  final int targetAlign = 2; //j1
-  final int constDrive = 7;
-  final int switchDriveDirection = 6;
+  final int climberExtend = 11; //j1
+  final int climberRetract = 10; //j1
+  final int intakeDeploy = 4; //j2
+  final int intakeRetract = 5; //j2
+  final int intakeToggle = 3; //j2
+  final int intakeReverse = 10; //j2
+  final int targetAlign = 7; //j2
+  final int switchDriveDirection = 6; //j1
   final int loadBall = 2; //j2
   final int shootBall = 1; //j2
-  final int changeStreamMode = 6; //j1
-  final int switchCameraMode = 11; //j1
+  final int toggleGate = 6; //j2
+  final int changeStreamMode = 9; //j1
+  final int switchCameraMode = 8; //j1
 
-  {constantDrive = new JoystickButton(j1, constDrive);}
+  //final int constDrive = 7;
+  //{constantDrive = new JoystickButton(j1, constDrive);}
 
 
   /**
@@ -98,7 +96,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the button bindings
-    m_LimelightSubsystem.setDefaultCommand(new UpdateLimelight(m_LimelightSubsystem));
+    //m_LimelightSubsystem.setDefaultCommand(new UpdateLimelight(m_LimelightSubsystem));
     configureButtonBindings();
 
     //Default command for drive
@@ -109,6 +107,7 @@ public class RobotContainer {
         () -> j1.getY(),  //can set to j2.getZ() to use twist reading on joystick
         () -> j1.getX(),
         () -> j1.getZ()));
+
     // m_drive.setDefaultCommand(
     //   new DrivePID(
     //     m_drive));
@@ -122,7 +121,7 @@ public class RobotContainer {
 
 
     
-    constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
+    //constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
   }
 
   /**
@@ -134,12 +133,14 @@ public class RobotContainer {
   private void configureButtonBindings() {
     //configure button bindings for each command, constants can be found
     new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive));
-    //new JoystickButton(j1, climberExtend).whenPressed(new ExtendClimber(m_climb));
-    //new JoystickButton(j1, climberRetract).whenPressed(new RetractClimber(m_climb));
-    new JoystickButton(j1, intakeDeploy).whenPressed(new DeployIntake(m_intake));
-    new JoystickButton(j1, intakeToggle).whenPressed(new ToggleIntake(m_intake));
-    new JoystickButton(j1, intakeRetract).whenPressed(new RetractIntake(m_intake));
-    new JoystickButton(j1, intakeReverse).whenPressed(new ReverseIntake(m_intake));
+
+    new JoystickButton(j1, climberExtend).whenPressed(new ExtendClimber(m_climb));
+    new JoystickButton(j1, climberRetract).whenPressed(new RetractClimber(m_climb));
+
+    new JoystickButton(j2, intakeDeploy).whenPressed(new DeployIntake(m_intake));
+    new JoystickButton(j2, intakeToggle).whenPressed(new ToggleIntake(m_intake));
+    new JoystickButton(j2, intakeRetract).whenPressed(new RetractIntake(m_intake));
+    new JoystickButton(j2, intakeReverse).whenPressed(new ReverseIntake(m_intake));
     //Automated Shooting
     // new JoystickButton(j1, targetAlign).whenPressed(new AutomaticAiming(m_shoot));
     //Manual Shooting

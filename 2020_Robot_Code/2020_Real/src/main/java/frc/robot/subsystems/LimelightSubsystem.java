@@ -34,6 +34,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
       table = NetworkTableInstance.getDefault().getTable("limelight");
       ty = table.getEntry("ty");
       limelightTargetingStatic = false;
+
+      //comment this out to turn on limelight light
+      
       // toggle = new JoystickButton(frc.robot.Robot.j1, 10);
     }
 

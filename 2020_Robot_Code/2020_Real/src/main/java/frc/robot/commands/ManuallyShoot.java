@@ -28,7 +28,7 @@ public class ManuallyShoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(runShooter){
+    if(true){ //if runShooter
       shoot.setShootingMotor(ShooterConstants.shootingSpeed);
       runShooter = false;
     }
