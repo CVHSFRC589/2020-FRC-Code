@@ -66,9 +66,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public ShooterSubsystem() {
     m_loadingWheel.set(0);
     m_shootingWheel.set(0);
-    table = NetworkTableInstance.getDefault().getTable("limelight");
-    tx = table.getEntry("tx");
-
+    
     m_shootingWheel.restoreFactoryDefaults();
     m_loadingWheel.setSmartCurrentLimit(ShooterConstants.azimuthMaxCurrentLimit);
 
@@ -76,17 +74,10 @@ public class ShooterSubsystem extends SubsystemBase {
     m_loaderPID.initializePID();
   }
 
-  public void updateLimeLightValues() {
-    try{
-      tx = table.getEntry("tx");    
-    } catch(NullPointerException e){
-      SmartDashboard.putString("Errors", "yep");
-    }
-
-    double xOffset = tx.getDouble(0.0);
-
+  public void shootPID(){
+    m_shooterPID.setPIDSpeed(1);
+    m_loaderPID.setPIDSpeed(1);
   }
-
   public boolean getTargetFound(){
     return m_limeLight.getIsTargetFound();
   }
@@ -110,9 +101,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setAzimuthMotor(double azimuthSpeed){
-    tx = table.getEntry("tx");
-    xOffset = tx.getDouble(0.0);
-
+    Limelight.gettxValue();
     if((-.75 < xOffset)||(xOffset < .75))
     {
       azimuthSpeed = 0;
@@ -189,9 +178,11 @@ public class ShooterSubsystem extends SubsystemBase {
   public void switchCameraMode(){
     if(m_cameraMode == 0){
       m_cameraMode = 1;
+      LimelightSubsystem.toggleAimAssist();
     }
     else{
       m_cameraMode = 0;
+      LimelightSubsystem.toggleAimAssist();
     }
   }
 

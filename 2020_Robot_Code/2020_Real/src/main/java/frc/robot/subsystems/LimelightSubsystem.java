@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     /**
      * Creates a new Limelight.
      */
-    public NetworkTable table;
-    public NetworkTableEntry ty;
+    public static NetworkTable table;
+    public static NetworkTableEntry ty;
     public double limelightHeight = 25;
     private double tyTangent;
     public double dist;
@@ -40,18 +40,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
    // Public methods
    public void updateLimeLightValues() {
     //Get the new yangle value from the network table
-    try{
-      ty = table.getEntry("ty");
-      SmartDashboard.putString("Errors", "nah");   
-    } catch(final NullPointerException e){
-      SmartDashboard.putString("Errors", "yep");
-    }
+    gettyValue();
     //turn the network table value into a double
-    yAngleDegrees = ty.getDouble(0.0);
+    yAngleDegrees = yOffset;
     getDistance();
     //Display the values on the Smart Dashboard
     SmartDashboard.putNumber("Distance inches", dist);
     SmartDashboard.putNumber("Network Table Y", yAngleDegrees);
+    displayXOffset();
   }
   public void getDistance() {
     //Angle (in degrees) the limelight is mounted at
@@ -68,7 +64,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     dist = dist * 1.096 - 16.0466;     //Desmos correction graph REQUIRES TESTING WITH NEW ROBOT
   }
 
-  public void toggleAimAssist() {
+  public static void toggleAimAssist() {
     //If its true, make it false and say its not aiming and vice versa
     if (limelightTargetingStatic = true) {
       limelightTargetingStatic = false;
@@ -78,6 +74,23 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
       SmartDashboard.putNumber("Aiming", 1);
     }
   }
+
+  public static gettxValue(){
+    tx = table.getEntry("tx");
+    double xOffset = tx.getDouble(0.0);
+    //xOffset += ; WHATEVER ANGLE THE LIMELIGHT IS MOUNTED AT
+  }
+
+  public static gettyValue(){
+    ty = table.getEntry("ty");
+    double yOffset = ty.getDouble(0.0);
+  }
+
+  private void displayXOffset(){
+    gettxValue();
+    SmartDashboard.putNumber("Degrees off from target:", xOffset);
+  }
+
 /*
   //May or may not be used
   public void calculate3PointGoalAngle(){  //this code is a mess im sorry
