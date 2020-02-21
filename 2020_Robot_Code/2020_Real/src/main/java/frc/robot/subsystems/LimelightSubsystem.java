@@ -78,7 +78,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
       SmartDashboard.putNumber("Aiming", 1);
     }
   }
-
+/*
   //May or may not be used
   public void calculate3PointGoalAngle(){  //this code is a mess im sorry
     NetworkTableEntry tx = table.getEntry("tx");
@@ -91,11 +91,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     double angleCLime2Pt3Pt = Math.acos(distTo3Point*distTo3Point - dist*dist -870.25/ (2*dist*870.25));
     point3Angle = Math.asin((29.5 * Math.sin(angleCLime2Pt3Pt)) / distTo3Point);
   }
-
-  public double get3PointAngle(){
-    calculate3PointGoalAngle();
-    return point3Angle;
-  }
+*/
+  // public double get3PointAngle(){
+  //   calculate3PointGoalAngle();
+  //   return point3Angle;
+  // }
   
   public static boolean getLimelightTargeting()
   {
