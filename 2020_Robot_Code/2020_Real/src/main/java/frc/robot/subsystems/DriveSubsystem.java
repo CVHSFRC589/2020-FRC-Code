@@ -58,11 +58,9 @@ public class DriveSubsystem extends SubsystemBase {
     if(m_driveForward){
        m_drive.arcadeDrive(-fwd, rot);
       System.out.println("Forward drive");
-      boolean forwardDrive = true;
     }
     if(!m_driveForward){
        m_drive.arcadeDrive(fwd, -rot);
-       forwardDrive = false;
     }
   }
   public void drivePID(){
@@ -112,8 +110,8 @@ public class DriveSubsystem extends SubsystemBase {
     rightEncoder.setPosition(position);
   }
 
-public static double getForward(){
-  return forwardDrive;
+public boolean getForward(){
+  return m_driveForward;
 }
 
 }

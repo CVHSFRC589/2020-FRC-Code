@@ -22,11 +22,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
      */
     public static NetworkTable table;
     public static NetworkTableEntry ty;
+    public static NetworkTableEntry tx;
     public double limelightHeight = 25;
     private double tyTangent;
     public double dist;
     public double yAngleDegrees;
     public double yAngleRadians; 
+    public static double yOffset;
+    public static double xOffset;
     public static double point3Angle;
     public static boolean limelightTargetingStatic = true;
   
@@ -78,15 +81,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     }
   }
 
-  public static gettxValue(){
+  public static void gettxValue(){
     tx = table.getEntry("tx");
-    double xOffset = tx.getDouble(0.0);
+    xOffset = tx.getDouble(0.0);
     //xOffset += ; WHATEVER ANGLE THE LIMELIGHT IS MOUNTED AT
   }
 
-  public static gettyValue(){
+  public static void gettyValue(){
     ty = table.getEntry("ty");
-    double yOffset = ty.getDouble(0.0);
+    yOffset = ty.getDouble(0.0);
   }
 
   private void displayXOffset(){
