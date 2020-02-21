@@ -47,14 +47,14 @@ public class Trajectory {
 		this.initV = initV;
 	}
 	
-	// tests all possible trajectories to find the optimal initial velocity at some distance and angle, takes ~0.0036245 seconds on my laptop
-	public static Double[][] getAngledInitV(ArrayList<Trajectory> allTrajectories, Double dist, Double xAngle, int degree) {
+	// tests all possible trajectories to find the optimal initial velocity at some distance and angle, takes ~0.0036245 sec on my laptop
+	public static Double[][] getAngledInitV(ArrayList<Trajectory> allTrajectories, Double dist, Double xAngle) {
 		Double initV = 0.0;
 		Double optimal = 0.0;
 		Double targetXAngle = 0.0;
 		Double outerPassed = 0.0;
 		Double innerPassed = 0.0;
-		Double[] curve = new Double[degree+1];
+		Double[] curve = new Double[allTrajectories.get(0).curve.length];
 		for(int testTrajectoryNum = 0; testTrajectoryNum < allTrajectories.size(); testTrajectoryNum++) {
 			Double[] testPeak = getPeak(allTrajectories.get(testTrajectoryNum).points);
 			Double[] testCurve = allTrajectories.get(testTrajectoryNum).curve;
@@ -110,23 +110,61 @@ public class Trajectory {
 	}
 	
 	// uses getAngledInitV to find the optimal initial velocity at a range of distances
-	@SuppressWarnings("unchecked")
-	public static ArrayList<Double[]>[] getOptimalInitVs(ArrayList<Trajectory> allTrajectories, Double distIncr, Double maxDist, Double xAngle, int degree) {
-		ArrayList<Double[]> optimalCurves = new ArrayList<>();
-		ArrayList<Double[]> optimalInitVs = new ArrayList<>();
+	public static ArrayList<Double[][]> getAngledInitVs(ArrayList<Trajectory> allTrajectories, Double distIncr, Double maxDist, Double xAngle) {
+		ArrayList<Double[][]> returned = new ArrayList<>();
 		for(Double testDist = distIncr; testDist <= maxDist; testDist += distIncr) {
-			Double[][] angledInitV = getAngledInitV(allTrajectories, testDist, xAngle, degree);
-			optimalCurves.add(angledInitV[1]);
+			returned.add(new Double[2][]);
+			Double[][] angledInitV = getAngledInitV(allTrajectories, testDist, xAngle);
+			returned.get((int)(testDist/distIncr)-1)[1] = angledInitV[1];
 			Double[] initV = new Double[angledInitV[0].length+1];
 			initV[0] = testDist;
 			for(int i = 0; i < angledInitV[0].length; i++) {
 				initV[i+1] = angledInitV[0][i];
 			}
-			optimalInitVs.add(initV);
+			returned.get((int)(testDist/distIncr)-1)[0] = initV;
 		}
-		ArrayList<Double[]>[] returned = new ArrayList[2];
-		returned[0] = optimalInitVs;
-		returned[1] = optimalCurves;
+		return returned;
+	}
+	
+	// tests all possible trajectories to find the optimal initial velocity at some distance for an outer port shot, takes ~0.0034245 sec on my laptop
+	public static Double[][] getOuterInitV(ArrayList<Trajectory> allTrajectories, Double dist) {
+		Double initV = 0.0;
+		Double optimal = 0.0;
+		Double outerPassed = 0.0;
+		Double[] curve = new Double[allTrajectories.get(0).curve.length];
+		for(int testTrajectoryNum = 0; testTrajectoryNum < allTrajectories.size(); testTrajectoryNum++) {
+			Double[] testCurve = allTrajectories.get(testTrajectoryNum).curve;
+			Double outerOffset = Math.abs(getY(dist, testCurve)-portH);
+			if(outerOffset < outerR-ballR-1) {
+				outerPassed++;
+				Double outerOpt = (1-(outerOffset/(outerR-ballR)));
+				if(outerOpt > optimal) {
+					initV = allTrajectories.get(testTrajectoryNum).initV;
+					optimal = outerOpt;
+					curve = testCurve;
+				}
+			}
+		}
+		Double[][] returned = new Double[2][4];
+		returned[0] = new Double[] {initV, optimal, outerPassed};
+		returned[1] = curve;
+		return returned;
+	}
+	
+	// 
+	public static ArrayList<Double[][]> getOuterInitVs(ArrayList<Trajectory> allTrajectories, Double distIncr, Double maxDist) {
+		ArrayList<Double[][]> returned = new ArrayList<>();
+		for(Double testDist = distIncr; testDist <= maxDist; testDist += distIncr) {
+			returned.add(new Double[2][]);
+			Double[][] angledInitV = getOuterInitV(allTrajectories, testDist);
+			returned.get((int)(testDist/distIncr)-1)[1] = angledInitV[1];
+			Double[] initV = new Double[angledInitV[0].length+1];
+			initV[0] = testDist;
+			for(int i = 0; i < angledInitV[0].length; i++) {
+				initV[i+1] = angledInitV[0][i];
+			}
+			returned.get((int)(testDist/distIncr)-1)[0] = initV;
+		}
 		return returned;
 	}
 	
@@ -258,7 +296,7 @@ public class Trajectory {
 	}
 	
 	// runs algorithm backwards, turning a point on the trajectory to an initial velocity, do not use until algorithm has been confirmed!
-	public static Double[] getInitV(ArrayList<Trajectory> allTrajectories, Double xCoord, Double yCoord) {
+	public static Double[] getMatch(ArrayList<Trajectory> allTrajectories, Double xCoord, Double yCoord) {
 		Double initV = 0.0;
 		Double optimal = Double.MAX_VALUE;
 		for(int testTrajectoryNum = 0; testTrajectoryNum < allTrajectories.size(); testTrajectoryNum++) {
@@ -292,57 +330,71 @@ public class Trajectory {
 	
 	// simplified methods for actual use
 	
-	public static double simpleGetAngledInitV(ArrayList<Trajectory> allTrajectories, double dist, double xAngle) {
-		return (double)(getAngledInitV(allTrajectories, dist, xAngle, defaultDegree)[0][0]);
+	public static double sGetAngledInitV(ArrayList<Trajectory> allTrajectories, double dist, double xAngle) {
+		return (double)(getAngledInitV(allTrajectories, dist, xAngle)[0][0]);
 	}
 	
-	public static double[][] simpleGetOptimalInitVs(ArrayList<Trajectory> allTrajectories, double distIncr, double maxDist, double xAngle) {
-		ArrayList<Double[]>[] complexOutput = getOptimalInitVs(allTrajectories, distIncr, maxDist, xAngle, defaultDegree);
-		double[][] simpleOutput = new double[2][complexOutput[0].size()];
-		for(int distNum = 0; distNum < complexOutput[0].size(); distNum++) {
-			simpleOutput[0][distNum] = complexOutput[0].get(distNum)[0];
-			simpleOutput[1][distNum] = complexOutput[0].get(distNum)[1];
+	public static double[][] sGetAngledInitVs(ArrayList<Trajectory> allTrajectories, double distIncr, double maxDist, double xAngle) {
+		ArrayList<Double[][]> complexOutput = getAngledInitVs(allTrajectories, distIncr, maxDist, xAngle);
+		double[][] simpleOutput = new double[2][complexOutput.size()];
+		for(int distNum = 0; distNum < complexOutput.size(); distNum++) {
+			simpleOutput[0][distNum] = complexOutput.get(distNum)[0][0];
+			simpleOutput[1][distNum] = complexOutput.get(distNum)[0][1];
 		}
 		return simpleOutput;
 	}
 	
-	public static double[] simpleSubtractVector(double targetInitV, double targetXAngle, double removedInitV, double removedXAngle) {
+	public static double sGetOuterInitV(ArrayList<Trajectory> allTrajectories, double dist) {
+		return (double)(getOuterInitV(allTrajectories, dist)[0][0]);
+	}
+	
+	public static double[][] sGetOuterInitVs(ArrayList<Trajectory> allTrajectories, double distIncr, double maxDist) {
+		ArrayList<Double[][]> complexOutput = getOuterInitVs(allTrajectories, distIncr, maxDist);
+		double[][] simpleOutput = new double[2][complexOutput.size()];
+		for(int distNum = 0; distNum < complexOutput.size(); distNum++) {
+			simpleOutput[0][distNum] = complexOutput.get(distNum)[0][0];
+			simpleOutput[1][distNum] = complexOutput.get(distNum)[0][1];
+		}
+		return simpleOutput;
+	}
+	
+	public static double[] sSubtractVector(double targetInitV, double targetXAngle, double removedInitV, double removedXAngle) {
 		return toPrimitiveDouble(subtractVector(targetInitV, targetXAngle, removedInitV, removedXAngle));
 	}
 	
-	public static ArrayList<Double>[] simpleGetPoints(double initV) {
+	public static ArrayList<Double>[] sGetPoints(double initV) {
 		return getPoints(initV, defaultYAngle);
 	}
 	
-	public static double[] simpleGetCurve(ArrayList<Double>[] coords) {
+	public static double[] sGetCurve(ArrayList<Double>[] coords) {
 		return toPrimitiveDouble(getCurve(coords, defaultDegree));
 	}
 	
-	public static double simpleGetY(double x, double[] curve) {
+	public static double sGetY(double x, double[] curve) {
 		return (double)(getY(x, toObjectDouble(curve)));
 	}
 	
-	public static double[] simpleGetPeak(ArrayList<Double>[] coords) {
+	public static double[] sGetPeak(ArrayList<Double>[] coords) {
 		return toPrimitiveDouble(getPeak(coords));
 	}
 	
-	public static double simpleGetSpin(double initV) {
+	public static double sGetSpin(double initV) {
 		return (double)(getSpin(initV));
 	}
 	
-	public static double[] simpleGetInner(double dist, double xAngle) {
+	public static double[] sGetInner(double dist, double xAngle) {
 		return toPrimitiveDouble(getInner(dist, xAngle));
 	}
 	
-	public static ArrayList<Trajectory> simpleGetAllTrajectories() {
+	public static ArrayList<Trajectory> sGetAllTrajectories() {
 		return getAllTrajectories(defaultYAngle, defaultDegree);
 	}
 	
-	public static Trajectory simpleGetTrajectory(double initV) {
+	public static Trajectory sGetTrajectory(double initV) {
 		return getTrajectory(initV, defaultYAngle, defaultDegree);
 	}
 	
-	public static double[] simpleGetInitV(ArrayList<Trajectory> allTrajectories, double xCoord, double yCoord) {
-		return toPrimitiveDouble(getInitV(allTrajectories, xCoord, yCoord));
+	public static double[] sGetMatch(ArrayList<Trajectory> allTrajectories, double xCoord, double yCoord) {
+		return toPrimitiveDouble(getMatch(allTrajectories, xCoord, yCoord));
 	}
 }

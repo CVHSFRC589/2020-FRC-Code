@@ -31,6 +31,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.ControlMode;
 import frc.robot.LimeLight;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kForward;
+import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.kReverse;
+
 public class ShooterSubsystem extends SubsystemBase {
   /**
    * Creates a new ShooterSubsystem.
@@ -42,6 +46,8 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANEncoder m_loaderEncoder = new CANEncoder(m_loadingWheel, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
+  
+  public static DoubleSolenoid m_gateSolenoid = new DoubleSolenoid(ShooterConstants.kGateForwardChannel, ShooterConstants.kGateReverseChannel);
   
   //Manager is used for PID control
   Manager m_loaderPID = new Manager(m_loadingWheel);
@@ -72,6 +78,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     m_shooterPID.initializePID();
     m_loaderPID.initializePID();
+    
+    m_gateSolenoid.set(kForward);
   }
 
   public void shootPID(){
@@ -101,17 +109,6 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setAzimuthMotor(double azimuthSpeed){
-    Limelight.gettxValue();
-    if((-.75 < xOffset)||(xOffset < .75))
-    {
-      azimuthSpeed = 0;
-    } else {
-      azimuthSpeed = xOffset / -20.500000;
-      if ((xOffset > -1.5) && (xOffset<1.5)) { //if the angle is this small, the P will be too low to move the azimuth control
-        azimuthSpeed = azimuthSpeed*3;    //Number needs to be tested on 2020Bot, currently arbitrary
-      }
-     }
-
     //DigitalInput returns false if limit switch was hit
     if((m_leftLimit.get() && (azimuthSpeed>0))||(m_rightLimit.get() &&(azimuthSpeed<0))){
       m_azimuthControl.set(azimuthSpeed);
@@ -121,6 +118,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
   }
 
+  
   public void setAzimuthMotorJoystick(Double azimuthSpeed){
     //TEST LIMIT SWITCHES
     // if(m_leftLimit.get()){
@@ -137,7 +135,7 @@ public class ShooterSubsystem extends SubsystemBase {
     //   System.out.print("&& Right Limit TRUE &&");
     // }
     //System.out.println("LEFT: " + m_leftLimit.get());
-    System.out.println("RIGHT: " + m_rightLimit.get());
+    //System.out.println("RIGHT: " + m_rightLimit.get());
      
     //If neither limit switch is hit, we're fine (set the motors to the desired speed)
     if(m_leftLimit.get() && m_rightLimit.get()){
@@ -157,6 +155,21 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public boolean setAzimuthMotorAutomatic(double azimuthSpeed){
+    tx = table.getEntry("tx");
+    double xOffset = tx.getDouble(0.0);
+
+    if((-.75 < xOffset)||(xOffset < .75))
+    {
+      azimuthSpeed = 0;
+    } 
+    else {
+      azimuthSpeed = xOffset / -20.500000; //maybe change this, if I understand right the motor is set to 1 at the greatest offset
+      if ((xOffset > -1.5) && (xOffset<1.5)) { //if the angle is this small, the P will be too low to move the azimuth control
+        azimuthSpeed = azimuthSpeed*3;    //Number needs to be tested on 2020Bot, currently arbitrary
+      }
+    }
+
+    //DigitalInput returns false if limit switch was hit
     boolean limitHit = false;
     if((m_leftLimit.get() && (azimuthSpeed>0)) || (m_rightLimit.get() && (azimuthSpeed<0))){
       m_azimuthControl.set(azimuthSpeed);
@@ -173,7 +186,6 @@ public class ShooterSubsystem extends SubsystemBase {
   }
   
   //TODO: make getter method for position of azimuth motor and speed of loading and shooting motors
-  //also make one for the solenoid if we end up using it
   
   public void switchCameraMode(){
     if(m_cameraMode == 0){
@@ -197,6 +209,13 @@ public class ShooterSubsystem extends SubsystemBase {
       m_streamMode = StreamType.kStandard;
     }
     m_limeLight.setStream(m_streamMode);
+  }
+  
+  public void openGate(){
+     m_gateSolenoid.set(kReverse); 
+  }
+  public void closeGate(){
+     m_gateSolenoid.set(kForward);
   }
 
   @Override
