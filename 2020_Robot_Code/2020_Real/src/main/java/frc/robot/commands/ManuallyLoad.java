@@ -29,11 +29,13 @@ public class ManuallyLoad extends CommandBase {
   @Override
   public void initialize() {
     if(runLoad){
-      shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
+      //shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
+      shoot.setLoadingMotorPID(ShooterConstants.loadingSpeed);
       runLoad = false;
     }
     else{
-      shoot.setLoadingMotor(0);
+      //shoot.setLoadingMotor(0);
+      shoot.setLoadingMotorPID(0);
       runLoad = true;
     }
   }

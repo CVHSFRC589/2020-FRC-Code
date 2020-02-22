@@ -65,8 +65,6 @@ public class RobotContainer {
   private final LEDSubsystem m_led = new LEDSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   
-  // USE m_driveTest with default drive (which runs basic arcade)
-   //private final DriveSubsystem m_driveTest = new DriveSubsystem();
 
   // Driver's joystick(s)
   public static final Joystick j1 = new Joystick(0);
@@ -134,7 +132,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     //configure button bindings for each command, constants can be found
-    new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive));
+    new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive), true);
 
     new JoystickButton(j1, climberExtend).whenPressed(new ExtendClimber(m_climb));
     new JoystickButton(j1, climberRetract).whenPressed(new RetractClimber(m_climb));
@@ -143,8 +141,10 @@ public class RobotContainer {
     new JoystickButton(j2, intakeToggle).whenPressed(new ToggleIntake(m_intake));
     new JoystickButton(j2, intakeRetract).whenPressed(new RetractIntake(m_intake));
     new JoystickButton(j2, intakeReverse).whenPressed(new ReverseIntake(m_intake));
+    
     //Automated Shooting
     // new JoystickButton(j1, targetAlign).whenPressed(new AutomaticAiming(m_shoot));
+
     //Manual Shooting
     new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
     new JoystickButton(j2, loadBall).whenPressed(new ManuallyLoad(m_shoot));

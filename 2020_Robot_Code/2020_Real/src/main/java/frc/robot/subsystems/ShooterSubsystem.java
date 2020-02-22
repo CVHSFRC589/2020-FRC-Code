@@ -56,7 +56,7 @@ public class ShooterSubsystem extends SubsystemBase {
   //Control Mode stuff
   ControlMode m_cameraController = new ControlMode();
   LimeLight m_limeLight = new LimeLight("limelight");
-  
+  LimelightSubsystem m_limey = new LimelightSubsystem();
 
   private int m_cameraMode = 0; //0 -> targeting mode, 1 -> camera stream
   private StreamType m_streamMode = StreamType.kStandard; //0 -> standard (side-by-side), 1 -> Picture in Picture main, 2 -> Picture in picture secondary
@@ -157,7 +157,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public boolean setAzimuthMotorAutomatic(double azimuthSpeed){
-    m_limeLight.gettxValue();
+    double xOffset = m_limey.gettxValue();
 
     if((-.75 < xOffset)||(xOffset < .75))
     {

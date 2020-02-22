@@ -1,39 +1,41 @@
-// /*----------------------------------------------------------------------------*/
-// /* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-// /* Open Source Software - may be modified and shared by FRC teams. The code   */
-// /* must be accompanied by the FIRST BSD license file in the root directory of */
-// /* the project.                                                               */
-// /*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 
-// package frc.robot.subsystems;
+package frc.robot.subsystems;
 
-// import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-// public class LEDSubsystem extends SubsystemBase {
-//   /**
-//    * Creates a new IntakeSubsystem.
-//    */
+public class LEDSubsystem extends SubsystemBase {
+  /**
+   * Creates a new IntakeSubsystem.
+   */
 
-//   AddressableLED m_led;
-//   AddressableLEDBuffer m_ledBuffer;
+  AddressableLED m_led;
+  AddressableLEDBuffer m_ledBuffer;
 
-//   public LEDSubsystem() {
-//   //PWM port 9
-//   m_led = new AddressableLED(9);
+  public LEDSubsystem() {
+  //PWM port 9
+  m_led = new AddressableLED(9);
 
-//   m_ledbuffer = new AddressableLEDBuffer(60);
-//   m_led.setLength(m_ledbuffer.getlength());
+  m_ledBuffer = new AddressableLEDBuffer(60);
+  //m_led.setLength(m_ledBuffer.getlength());
 
-//   m_led.setData(m_ledBuffer);
-//   m_led.start();
-//   }
-//   public void LED(){
-//     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-//       // Sets the specified LED to the HSV values for red
-//       m_ledBuffer.setHSL(i, 180, 98, 59);
-//       }
-//       m_led.setData(m_ledBuffer);
-//   }
+  m_led.setData(m_ledBuffer);
+  m_led.start();
+  }
+  public void LED(){
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the HSV values for red
+      //m_ledBuffer.setHSL(i, 180, 98, 59);
+      }
+      m_led.setData(m_ledBuffer);
+  }
 
 //   private turretAlignmentLEDs(){
 //     if(-10 < xOffset < 10){
@@ -52,7 +54,7 @@
 //         }
 //       }
 //     }
-//   }
+  //}
 
 //   private frontLEDs(){
 //   boolean forwardDrive = DriveSubsystem.getForward();
@@ -75,8 +77,9 @@
 //    }
 //     }
 //   }
-// /*
-//   private fullFireSpeed(){
+/*
+  private fullFireSpeed(){
 
-//   }
-// */
+  }
+*/
+}

@@ -29,11 +29,13 @@ public class ManuallyShoot extends CommandBase {
   @Override
   public void initialize() {
     if(true){ //if runShooter
-      shoot.setShootingMotor(ShooterConstants.shootingSpeed);
+      //shoot.setShootingMotor(ShooterConstants.shootingSpeed);
+      shoot.setShootingMotorPID(ShooterConstants.shootingSpeed);
       runShooter = false;
     }
     else{
-      shoot.setShootingMotor(0);
+      //shoot.setShootingMotor(0);
+      shoot.setShootingMotorPID(0);
       runShooter = true;
     }
    // shoot.setLoadingMotor(ShooterConstants.loadingSpeed); //set this constant to one for the loading motor
