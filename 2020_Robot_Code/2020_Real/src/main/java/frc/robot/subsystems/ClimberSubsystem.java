@@ -29,9 +29,11 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void deployHook(){
     m_hookSolenoid.set(kForward);
+    System.out.println("hook deployed ********************************");
   }
   public void retractHook(){
     m_hookSolenoid.set(kReverse);
+    System.out.println("hook retracted *******************************");
   }
   
   @Override

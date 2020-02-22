@@ -18,24 +18,25 @@ public class ManuallyLoad extends CommandBase {
    * Creates a new ManuallyLoad.
    */
   ShooterSubsystem shoot;
-  private static boolean runLoad = false;
+  private static boolean runLoad = true;
   public ManuallyLoad(ShooterSubsystem tShoot) {
     shoot = tShoot;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shoot);
+    shoot.setLoadingMotor(0);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     if(runLoad){
-      //shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
-      shoot.setLoadingMotorPID(ShooterConstants.loadingSpeed);
+      shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
+      //shoot.setLoadingMotorPID(ShooterConstants.loadingSpeed);
       runLoad = false;
     }
     else{
-      //shoot.setLoadingMotor(0);
-      shoot.setLoadingMotorPID(0);
+      shoot.setLoadingMotor(0);
+      //shoot.setLoadingMotorPID(0);
       runLoad = true;
     }
   }

@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.Manager;
 import frc.robot.Constants.DriveConstants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -31,23 +32,34 @@ public class IntakeSubsystem extends SubsystemBase {
   //public static DoubleSolenoid m_intakeSolenoid = new DoubleSolenoid(IntakeConstants.kIntakeSolenoidPorts[2], IntakeConstants.kIntakeSolenoidPorts[3]);
   
   public static CANSparkMax m_intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorPort, MotorType.kBrushless);
+  Manager m_intakeManager = new Manager(m_intakeMotor); 
+  
   public static CANEncoder m_intakeEncoder = new CANEncoder(m_intakeMotor, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);  //EncoderCPR is probably the same as DriveConstants.kEncoderCPR
   
   public IntakeSubsystem() {
     m_intakeSolenoid.set(kReverse);
     m_intakeMotor.set(0);
+    m_intakeManager.initializePID(IntakeConstants.kIntakeMotorSpeed);
   }
 
   public void deployIntake(){
+    //System.out.println("intake deploy ********************************************************");
     m_intakeSolenoid.set(kForward);
   }
   public void retractIntake(){
+    //System.out.println("intake retract ********************************************************");
     m_intakeSolenoid.set(kReverse);
   }
 
   public void setIntake(double speed){
+    //System.out.println("intake set ********************************************************");
     m_intakeMotor.set(speed);
   }
+  public void setIntakePID(double speed){
+    System.out.println("intake set PID********************************************************" + speed);
+    m_intakeManager.setPIDSpeed(speed);
+  }
+
 
   @Override
   public void periodic() {

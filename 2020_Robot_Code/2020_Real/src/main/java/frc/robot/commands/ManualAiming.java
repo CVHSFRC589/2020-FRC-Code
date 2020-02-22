@@ -32,6 +32,7 @@ public class ManualAiming extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_shoot.setAzimuthMotorJoystick(0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,7 +48,7 @@ public class ManualAiming extends CommandBase {
     if(m_rotSpeed>-0.4 && m_rotSpeed<0){
       m_rotSpeed = 0;
     }
-    m_shoot.setAzimuthMotorJoystick(m_rotSpeed/5); //can divide the speed by ten
+    m_shoot.setAzimuthMotorJoystick(m_rotSpeed/10); //can divide the speed by ten
     // m_shoot.setAzimuthMotor(m_rotationalSpeed.getAsDouble());
   }
 

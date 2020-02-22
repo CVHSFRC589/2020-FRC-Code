@@ -27,17 +27,16 @@ public class Manager{
         motor.restoreFactoryDefaults();
         m_pidController = motor.getPIDController();
     }    
-    public void initializePID(){
+    public void initializePID(double speed){
         // PID coefficients
         kP = 5e-5; 
         kI = 1e-6;
         kD = 0; 
         kIz = 0; 
-        kFF = 0.5; 
+        kFF = 0.5 * speed; 
         kMaxOutput = 1; 
         kMinOutput = -1;
         maxRPM = 5700;
-
         // set PID coefficients
         m_pidController.setP(kP);
         m_pidController.setI(kI);

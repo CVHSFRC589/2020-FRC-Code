@@ -78,8 +78,8 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shootingWheel.restoreFactoryDefaults();
     m_loadingWheel.setSmartCurrentLimit(ShooterConstants.azimuthMaxCurrentLimit);
 
-    m_shooterPID.initializePID();
-    m_loaderPID.initializePID();
+    m_shooterPID.initializePID(ShooterConstants.shootingSpeed);
+    m_loaderPID.initializePID(ShooterConstants.loadingSpeed);
     
     m_gateSolenoid.set(kForward);
   }

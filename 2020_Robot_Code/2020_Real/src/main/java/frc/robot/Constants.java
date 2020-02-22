@@ -42,10 +42,10 @@ public final class Constants {
 
     }
     public static final class IntakeConstants{
-        public static final int[] kIntakeSolenoidPorts = new int[]{5, 6};
+        public static final int[] kIntakeSolenoidPorts = new int[]{6, 5};
         public static final int kIntakeMotorPort = 40;
         
-        public static final double kIntakeMotorSpeed = 0.1;
+        public static final double kIntakeMotorSpeed = 0.4;
     }
     public static final class ShooterConstants{
         public static final int kLoadingWheelMotorPort = 22;

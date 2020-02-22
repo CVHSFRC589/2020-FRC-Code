@@ -62,7 +62,7 @@ public class RobotContainer {
   private final DriveSubsystem m_drive = new DriveSubsystem();
   private final ShooterSubsystem m_shoot = new ShooterSubsystem();
   private final ClimberSubsystem m_climb = new ClimberSubsystem();
-  private final LEDSubsystem m_led = new LEDSubsystem();
+  //private final LEDSubsystem m_led = new LEDSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   
 
@@ -132,7 +132,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     //configure button bindings for each command, constants can be found
-    new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive), true);
+    // new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive), true);
 
     new JoystickButton(j1, climberExtend).whenPressed(new ExtendClimber(m_climb));
     new JoystickButton(j1, climberRetract).whenPressed(new RetractClimber(m_climb));

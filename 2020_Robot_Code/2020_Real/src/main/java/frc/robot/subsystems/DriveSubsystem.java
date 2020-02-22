@@ -46,8 +46,8 @@ public class DriveSubsystem extends SubsystemBase {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
    
-    leftManager.initializePID();
-    rightManager.initializePID();
+    leftManager.initializePID(0.25);
+    rightManager.initializePID(0.25);
   }
 
   /**

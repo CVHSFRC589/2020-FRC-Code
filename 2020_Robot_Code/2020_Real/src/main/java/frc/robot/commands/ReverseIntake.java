@@ -34,6 +34,7 @@ public class ReverseIntake extends CommandBase {
   @Override
   public void initialize() {
     m_subsystem.setIntake(-IntakeConstants.kIntakeMotorSpeed);
+    System.out.println("reverse intake pid ************************************");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
