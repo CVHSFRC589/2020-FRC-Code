@@ -81,10 +81,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     }
   }
 
-  public static void gettxValue(){
+  public static double gettxValue(){
     tx = table.getEntry("tx");
     xOffset = tx.getDouble(0.0);
     //xOffset += ; WHATEVER ANGLE THE LIMELIGHT IS MOUNTED AT
+    return xOffset;
   }
 
   public static void gettyValue(){
