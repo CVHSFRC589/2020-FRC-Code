@@ -146,6 +146,8 @@ public class Egg extends CommandBase {
       getTask();
     }
 
+    System.out.println("***********" + task.command + "**********");
+
     if (task.time != 0) {
       try {
         Thread.sleep((long) task.time);
@@ -196,7 +198,7 @@ public class Egg extends CommandBase {
     Points.add(new DoublePoint(100, 0));
     P = new Path(Points);
     P.calculate();
-    T.add(new Task(P, false));        
+    T.add(new Task(P, false));         
     T.add(new Task("AutomaticAiming", null));
     T.add(new Task("ManuallyShoot", null));
     T.add(new Task(3));
@@ -268,7 +270,7 @@ public class Egg extends CommandBase {
     //System.out.println("***************" + angle);
     trackPos();
 
-    double r = -10, Vmax = 0.3;
+    double r = -10, Vmax = 0.1;
     double Vr = 0, Vl = 0;
 
 
@@ -277,6 +279,7 @@ public class Egg extends CommandBase {
       task = null;
       r = 0;
       System.out.println("Next");
+      return;
     } else {
       r = purePursuit.get(x, y, angle);
     }
@@ -318,12 +321,16 @@ public class Egg extends CommandBase {
   }
   
   void trackPos() {
-    boolean negative = (angle < 0) ? true : false;
-    negative = (task.backwards && negative) ? false : true; 
+    boolean negative = (angle < 0) ? true : false; 
     angle = Math.abs(angle);
     while (angle  > 360) {
       angle -= 360;
     }
+
+    if (task.backwards) {
+      angle = 360 - angle;
+    }
+
     angle = (negative) ? 360 - angle : angle;
 
     double EncoderR = -1 * Robot.driveSubsystem.getRight();

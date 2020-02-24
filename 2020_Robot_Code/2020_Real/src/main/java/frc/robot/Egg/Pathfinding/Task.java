@@ -10,7 +10,7 @@ public class Task implements Serializable{
 	//the robot, such a putting a hatch panel on the cargo ship in the 2019 game
 	
 	public Path path;
-	public boolean backwards;
+	public boolean backwards = false;
 
 	public String command;
 	public String method;
