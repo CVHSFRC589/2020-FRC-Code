@@ -64,6 +64,8 @@ public class ShooterSubsystem extends SubsystemBase {
   //Turret limit switches
   public DigitalInput m_leftLimit = new DigitalInput(ShooterConstants.leftLimitInputChannel);
   public DigitalInput m_rightLimit = new DigitalInput(ShooterConstants.rightLimitInputChannel);
+  
+  public static boolean shootingWheelRunning = false;
 
 
   //Might have a solenoid to gatekeep power cells (between storage and shooting system)
