@@ -182,7 +182,7 @@ public class Egg extends CommandBase {
   
   
 
-  protected double x, y, angle = 0, b = 20;
+  protected double x, y, angle = 0, b = Constants.wheelBaseWidth;
   double oldEval = 0, oldLE = 0, oldRE = 0;
   protected AHRS Navx;  
 
