@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.util.Hashtable;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 //import frc.robot.commands.ExampleCommand;
@@ -33,7 +35,6 @@ import frc.robot.commands.ManuallyShoot;
 import frc.robot.commands.ManuallyLoad;
 import frc.robot.commands.DrivePID;
 
-
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
@@ -41,9 +42,9 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
- 
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
@@ -59,7 +60,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final LimelightSubsystem m_LimelightSubsystem = new LimelightSubsystem();
 
-  private final DriveSubsystem m_drive = new DriveSubsystem();
+  public final DriveSubsystem m_drive = new DriveSubsystem();
   private final ShooterSubsystem m_shoot = new ShooterSubsystem();
   private final ClimberSubsystem m_climb = new ClimberSubsystem();
   //private final LEDSubsystem m_led = new LEDSubsystem();
@@ -90,6 +91,7 @@ public class RobotContainer {
   //final int constDrive = 7;
   //{constantDrive = new JoystickButton(j1, constDrive);}
 
+  public final Hashtable<String, CommandBase> commands = new Hashtable<String, CommandBase>();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -120,6 +122,14 @@ public class RobotContainer {
     //   () -> j2.getZ()));
 
 
+    AutomaticAiming A = new AutomaticAiming(m_shoot);
+    commands.put("AutomaticAiming", A);
+    ManuallyShoot M = new ManuallyShoot(m_shoot);
+    commands.put("ManuallyShoot", M);
+    DeployIntake D = new DeployIntake(m_intake);
+    commands.put("DeployIntake", D);
+    ToggleIntake T = new ToggleIntake(m_intake);
+    commands.put("ToggleIntake", T);
     
     //constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
   }
