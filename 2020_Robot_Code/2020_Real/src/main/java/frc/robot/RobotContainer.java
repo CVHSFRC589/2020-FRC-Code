@@ -114,6 +114,7 @@ public class RobotContainer {
     // m_shoot.setDefaultCommand(
     //   new ShootPID(m_shoot));
     
+    //Change this to include the manual shooting command
     //Default command for shooter (MANUAL)
     // m_shoot.setDefaultCommand(
     //   new ManualAiming(m_shoot, 
