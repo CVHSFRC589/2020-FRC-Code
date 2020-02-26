@@ -46,13 +46,17 @@ public class Egg extends CommandBase {
 
   boolean done = false;
 
+  double Vmax;
+
   public Hashtable<String, CommandBase> Commands = new Hashtable<String, CommandBase>();
 
-  public Egg(Robot R, Hashtable<String, CommandBase> commands) {
+  public Egg(Robot R, Hashtable<String, CommandBase> commands, double maxSpeed) {
     // addRequirements(Robot.drive);
     robot = R;
     Commands = commands;
 
+
+    Vmax = maxSpeed;
   }
 
   void getScheduleFromNT() {
@@ -210,7 +214,7 @@ public class Egg extends CommandBase {
   
   
 
-  protected double x, y, angle = 0, b = Constants.DriveConstants.wheelBaseWidth;
+  protected double x, y, angle = 0, b = 22;
   double oldEval = 0, oldLE = 0, oldRE = 0;
   protected AHRS Navx;  
 
@@ -301,7 +305,7 @@ public class Egg extends CommandBase {
     //System.out.println("***************" + angle);
     trackPos();
 
-    double r = -10, Vmax = Constants.DriveConstants.maxAutoSpeed;
+    double r = -10;
     double Vr = 0, Vl = 0;
 
 
