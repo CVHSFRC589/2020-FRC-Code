@@ -182,7 +182,7 @@ public class Egg extends CommandBase {
   
   
 
-  protected double x, y, angle = 0, b = Constants.wheelBaseWidth;
+  protected double x, y, angle = 0, b = Constants.DriveConstants.wheelBaseWidth;
   double oldEval = 0, oldLE = 0, oldRE = 0;
   protected AHRS Navx;  
 
@@ -270,7 +270,7 @@ public class Egg extends CommandBase {
     //System.out.println("***************" + angle);
     trackPos();
 
-    double r = -10, Vmax = 0.1;
+    double r = -10, Vmax = Constants.DriveConstants.maxAutoSpeed;
     double Vr = 0, Vl = 0;
 
 

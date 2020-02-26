@@ -21,6 +21,8 @@ public class AutomaticAiming extends CommandBase {
    */
   ShooterSubsystem shoot;
 
+  int t = 0;
+
   public AutomaticAiming(ShooterSubsystem tempShoot) {
     shoot = tempShoot;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -47,6 +49,8 @@ public class AutomaticAiming extends CommandBase {
         shoot.setAzimuthMotor(-0.2);
       }
     }
+
+    t++;
   }
 
   // Called once the command ends or is interrupted.
@@ -57,6 +61,7 @@ public class AutomaticAiming extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (t > 10000) { return true; }
     return shoot.getTargetFound();
   }
 }
