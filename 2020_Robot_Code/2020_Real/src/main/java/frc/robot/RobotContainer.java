@@ -131,6 +131,8 @@ public class RobotContainer {
     commands.put("DeployIntake", D);
     ToggleIntake T = new ToggleIntake(m_intake);
     commands.put("ToggleIntake", T);
+    RetractIntake R = new RetractIntake(m_intake);
+    commands.put("RetractIntake", R);
     
     //constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
   }
