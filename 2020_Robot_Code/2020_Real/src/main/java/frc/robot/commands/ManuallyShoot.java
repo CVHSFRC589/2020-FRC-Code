@@ -33,11 +33,13 @@ public class ManuallyShoot extends CommandBase {
       shoot.setShootingMotor(ShooterConstants.shootingSpeed);
       //shoot.setShootingMotorPID(ShooterConstants.shootingSpeed);
       runShooter = false;
+      ShooterSubsystem.shootingWheelRunning = true;
     }
     else{   //the button was pressed while the shooter was on, so turn it off
       shoot.setShootingMotor(0);
       shoot.setShootingMotorPID(0);
       runShooter = true;
+      ShooterSubsystem.shootingWheelRunning = false;
     }
    // shoot.setLoadingMotor(ShooterConstants.loadingSpeed); //set this constant to one for the loading motor
    // System.out.println("CALLED ***************" + ShooterConstants.shootingSpeed);

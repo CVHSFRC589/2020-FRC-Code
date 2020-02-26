@@ -35,6 +35,8 @@ public final class Constants {
         public static final int kEncoderCPR = 450;
         public static final double kEncoderIPR = kWheelDiameterInches*Math.PI; // 18.85 inches per revolution (circumference)
         public static final double kEncoderCPI = 0.583333333333; //idk why this even works
+        
+        public static final double wheelBaseWidth = 22; //width (in inches) between the wheels on each side
     }
 
     public static final class ClimberConstants{
@@ -63,5 +65,7 @@ public final class Constants {
         public static final double loadingSpeed = 1;
     
         public static final int azimuthMaxCurrentLimit = 40; //in Amps 
+        
+        public static final double azimuthEncoderLimit = 100; //change to whatever it needs to be
     }
 }
