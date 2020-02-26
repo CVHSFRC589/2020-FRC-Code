@@ -82,8 +82,8 @@ public class RobotContainer {
   final int intakeReverse = 10; //j2
   final int targetAlign = 7; //j2
   final int switchDriveDirection = 6; //j1
-  final int loadBall = 2; //j2
-  final int shootBall = 1; //j2
+  final int loadBall = 1; //j2
+  final int shootBall = 2; //j2
   final int toggleGate = 6; //j2
   final int changeStreamMode = 9; //j1
   final int switchCameraMode = 8; //j1
@@ -101,6 +101,11 @@ public class RobotContainer {
     //m_LimelightSubsystem.setDefaultCommand(new UpdateLimelight(m_LimelightSubsystem));
     configureButtonBindings();
 
+    //Default command for shooter (MANUAL)
+    m_shoot.setDefaultCommand(
+      new ManualAiming(m_shoot, 
+        () -> j2.getZ()));
+
     //Default command for drive
     //used for arcadedrive
     m_drive.setDefaultCommand(
@@ -114,13 +119,8 @@ public class RobotContainer {
     //   new DrivePID(
     //     m_drive));
     // m_shoot.setDefaultCommand(
-    //   new ShootPID(m_shoot));
-    
-    //Change this to include the manual shooting command
-    //Default command for shooter (MANUAL)
-    // m_shoot.setDefaultCommand(
-    //   new ManualAiming(m_shoot, 
-    //   () -> j2.getZ()));
+    //   new ShootPID(m_shoot));    
+      
 
 
     AutomaticAiming A = new AutomaticAiming(m_shoot);

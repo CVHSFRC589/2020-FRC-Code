@@ -8,50 +8,39 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.ControlMode.LedMode;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-import java.util.function.DoubleSupplier;
-
-public class ManualAiming extends CommandBase {
+public class ToggleLimelightLED extends CommandBase {
   /**
-   * Creates a new ManualAiming.
+   * Creates a new ToggleLimelightLED.
    */
-
-  private ShooterSubsystem m_shoot;
-  private DoubleSupplier m_rotationalSpeed;
-  
-
-  public ManualAiming(ShooterSubsystem tShoot, DoubleSupplier z) {
-    m_shoot = tShoot;
-    m_rotationalSpeed = z; //set m_rotationalSpeed to z
-    // Use addRequirements() here to declare subsystem dependencies.4
-    addRequirements(m_shoot);
+  ShooterSubsystem m_limelight; //eventually move the setLimelightLEDMode to Limelight subsystem
+ // private LedMode mode = 3;
+  //this.table.getEntry("ledMode").setNumber(3);
+   //3 is on 1 is off
+  public ToggleLimelightLED(ShooterSubsystem limelight) { //add limelight subsystem to get network table to use line 21
+    // Use addRequirements() here to declare subsystem dependencies.
+    m_limelight = limelight;
+    addRequirements(m_limelight);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shoot.setAzimuthMotor(0.0);
+    // if(mode == 3){
+    //   mode = 1;
+    // }
+    // else{
+    //   mode = 3;
+    // }
+    // m_limelight.setLimelightLEDMode(mode);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   // System.out.print("88888888888888888");
-
-    double m_rotSpeed = m_rotationalSpeed.getAsDouble();  //USE THIS FOR ACTUAL AZIMUTH CONTROL
-    //double m_rotSpeed = 0; //THIS IS SET TO 0 FOR TESTING 
-    //Azimuth joystick deadzones
-    if(m_rotSpeed<0.4 && m_rotSpeed>0){
-      m_rotSpeed = 0;
-    }
-    if(m_rotSpeed>-0.4 && m_rotSpeed<0){
-      m_rotSpeed = 0;
-    }
-    //System.out.print("********************888");
-
-    m_shoot.setAzimuthMotor(-m_rotSpeed/10); //can divide the speed by ten    
   }
 
   // Called once the command ends or is interrupted.
@@ -60,7 +49,7 @@ public class ManualAiming extends CommandBase {
   }
 
   // Returns true when the command should end.
-  //@Override
+  @Override
   public boolean isFinished() {
     return false;
   }

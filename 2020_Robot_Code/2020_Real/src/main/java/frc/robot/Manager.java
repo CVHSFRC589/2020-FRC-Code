@@ -33,7 +33,7 @@ public class Manager{
         kI = 1e-6;
         kD = 0; 
         kIz = 0; 
-        kFF = 0.5 * speed; 
+        kFF = 0.25; //0.5*speed
         kMaxOutput = 1; 
         kMinOutput = -1;
         maxRPM = 5700;

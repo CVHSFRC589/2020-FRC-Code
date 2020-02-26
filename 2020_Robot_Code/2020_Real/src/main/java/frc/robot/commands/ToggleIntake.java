@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ToggleIntake extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem m_subsystem;
-  private static boolean m_runMotor = false;
+  private static boolean m_runMotor = true;
   /**
    * Creates a new ExampleCommand.
    *

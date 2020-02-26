@@ -17,6 +17,7 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.ControlMode.LedMode;
 import frc.robot.ControlMode.StreamType;
 import frc.robot.Manager;
 import frc.robot.Constants.DriveConstants;
@@ -77,6 +78,8 @@ public class ShooterSubsystem extends SubsystemBase {
     m_loadingWheel.set(0);
     m_shootingWheel.set(0);
     
+    
+    
     m_shootingWheel.restoreFactoryDefaults();
     m_loadingWheel.setSmartCurrentLimit(ShooterConstants.azimuthMaxCurrentLimit);
 
@@ -84,6 +87,7 @@ public class ShooterSubsystem extends SubsystemBase {
     m_loaderPID.initializePID(ShooterConstants.loadingSpeed);
     
     m_gateSolenoid.set(kForward);
+
     
     m_azimuthEncoder.setPosition(0);
     initialAzimuthEncoderValue = m_azimuthEncoder.getPosition();
@@ -116,9 +120,13 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setAzimuthMotor(double azimuthSpeed){
-    //DigitalInput returns false if limit switch was hit
+    //System.out.print(m_azimuthEncoder.getPosition());
+    
+   // DigitalInput returns false if limit switch was hit
     
     //check if encoder limit was reached (in case of magnetic limit switch failure)
+
+
     boolean leftEncoderLimitHit = false;
     boolean rightEncoderLimitHit = false;
     if((Math.abs(m_azimuthEncoder.getPosition()) - initialAzimuthEncoderValue) >= ShooterConstants.azimuthEncoderLimit){
@@ -143,7 +151,10 @@ public class ShooterSubsystem extends SubsystemBase {
     else {
       m_azimuthControl.set(0);
     }
+
+
   }
+
 
   public boolean setAzimuthMotorAutomatic(double azimuthSpeed){
     double xOffset = m_limey.gettxValue();
@@ -215,6 +226,10 @@ public class ShooterSubsystem extends SubsystemBase {
       m_streamMode = StreamType.kStandard;
     }
     m_limeLight.setStream(m_streamMode);
+  }
+
+  public void setLimelightLEDMode(LedMode mode){
+    m_limeLight.setLEDMode(mode);
   }
   
   public void openGate(){

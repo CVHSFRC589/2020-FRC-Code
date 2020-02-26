@@ -46,8 +46,8 @@ public class DriveSubsystem extends SubsystemBase {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
    
-    leftManager.initializePID(0.25);
-    rightManager.initializePID(0.25);
+    //leftManager.initializePID(0.25);
+   // rightManager.initializePID(0.25);
   }
 
   /**
@@ -64,8 +64,8 @@ public class DriveSubsystem extends SubsystemBase {
     }
   }
   public void drivePID(){
-    leftManager.setPIDSpeed(0.25);
-    rightManager.setPIDSpeed(0.25);
+    // leftManager.setPIDSpeed(0.25);
+    // rightManager.setPIDSpeed(0.25);
   }
   public void tankDrive(double left, double right, double multiplier){
    if(m_driveForward)
