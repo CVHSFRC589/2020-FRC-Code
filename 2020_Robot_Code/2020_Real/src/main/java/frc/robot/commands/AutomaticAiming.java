@@ -32,6 +32,7 @@ public class AutomaticAiming extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    t = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,7 +50,7 @@ public class AutomaticAiming extends CommandBase {
         shoot.setAzimuthMotor(-0.2);
       }
     }
-
+    System.out.println(t);
     t++;
   }
 
@@ -61,7 +62,7 @@ public class AutomaticAiming extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (t > 10000) { return true; }
+    if (t > 100) { return true; }
     return shoot.getTargetFound();
   }
 }

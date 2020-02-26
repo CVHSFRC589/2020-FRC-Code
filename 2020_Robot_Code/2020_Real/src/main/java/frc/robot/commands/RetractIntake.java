@@ -32,7 +32,7 @@ public class RetractIntake extends CommandBase {
   @Override
   public void initialize() {
     m_subsystem.retractIntake();
-
+    System.out.println("retract");
     //Experimental feature suggested by Mr.G -> turn off motor if intake is retracted
     //m_subsystem.deactivateIntake(0);
   }

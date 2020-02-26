@@ -146,9 +146,14 @@ public class Egg extends CommandBase {
       getTask();
     }
 
+    if (done) {
+      return;
+    }
+
     System.out.println("***********" + task.command + "**********");
 
     if (task.time != 0) {
+      System.out.println(task.time);
       try {
         Thread.sleep((long) task.time);
       } catch (InterruptedException e) {
@@ -156,10 +161,10 @@ public class Egg extends CommandBase {
         e.printStackTrace();
       }
       task = null;
-    } else if (task.path != null) {
+    } else if (task.path != null && purePursuit == null) {
       Path P = task.path;
       purePursuit = new PurePursuit(P, b);
-    } else if (!runningCommand) {
+    } else if (!runningCommand && purePursuit == null) {
       runningCommand = true;
       CommandScheduler.getInstance().schedule(Commands.get(task.command));
       try {
@@ -173,9 +178,11 @@ public class Egg extends CommandBase {
       }
       
     } else {
-      if (Commands.get(task.command).isFinished()) {
-        runningCommand = false;
-        task = null;
+      if (runningCommand) {
+        if (CommandScheduler.getInstance().isScheduled(Commands.get(task.command))) {
+          runningCommand = false;
+          task = null;
+        } 
       }
     }
   }
@@ -189,6 +196,8 @@ public class Egg extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
+
+    System.out.println("******Running******");
 
     ArrayList<Task> T = new ArrayList<Task>();
     ArrayList<DoublePoint> Points = new ArrayList<DoublePoint>();
@@ -251,8 +260,9 @@ public class Egg extends CommandBase {
 
     if (task == null) {
       getTask();
-      executeTask();
     }
+
+    executeTask();
     
     if (purePursuit != null) {
       drive();
