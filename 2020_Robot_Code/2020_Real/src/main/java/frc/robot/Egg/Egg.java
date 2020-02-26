@@ -150,21 +150,20 @@ public class Egg extends CommandBase {
       return;
     }
 
-    System.out.println("***********" + task.command + "**********");
+    if (task.path != null && purePursuit == null) {
+      configureDrive();
+    } else if (task.time != 0) {
+      pause(task.time);
+    } else if (task.command != null) {
+      handleCommand();
+    }
 
-    if (task.time != 0) {
-      System.out.println(task.time);
-      try {
-        Thread.sleep((long) task.time);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-      task = null;
-    } else if (task.path != null && purePursuit == null) {
-      Path P = task.path;
-      purePursuit = new PurePursuit(P, b);
-    } else if (!runningCommand && purePursuit == null) {
+    
+
+  }
+
+  void handleCommand() {
+    if (!runningCommand && purePursuit == null) {
       runningCommand = true;
       CommandScheduler.getInstance().schedule(Commands.get(task.command));
       try {
@@ -185,6 +184,25 @@ public class Egg extends CommandBase {
         } 
       }
     }
+  }
+
+  void configureDrive() {
+    Path P = task.path;
+    purePursuit = new PurePursuit(P, b);
+  }
+
+  boolean paused = false;
+  double time;
+
+  void pause(long duration) {
+    if (!paused) {
+      time = System.currentTimeMillis();
+    }
+    paused = true;
+    if (System.currentTimeMillis() - time >= duration) {
+      task = null;
+      paused = false;
+    }    
   }
   
   
