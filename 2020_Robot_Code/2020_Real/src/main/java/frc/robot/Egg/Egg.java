@@ -201,7 +201,8 @@ public class Egg extends CommandBase {
       time = System.currentTimeMillis();
     }
     paused = true;
-    if (System.currentTimeMillis() - time >= duration) {
+
+    if (System.currentTimeMillis() - time >= duration * 1000) {
       task = null;
       paused = false;
     }    
@@ -224,7 +225,7 @@ public class Egg extends CommandBase {
     Path P;
     Points = new ArrayList<DoublePoint>();
     Points.add(new DoublePoint(0, 0));
-    Points.add(new DoublePoint(100, 0));
+    Points.add(new DoublePoint(5, 0));
     P = new Path(Points);
     P.calculate();
     T.add(new Task(P, false));         
@@ -235,8 +236,8 @@ public class Egg extends CommandBase {
     T.add(new Task("DeployIntake", null));
     T.add(new Task("ToggleIntake", null));
     Points = new ArrayList<DoublePoint>();
-    Points.add(new DoublePoint(100, 0));
-    Points.add(new DoublePoint(50, 0));
+    Points.add(new DoublePoint(5, 0));
+    Points.add(new DoublePoint(0, 0));
     P = new Path(Points);
     P.calculate();
     T.add(new Task(P, true));
