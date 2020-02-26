@@ -150,6 +150,8 @@ public class Egg extends CommandBase {
       return;
     }
 
+    System.out.println("***********" + task.command + "**********");
+
     if (task.path != null && purePursuit == null) {
       configureDrive();
     } else if (task.time != 0) {
