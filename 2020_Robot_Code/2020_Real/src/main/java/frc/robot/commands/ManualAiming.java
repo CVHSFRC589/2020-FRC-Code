@@ -43,15 +43,15 @@ public class ManualAiming extends CommandBase {
     double m_rotSpeed = m_rotationalSpeed.getAsDouble();  //USE THIS FOR ACTUAL AZIMUTH CONTROL
     //double m_rotSpeed = 0; //THIS IS SET TO 0 FOR TESTING 
     //Azimuth joystick deadzones
-    if(m_rotSpeed<0.4 && m_rotSpeed>0){
+    if(m_rotSpeed<0.2 && m_rotSpeed>0){
       m_rotSpeed = 0;
     }
-    if(m_rotSpeed>-0.4 && m_rotSpeed<0){
+    if(m_rotSpeed>-0.2 && m_rotSpeed<0){
       m_rotSpeed = 0;
     }
     //System.out.print("********************888");
 
-    m_shoot.setAzimuthMotor(-m_rotSpeed/10); //can divide the speed by ten    
+    m_shoot.setAzimuthMotor(-m_rotSpeed/10);    
   }
 
   // Called once the command ends or is interrupted.

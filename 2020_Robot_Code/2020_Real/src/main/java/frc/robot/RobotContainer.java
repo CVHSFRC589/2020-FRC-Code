@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.ToggleLimelightLED;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.AutomaticAiming;
 import frc.robot.commands.ChangeCameraMode;
@@ -84,7 +85,7 @@ public class RobotContainer {
   final int switchDriveDirection = 6; //j1
   final int loadBall = 1; //j2
   final int shootBall = 2; //j2
-  final int toggleGate = 6; //j2
+  final int toggleLimelightLED = 6; //j2
   final int changeStreamMode = 9; //j1
   final int switchCameraMode = 8; //j1
 
@@ -145,7 +146,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     //configure button bindings for each command, constants can be found
-    // new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive), true);
+    //p[] b1  2 new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive), true);
 
     new JoystickButton(j1, climberExtend).whenPressed(new ExtendClimber(m_climb));
     new JoystickButton(j1, climberRetract).whenPressed(new RetractClimber(m_climb));
@@ -156,13 +157,14 @@ public class RobotContainer {
     new JoystickButton(j2, intakeReverse).whenPressed(new ReverseIntake(m_intake));
     
     //Automated Shooting
-    // new JoystickButton(j1, targetAlign).whenPressed(new AutomaticAiming(m_shoot));
+    new JoystickButton(j2, targetAlign).whenPressed(new AutomaticAiming(m_shoot), true);
 
     //Manual Shooting
     new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
     new JoystickButton(j2, loadBall).whenPressed(new ManuallyLoad(m_shoot));
     new JoystickButton(j1, changeStreamMode).whenPressed(new ChangeStreamMode(m_shoot));
     new JoystickButton(j1, switchCameraMode).whenPressed(new ChangeCameraMode(m_shoot));
+    new JoystickButton(j2, toggleLimelightLED).whenPressed(new ToggleLimelightLED(m_shoot, m_LimelightSubsystem));
   }
 
   /**

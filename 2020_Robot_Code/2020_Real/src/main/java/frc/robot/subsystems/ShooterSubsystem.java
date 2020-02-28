@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.EncoderType;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import java.util.function.DoubleSupplier;
 
@@ -69,6 +70,10 @@ public class ShooterSubsystem extends SubsystemBase {
   public static boolean shootingWheelRunning = false;
   public double initialAzimuthEncoderValue = 0;
 
+  public boolean limitLeft = false;
+  public boolean limitRight = false;
+
+
   //Might have a solenoid to gatekeep power cells (between storage and shooting system)
   
   public NetworkTable table;
@@ -77,8 +82,8 @@ public class ShooterSubsystem extends SubsystemBase {
   public ShooterSubsystem() {
     m_loadingWheel.set(0);
     m_shootingWheel.set(0);
-    
-    
+
+    m_loadingWheel.setIdleMode(IdleMode.kBrake);
     
     m_shootingWheel.restoreFactoryDefaults();
     m_loadingWheel.setSmartCurrentLimit(ShooterConstants.azimuthMaxCurrentLimit);
@@ -141,17 +146,23 @@ public class ShooterSubsystem extends SubsystemBase {
     //If neither limit switch is hit and the encoder limit hasn't been reached, we're fine (set the motors to the desired speed)
     if((m_leftLimit.get() && m_rightLimit.get()) && (!leftEncoderLimitHit && !rightEncoderLimitHit)){
       m_azimuthControl.set(azimuthSpeed);
+      limitLeft = m_leftLimit.get();
+    limitRight = m_rightLimit.get();
     }
     //If the left limit switch was hit or the left encoder limit was reached and we're moving right, we're fine
     //If the right limit switch was hit or the right encoder limit was reached and we're moving left, we're fine
     //If both the above and not both switches are hit at the same time 
     else if((((!m_leftLimit.get() || leftEncoderLimitHit) && (azimuthSpeed>0)) || ((!m_rightLimit.get() || rightEncoderLimitHit) &&(azimuthSpeed<0))) && ((m_leftLimit.get() || m_rightLimit.get()))){
       m_azimuthControl.set(azimuthSpeed);
+      limitLeft = m_leftLimit.get();
+      limitRight = m_rightLimit.get();
     }
     else {
       m_azimuthControl.set(0);
+      limitLeft = m_leftLimit.get();
+      limitRight = m_rightLimit.get();
     }
-
+    
 
   }
 

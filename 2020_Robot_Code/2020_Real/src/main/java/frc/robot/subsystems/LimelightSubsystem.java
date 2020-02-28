@@ -81,6 +81,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     }
   }
 
+  public NetworkTable getNetworkTable(){
+    return table;
+  } 
+
 
   public double gettxValue(){
     tx = table.getEntry("tx");

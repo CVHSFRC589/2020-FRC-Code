@@ -20,6 +20,7 @@ public class AutomaticAiming extends CommandBase {
    * Creates a new AutomaticAiming.
    */
   ShooterSubsystem shoot;
+  boolean direction = true;
 
   int t = 0;
 
@@ -38,19 +39,50 @@ public class AutomaticAiming extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shoot.getTargetFound()){ //If we're aligned with the target stop moving
-      shoot.setAzimuthMotor(0);
-    }
-    else{
-      double x = shoot.getDegRotToTarget(); 
-      if(x<0){  //if left of target turn right
-        shoot.setAzimuthMotor(0.2);
+    // if(shoot.getTargetFound()){ //If we're aligned with the target stop moving
+    //   shoot.setAzimuthMotor(0);
+    // }
+    if(shoot.getTargetFound())
+    {
+      if(shoot.getDegRotToTarget()<0.05)    //Make LEDs GREEN
+      { //If we're aligned with the target stop moving
+        shoot.setAzimuthMotor(0);
       }
-      else if(x>0){  //if right of target turn left
-        shoot.setAzimuthMotor(-0.2);
+      else
+      {
+        double x = shoot.getDegRotToTarget(); 
+        if(x<0)
+        {  //if right of target turn left
+         shoot.setAzimuthMotor(-0.1);
+        }
+        else if(x>0)
+        {  //if left of target turn right
+        shoot.setAzimuthMotor(0.1);
+        }
+      } 
+    }
+    else
+    {
+      if(!shoot.limitLeft){
+        shoot.setAzimuthMotor(0.1);
+        direction = true;
+      }
+      else if(!shoot.limitRight){
+        shoot.setAzimuthMotor(-0.1);
+        direction = false;
+      }
+      else{
+        if(direction){
+          shoot.setAzimuthMotor(0.1);
+        }
+        else{
+          shoot.setAzimuthMotor(-0.1);
+        }
       }
     }
-    System.out.println(t);
+    //shoot.setAzimuthMotor(0.1);
+
+   // System.out.println("*************(((()))))********");
     t++;
   }
 
@@ -62,7 +94,8 @@ public class AutomaticAiming extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (t > 100) { return true; }
+    // if (t > 100) { return true; }
     return shoot.getTargetFound();
+
   }
 }

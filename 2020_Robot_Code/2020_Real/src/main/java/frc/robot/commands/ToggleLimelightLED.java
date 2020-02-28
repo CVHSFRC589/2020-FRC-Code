@@ -16,26 +16,29 @@ public class ToggleLimelightLED extends CommandBase {
   /**
    * Creates a new ToggleLimelightLED.
    */
-  ShooterSubsystem m_limelight; //eventually move the setLimelightLEDMode to Limelight subsystem
- // private LedMode mode = 3;
-  //this.table.getEntry("ledMode").setNumber(3);
-   //3 is on 1 is off
-  public ToggleLimelightLED(ShooterSubsystem limelight) { //add limelight subsystem to get network table to use line 21
+  ShooterSubsystem m_shooter; //eventually move the setLimelightLEDMode to Limelight subsystem
+  LimelightSubsystem m_limelight;
+  private static boolean limelightON = true;
+  public ToggleLimelightLED(ShooterSubsystem shooter, LimelightSubsystem limelight) { //add limelight subsystem to get network table to use line 21
     // Use addRequirements() here to declare subsystem dependencies.
+    m_shooter = shooter;
     m_limelight = limelight;
-    addRequirements(m_limelight);
+    addRequirements(m_shooter, m_limelight);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // if(mode == 3){
-    //   mode = 1;
-    // }
-    // else{
-    //   mode = 3;
-    // }
-    // m_limelight.setLimelightLEDMode(mode);
+    //3 is on, 1 is off
+    if(limelightON){
+      m_limelight.getNetworkTable().getEntry("ledMode").setNumber(1);
+      limelightON = false;
+    }
+    else{
+      m_limelight.getNetworkTable().getEntry("ledMode").setNumber(3);
+      limelightON = true;
+    }
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
