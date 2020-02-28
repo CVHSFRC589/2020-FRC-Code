@@ -228,6 +228,7 @@ public class Egg extends CommandBase {
     ArrayList<DoublePoint> Points = new ArrayList<DoublePoint>();
     Path P;
             
+    /*
     T.add(new Task("AutomaticAiming", null));
     T.add(new Task("ManuallyShoot", null));
     T.add(new Task(3));
@@ -252,6 +253,22 @@ public class Egg extends CommandBase {
     T.add(new Task("ManuallyShoot", null));
     T.add(new Task(3));
     T.add(new Task("ManuallyShoot", null));
+    */
+
+    T.add(new Task("ManuallyShoot", null));
+    T.add(new Task("ManuallyLoad", null));
+    T.add(new Task(3));
+    T.add(new Task("ManuallyLoad", null));
+    T.add(new Task("ManuallyShoot", null));
+
+    Points = new ArrayList<DoublePoint>();
+    Points.add(new DoublePoint(0, 0));
+    Points.add(new DoublePoint(-72, 0));
+    Points.add(new DoublePoint(-72, 0));
+    P = new Path(Points);
+    P.calculate();
+    T.add(new Task(P, true));
+
     Schedule S = new Schedule(T);
     schedule = S;
 
