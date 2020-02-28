@@ -236,15 +236,15 @@ public class Egg extends CommandBase {
     T.add(new Task("ToggleIntake", null));
     Points = new ArrayList<DoublePoint>();
     Points.add(new DoublePoint(0, 0));
-    Points.add(new DoublePoint(-100, 0));
+    Points.add(new DoublePoint(-192, 0));
     P = new Path(Points);
     P.calculate();
     T.add(new Task(P, true));
     T.add(new Task("ToggleIntake", null));
     T.add(new Task("RetractIntake", null));
     Points = new ArrayList<DoublePoint>();
-    Points.add(new DoublePoint(-100, 0));
-    Points.add(new DoublePoint(-10, 0));
+    Points.add(new DoublePoint(-192, 0));
+    Points.add(new DoublePoint(-72, 0));
     P = new Path(Points);
     P.calculate();
     T.add(new Task(P, true));
