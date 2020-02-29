@@ -77,7 +77,7 @@ public class Robot extends TimedRobot {
       //m_autonomousCommand.schedule();
     //}
 
-    Egg egg = new Egg(this, m_robotContainer.commands);
+    Egg egg = new Egg(this, m_robotContainer.commands, Constants.DriveConstants.maxAutoSpeed);
     CommandScheduler.getInstance().schedule(egg);
     isAuto = true;
   }

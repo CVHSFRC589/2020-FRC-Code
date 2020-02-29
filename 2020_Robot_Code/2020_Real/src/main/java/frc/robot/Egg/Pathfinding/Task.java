@@ -15,7 +15,7 @@ public class Task implements Serializable{
 	public String command;
 	public String method;
 
-	public double time;
+	public long time;
 
 	public Task(Path P, boolean back) {
 		path = P;
@@ -27,7 +27,7 @@ public class Task implements Serializable{
 		command = Command;
 	}
 	
-	public Task(double Time) {
+	public Task(long Time) {
 		time = Time;
 	}
 }

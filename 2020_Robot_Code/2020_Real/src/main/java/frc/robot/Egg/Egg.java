@@ -46,13 +46,17 @@ public class Egg extends CommandBase {
 
   boolean done = false;
 
+  double Vmax;
+
   public Hashtable<String, CommandBase> Commands = new Hashtable<String, CommandBase>();
 
-  public Egg(Robot R, Hashtable<String, CommandBase> commands) {
+  public Egg(Robot R, Hashtable<String, CommandBase> commands, double maxSpeed) {
     // addRequirements(Robot.drive);
     robot = R;
     Commands = commands;
 
+
+    Vmax = maxSpeed;
   }
 
   void getScheduleFromNT() {
@@ -152,19 +156,20 @@ public class Egg extends CommandBase {
 
     System.out.println("***********" + task.command + "**********");
 
-    if (task.time != 0) {
-      System.out.println(task.time);
-      try {
-        Thread.sleep((long) task.time);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-      task = null;
-    } else if (task.path != null && purePursuit == null) {
-      Path P = task.path;
-      purePursuit = new PurePursuit(P, b);
-    } else if (!runningCommand && purePursuit == null) {
+    if (task.path != null && purePursuit == null) {
+      configureDrive();
+    } else if (task.time != 0) {
+      pause(task.time);
+    } else if (task.command != null) {
+      handleCommand();
+    }
+
+    
+
+  }
+
+  void handleCommand() {
+    if (!runningCommand && purePursuit == null) {
       runningCommand = true;
       CommandScheduler.getInstance().schedule(Commands.get(task.command));
       try {
@@ -186,10 +191,30 @@ public class Egg extends CommandBase {
       }
     }
   }
+
+  void configureDrive() {
+    Path P = task.path;
+    purePursuit = new PurePursuit(P, b);
+  }
+
+  boolean paused = false;
+  double time;
+
+  void pause(long duration) {
+    if (!paused) {
+      time = System.currentTimeMillis();
+    }
+    paused = true;
+
+    if (System.currentTimeMillis() - time >= duration * 1000) {
+      task = null;
+      paused = false;
+    }    
+  }
   
   
 
-  protected double x, y, angle = 0, b = Constants.DriveConstants.wheelBaseWidth;
+  protected double x, y, angle = 0, b = 22;
   double oldEval = 0, oldLE = 0, oldRE = 0;
   protected AHRS Navx;  
 
@@ -202,12 +227,8 @@ public class Egg extends CommandBase {
     ArrayList<Task> T = new ArrayList<Task>();
     ArrayList<DoublePoint> Points = new ArrayList<DoublePoint>();
     Path P;
-    Points = new ArrayList<DoublePoint>();
-    Points.add(new DoublePoint(0, 0));
-    Points.add(new DoublePoint(100, 0));
-    P = new Path(Points);
-    P.calculate();
-    T.add(new Task(P, false));         
+            
+    /*
     T.add(new Task("AutomaticAiming", null));
     T.add(new Task("ManuallyShoot", null));
     T.add(new Task(3));
@@ -215,17 +236,39 @@ public class Egg extends CommandBase {
     T.add(new Task("DeployIntake", null));
     T.add(new Task("ToggleIntake", null));
     Points = new ArrayList<DoublePoint>();
-    Points.add(new DoublePoint(100, 0));
-    Points.add(new DoublePoint(50, 0));
+    Points.add(new DoublePoint(0, 0));
+    Points.add(new DoublePoint(-192, 0));
     P = new Path(Points);
     P.calculate();
     T.add(new Task(P, true));
     T.add(new Task("ToggleIntake", null));
     T.add(new Task("RetractIntake", null));
+    Points = new ArrayList<DoublePoint>();
+    Points.add(new DoublePoint(-192, 0));
+    Points.add(new DoublePoint(-72, 0));
+    P = new Path(Points);
+    P.calculate();
+    T.add(new Task(P, true));
     T.add(new Task("AutomaticAiming", null));
     T.add(new Task("ManuallyShoot", null));
     T.add(new Task(3));
     T.add(new Task("ManuallyShoot", null));
+    */
+
+    T.add(new Task("ManuallyShoot", null));
+    T.add(new Task("ManuallyLoad", null));
+    T.add(new Task(3));
+    T.add(new Task("ManuallyLoad", null));
+    T.add(new Task("ManuallyShoot", null));
+
+    Points = new ArrayList<DoublePoint>();
+    Points.add(new DoublePoint(0, 0));
+    Points.add(new DoublePoint(-72, 0));
+    Points.add(new DoublePoint(-72, 0));
+    P = new Path(Points);
+    P.calculate();
+    T.add(new Task(P, true));
+
     Schedule S = new Schedule(T);
     schedule = S;
 
@@ -280,7 +323,7 @@ public class Egg extends CommandBase {
     //System.out.println("***************" + angle);
     trackPos();
 
-    double r = -10, Vmax = Constants.DriveConstants.maxAutoSpeed;
+    double r = -10;
     double Vr = 0, Vl = 0;
 
 
