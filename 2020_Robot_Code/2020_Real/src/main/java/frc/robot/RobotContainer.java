@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.ToggleLimelightLED;
+import frc.robot.commands.TrenchSpeed;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.AutomaticAiming;
 import frc.robot.commands.ChangeCameraMode;
@@ -24,6 +25,7 @@ import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DriveController;
 import frc.robot.commands.DrivePID;
 import frc.robot.commands.ExtendClimber;
+import frc.robot.commands.InitiationLineSpeed;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.ReverseIntake;
@@ -88,6 +90,8 @@ public class RobotContainer {
   final int toggleLimelightLED = 6; //j2
   final int changeStreamMode = 9; //j1
   final int switchCameraMode = 8; //j1
+  final int initiationLineSpeed = 11; //j2
+  final int trenchSpeed = 12; //j2
 
   //final int constDrive = 7;
   //{constantDrive = new JoystickButton(j1, constDrive);}
@@ -164,6 +168,10 @@ public class RobotContainer {
     //Manual Shooting
     new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
     new JoystickButton(j2, loadBall).whenPressed(new ManuallyLoad(m_shoot));
+    new JoystickButton(j2, initiationLineSpeed).whenPressed(new InitiationLineSpeed(m_shoot));
+    new JoystickButton(j2, trenchSpeed).whenPressed(new TrenchSpeed(m_shoot));
+
+
     new JoystickButton(j1, changeStreamMode).whenPressed(new ChangeStreamMode(m_shoot));
     new JoystickButton(j1, switchCameraMode).whenPressed(new ChangeCameraMode(m_shoot));
     new JoystickButton(j2, toggleLimelightLED).whenPressed(new ToggleLimelightLED(m_shoot, m_LimelightSubsystem));

@@ -172,12 +172,12 @@ public class ShooterSubsystem extends SubsystemBase {
     if(m_limeLight.getIsTargetFound()){
       double xOffset = m_limey.gettxValue();
       m_azimuthControl.set(0.1);
-      if((-.75 < xOffset)&&(xOffset < .75))
+      if((-.5 < xOffset)&&(xOffset < .5))
       {
         azimuthSpeed = 0;
       } 
       else {
-        azimuthSpeed = (xOffset / -20.500000)/5; //maybe change this, if I understand right the motor is set to 1 at the greatest offset
+        azimuthSpeed = (xOffset / -20.500000)/4; 
         if ((xOffset > -1.5) && (xOffset<1.5)) { //if the angle is this small, the P will be too low to move the azimuth control
           azimuthSpeed = azimuthSpeed*1.5;    //Number needs to be tested on 2020Bot, currently arbitrary
         }

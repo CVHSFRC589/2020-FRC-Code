@@ -32,12 +32,13 @@ public class AutomaticAiming extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(!ShooterSubsystem.on){
-      ShooterSubsystem.on = true;
-    }
-    else{
-      ShooterSubsystem.on = false;
-    }
+    // if(!ShooterSubsystem.on){
+    //   ShooterSubsystem.on = true;
+    // }
+    // else{
+    //   ShooterSubsystem.on = false;
+    // }
+    ShooterSubsystem.on = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,11 +47,11 @@ public class AutomaticAiming extends CommandBase {
     if(ShooterSubsystem.on){
       if(shoot.getTargetFound())
       {
-        System.out.println(shoot.getTargetFound());
+        //System.out.println(shoot.getTargetFound());
         if(Math.abs(shoot.getDegRotToTarget())<0.05)    //Make LEDs GREEN
         { //If we're aligned with the target stop moving
           shoot.setAzimuthMotor(0);
-          ShooterSubsystem.on = false; //reset the on boolean, so the next time the command is called it runs (initialize makes it true first)
+          //ShooterSubsystem.on = false; //reset the on boolean, so the next time the command is called it runs (initialize makes it true first)
           //System.out.println("*******************ALIGNED*******************");
         }
         else
@@ -161,7 +162,7 @@ public class AutomaticAiming extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   if((shoot.getTargetFound() && Math.abs(shoot.getDegRotToTarget())<0.5) || endCommand){ //endCommand is for if the button gets pressed again to stop automatic aiming
+   if((shoot.getTargetFound() && Math.abs(shoot.getDegRotToTarget())<0.5)){ //endCommand is for if the button gets pressed again to stop automatic aiming
     return true;
    }
   return false;
