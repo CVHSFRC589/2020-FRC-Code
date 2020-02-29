@@ -11,7 +11,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Egg.Egg;
+import frc.robot.commands.DriveController;
+import frc.robot.commands.DrivePID;
+import frc.robot.commands.DriveToDistance;
 import frc.robot.subsystems.DriveSubsystem;
+
+import edu.wpi.first.wpilibj.MotorSafety;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,6 +28,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   public static DriveSubsystem driveSubsystem;
   public static boolean isAuto = false;
+  public Egg egg;
 
   private RobotContainer m_robotContainer;
 
@@ -77,8 +83,11 @@ public class Robot extends TimedRobot {
       //m_autonomousCommand.schedule();
     //}
 
-    Egg egg = new Egg(this, m_robotContainer.commands, Constants.DriveConstants.maxAutoSpeed);
+    egg = new Egg(this, m_robotContainer.commands, Constants.DriveConstants.maxAutoSpeed);
     CommandScheduler.getInstance().schedule(egg);
+    //new DrivePID(driveSubsystem);
+    //new DriveToDistance(driveSubsystem, -5);
+    //new DriveController(driveSubsystem, -0.5, -.5, );
     isAuto = true;
   }
 
@@ -92,6 +101,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     isAuto = false;
+    CommandScheduler.getInstance().cancel(egg);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

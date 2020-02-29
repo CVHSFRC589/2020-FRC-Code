@@ -73,6 +73,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public boolean limitLeft = false;
   public boolean limitRight = false;
 
+  public static boolean on = false; //used in AutomaticAiming
 
   //Might have a solenoid to gatekeep power cells (between storage and shooting system)
   
@@ -166,27 +167,70 @@ public class ShooterSubsystem extends SubsystemBase {
 
   }
 
-
-  public boolean setAzimuthMotorAutomatic(double azimuthSpeed){
-    double xOffset = m_limey.gettxValue();
-
-    if((-.75 < xOffset)||(xOffset < .75))
-    {
-      azimuthSpeed = 0;
-    } 
-    else {
-      azimuthSpeed = xOffset / -20.500000; //maybe change this, if I understand right the motor is set to 1 at the greatest offset
-      if ((xOffset > -1.5) && (xOffset<1.5)) { //if the angle is this small, the P will be too low to move the azimuth control
-        azimuthSpeed = azimuthSpeed*3;    //Number needs to be tested on 2020Bot, currently arbitrary
+  public boolean direction = false;
+  public void setAzimuthMotorAutomatic(double azimuthSpeed){
+    if(m_limeLight.getIsTargetFound()){
+      double xOffset = m_limey.gettxValue();
+      m_azimuthControl.set(0.1);
+      if((-.75 < xOffset)&&(xOffset < .75))
+      {
+        azimuthSpeed = 0;
+      } 
+      else {
+        azimuthSpeed = (xOffset / -20.500000)/5; //maybe change this, if I understand right the motor is set to 1 at the greatest offset
+        if ((xOffset > -1.5) && (xOffset<1.5)) { //if the angle is this small, the P will be too low to move the azimuth control
+          azimuthSpeed = azimuthSpeed*1.5;    //Number needs to be tested on 2020Bot, currently arbitrary
+        }
       }
     }
+    else{
+      if(!limitLeft){
+        setAzimuthMotor(ShooterConstants.azimuthSpeed);
+        direction = true;
+      }
+      else if(!limitRight){
+        setAzimuthMotor(-ShooterConstants.azimuthSpeed);
+        direction = false;
+      }
+      else{
+        if(direction){
+          setAzimuthMotor(ShooterConstants.azimuthSpeed);
+        }
+        else{
+          setAzimuthMotor(-ShooterConstants.azimuthSpeed);
+        }
+      }
+    }
+    
+    
 
    //DigitalInput returns false if limit switch was hit
     
     //check if encoder limit was reached (in case of magnetic limit switch failure)
+    // boolean leftEncoderLimitHit = false;
+    // boolean rightEncoderLimitHit = false;
+    // boolean limitHit = false; //just for return purposes
+    // if((Math.abs(m_azimuthEncoder.getPosition()) - initialAzimuthEncoderValue) >= ShooterConstants.azimuthEncoderLimit){
+    //   if(m_azimuthEncoder.getPosition() < initialAzimuthEncoderValue){
+    //     leftEncoderLimitHit = true;
+    //   }
+    //   if(m_azimuthEncoder.getPosition() > initialAzimuthEncoderValue){
+    //     rightEncoderLimitHit = true;
+    //   }
+    // }
+    
+    // if((m_leftLimit.get() && m_rightLimit.get()) && (!leftEncoderLimitHit && !rightEncoderLimitHit)){
+    //   m_azimuthControl.set(azimuthSpeed);
+    // }
+    // else if((((!m_leftLimit.get() || leftEncoderLimitHit) && (azimuthSpeed>0)) || ((!m_rightLimit.get() || rightEncoderLimitHit) &&(azimuthSpeed<0))) && ((m_leftLimit.get() || m_rightLimit.get()))){
+    //   m_azimuthControl.set(azimuthSpeed);
+    // }
+    // else {
+    //   m_azimuthControl.set(0);
+    //   limitHit = true;
+    // }
     boolean leftEncoderLimitHit = false;
     boolean rightEncoderLimitHit = false;
-    boolean limitHit = false; //just for return purposes
     if((Math.abs(m_azimuthEncoder.getPosition()) - initialAzimuthEncoderValue) >= ShooterConstants.azimuthEncoderLimit){
       if(m_azimuthEncoder.getPosition() < initialAzimuthEncoderValue){
         leftEncoderLimitHit = true;
@@ -195,18 +239,26 @@ public class ShooterSubsystem extends SubsystemBase {
         rightEncoderLimitHit = true;
       }
     }
-    
+   
+    //If neither limit switch is hit and the encoder limit hasn't been reached, we're fine (set the motors to the desired speed)
     if((m_leftLimit.get() && m_rightLimit.get()) && (!leftEncoderLimitHit && !rightEncoderLimitHit)){
       m_azimuthControl.set(azimuthSpeed);
+      limitLeft = m_leftLimit.get();
+    limitRight = m_rightLimit.get();
     }
+    //If the left limit switch was hit or the left encoder limit was reached and we're moving right, we're fine
+    //If the right limit switch was hit or the right encoder limit was reached and we're moving left, we're fine
+    //If both the above and not both switches are hit at the same time 
     else if((((!m_leftLimit.get() || leftEncoderLimitHit) && (azimuthSpeed>0)) || ((!m_rightLimit.get() || rightEncoderLimitHit) &&(azimuthSpeed<0))) && ((m_leftLimit.get() || m_rightLimit.get()))){
       m_azimuthControl.set(azimuthSpeed);
+      limitLeft = m_leftLimit.get();
+      limitRight = m_rightLimit.get();
     }
     else {
       m_azimuthControl.set(0);
-      limitHit = true;
+      limitLeft = m_leftLimit.get();
+      limitRight = m_rightLimit.get();
     }
-    return limitHit;
   }
 
   public void xOffsetCorrection(){

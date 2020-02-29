@@ -148,7 +148,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     //configure button bindings for each command, constants can be found
-    //p[] b1  2 new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive), true);
+    //new JoystickButton(j1, switchDriveDirection).whenPressed(new SwitchDriveDirection(m_drive), true);
 
     new JoystickButton(j1, climberExtend).whenPressed(new ExtendClimber(m_climb));
     new JoystickButton(j1, climberRetract).whenPressed(new RetractClimber(m_climb));

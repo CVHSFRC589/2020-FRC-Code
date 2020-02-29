@@ -154,7 +154,7 @@ public class Egg extends CommandBase {
       return;
     }
 
-    System.out.println("***********" + task.command + "**********");
+    //System.out.println("***********" + task.command + "**********");
 
     if (task.path != null && purePursuit == null) {
       configureDrive();
@@ -255,19 +255,28 @@ public class Egg extends CommandBase {
     T.add(new Task("ManuallyShoot", null));
     */
 
-    T.add(new Task("ManuallyShoot", null));
-    T.add(new Task("ManuallyLoad", null));
-    T.add(new Task(3));
-    T.add(new Task("ManuallyLoad", null));
-    T.add(new Task("ManuallyShoot", null));
+    //T.add(new Task("ManuallyShoot", null));
+    //T.add(new Task(1));
+    //T.add(new Task("ManuallyLoad", null));
+    //T.add(new Task(3));
+    //T.add(new Task("ManuallyLoad", null));
+    //T.add(new Task("ManuallyShoot", null));
 
+
+    T.add(new Task("ManuallyShoot", null));
     Points = new ArrayList<DoublePoint>();
     Points.add(new DoublePoint(0, 0));
-    Points.add(new DoublePoint(-72, 0));
-    Points.add(new DoublePoint(-72, 0));
+    Points.add(new DoublePoint(-90, 0));
+    //Points.add(new DoublePoint(-72, -30));
+    //Points.add(new DoublePoint(-192, -30));
     P = new Path(Points);
     P.calculate();
     T.add(new Task(P, true));
+    T.add(new Task("AutomaticAiming", null));
+    T.add(new Task("ManuallyLoad", null));
+    T.add(new Task(3));
+    //T.add(new Task("ManuallyShoot", null));
+    T.add(new Task("ManuallyLoad", null));
 
     Schedule S = new Schedule(T);
     schedule = S;
@@ -319,6 +328,7 @@ public class Egg extends CommandBase {
   void drive() {
     //System.out.println("Driving");
     angle = Navx.getAngle();
+    //angle += 6;
     //angle += 90;
     //System.out.println("***************" + angle);
     trackPos();
@@ -354,8 +364,8 @@ public class Egg extends CommandBase {
       Vr = 0;
     }
 
-    Vr = Clamp.clamp(0, Vmax, Vr);
-    Vl = Clamp.clamp(0, Vmax, Vl);
+    Vr = Clamp.clamp(-Vmax, Vmax, Vr);
+    Vl = Clamp.clamp(-Vmax, Vmax, Vl);
 
     //double temp = Vr;
     //Vr = Vl;
@@ -368,7 +378,8 @@ public class Egg extends CommandBase {
       Vr = -Vl;
       Vl = -temp;
     }
-    Robot.driveSubsystem.setMotors(Vl, -Vr, 1);
+    Robot.driveSubsystem.tankDrive(Vl, Vr, 1);
+    //Robot.driveSubsystem.setMotors(Vl, -Vr, 1);
 
     System.out.println("X: " + (int)x + " Y: " + (int)y + " Angle: " + (int)angle);
   }
@@ -385,6 +396,8 @@ public class Egg extends CommandBase {
     }
 
     angle = (negative) ? 360 - angle : angle;
+
+    //angle = 0.0001;
 
     double EncoderR = -1 * Robot.driveSubsystem.getRight();
     double EncoderL = Robot.driveSubsystem.getLeft();
@@ -414,11 +427,13 @@ public class Egg extends CommandBase {
   // Called once after isFinished returns true
   //@Override
   protected void end() {
+    done = true;
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   //@Override
   protected void interrupted() {
+    done = true;
   }
 }

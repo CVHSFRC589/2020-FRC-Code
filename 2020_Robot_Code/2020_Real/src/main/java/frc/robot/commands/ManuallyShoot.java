@@ -29,6 +29,25 @@ public class ManuallyShoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // if(runShooter){ //if we want to run the shooter
+    //   shoot.setShootingMotor(ShooterConstants.shootingSpeed);
+    //   //shoot.setShootingMotorPID(ShooterConstants.shootingSpeed);
+    //   runShooter = false;
+    //   ShooterSubsystem.shootingWheelRunning = true;
+    // }
+    // else{   //the button was pressed while the shooter was on, so turn it off
+    //   shoot.setShootingMotor(0);
+    //   shoot.setShootingMotorPID(0);
+    //   runShooter = true;
+    //   ShooterSubsystem.shootingWheelRunning = false;
+    // }
+   // shoot.setLoadingMotor(ShooterConstants.loadingSpeed); //set this constant to one for the loading motor
+   // System.out.println("CALLED ***************" + ShooterConstants.shootingSpeed);
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
     if(runShooter){ //if we want to run the shooter
       shoot.setShootingMotor(ShooterConstants.shootingSpeed);
       //shoot.setShootingMotorPID(ShooterConstants.shootingSpeed);
@@ -41,15 +60,6 @@ public class ManuallyShoot extends CommandBase {
       runShooter = true;
       ShooterSubsystem.shootingWheelRunning = false;
     }
-   // shoot.setLoadingMotor(ShooterConstants.loadingSpeed); //set this constant to one for the loading motor
-   // System.out.println("CALLED ***************" + ShooterConstants.shootingSpeed);
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-   // shoot.setShootingMotor(ShooterConstants.shootingSpeed);
-   // shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
   }
 
   // Called once the command ends or is interrupted.

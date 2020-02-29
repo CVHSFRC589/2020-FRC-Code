@@ -18,8 +18,8 @@ package frc.robot;
 public final class Constants {
     //Constants for each subsystem
     public static final class DriveConstants{
-        public static final int kLeftMotorPort = 11; //11
-        public static final int kRightMotorPort = 12; //12
+        public static final int kLeftMotorPort = 12; //11
+        public static final int kRightMotorPort = 11; //12
 
         //No ports for the encoders because they're built in
         //public static final int kLeftCANEncoderPort = 0;
@@ -36,7 +36,7 @@ public final class Constants {
         public static final double kEncoderIPR = kWheelDiameterInches*Math.PI; // 18.85 inches per revolution (circumference)
         public static final double kEncoderCPI = 0.583333333333; //idk why this even works
         
-        public static final double maxAutoSpeed = 0.1;
+        public static final double maxAutoSpeed = 0.4;
     }
 
     public static final class ClimberConstants{
@@ -61,8 +61,9 @@ public final class Constants {
         public static final int leftLimitInputChannel = 1;
         public static final int rightLimitInputChannel = 2;
 
-        public static final double shootingSpeed = -0.5;  //-0.52
+        public static final double shootingSpeed = -0.55;  //-0.52
         public static final double loadingSpeed = 1;
+        public static final double azimuthSpeed = 0.15;
     
         public static final int azimuthMaxCurrentLimit = 40; //in Amps 
         

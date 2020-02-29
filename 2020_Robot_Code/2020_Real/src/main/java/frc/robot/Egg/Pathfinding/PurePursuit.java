@@ -116,14 +116,14 @@ public class PurePursuit {
 			if (!found) {
 				System.out.println("Loop" + lookaheadDistance);
 				if (t > Path.resolution * 0.7) {
-					lookaheadDistance -= 1;
+					lookaheadDistance -= 5;
 					if (lookaheadDistance <= 0) {
 						t = -1;
 						System.out.println("Done");
 						return new DoublePoint(0, 0);
 					}
 				} else {
-					lookaheadDistance += 0.1;
+					lookaheadDistance += 5;
 					if (lookaheadDistance >= 50) {
 						t = -1;
 						System.out.println("Done");

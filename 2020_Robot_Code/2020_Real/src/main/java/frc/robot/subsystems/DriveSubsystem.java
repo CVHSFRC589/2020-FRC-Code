@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.EncoderType;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import java.util.function.DoubleSupplier;
 
@@ -45,6 +46,9 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
+
+    m_leftMotor.setIdleMode(IdleMode.kCoast);
+    m_rightMotor.setIdleMode(IdleMode.kCoast);
    
     //leftManager.initializePID(0.25);
    // rightManager.initializePID(0.25);
@@ -64,8 +68,8 @@ public class DriveSubsystem extends SubsystemBase {
     }
   }
   public void drivePID(){
-    // leftManager.setPIDSpeed(0.25);
-    // rightManager.setPIDSpeed(0.25);
+     leftManager.setPIDSpeed(-0.25);
+     rightManager.setPIDSpeed(-0.25);
   }
   public void tankDrive(double left, double right, double multiplier){
    if(m_driveForward)
