@@ -42,7 +42,7 @@ public class ToggleLimelightLED extends CommandBase {
       limelightON = false;
     }
     else{
-      m_limelight.getNetworkTable().getEntry("ledMode").setNumber(3);
+      m_limelight.getNetworkTable().getEntry("ledMode").setNumber(0);
       //System.out.println("4444444444444");
       limelightON = true;
     }

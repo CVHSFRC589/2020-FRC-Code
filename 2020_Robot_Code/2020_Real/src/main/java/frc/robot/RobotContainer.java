@@ -26,6 +26,7 @@ import frc.robot.commands.DriveController;
 import frc.robot.commands.DrivePID;
 import frc.robot.commands.ExtendClimber;
 import frc.robot.commands.InitiationLineSpeed;
+import frc.robot.commands.LimelightLEDON;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.ReverseIntake;
@@ -140,6 +141,8 @@ public class RobotContainer {
     commands.put("RetractIntake", R);
     ManuallyLoad M2 = new ManuallyLoad(m_shoot);
     commands.put("ManuallyLoad", M2);
+    LimelightLEDON L = new LimelightLEDON(m_shoot, m_LimelightSubsystem);
+    commands.put("LimelightLEDON", L);
     
     //constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
   }

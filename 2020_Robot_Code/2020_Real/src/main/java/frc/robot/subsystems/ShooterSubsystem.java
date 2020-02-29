@@ -177,7 +177,7 @@ public class ShooterSubsystem extends SubsystemBase {
         azimuthSpeed = 0;
       } 
       else {
-        azimuthSpeed = (xOffset / -20.500000)/4; 
+        azimuthSpeed = (xOffset / -20.500000)/2; 
         if ((xOffset > -1.5) && (xOffset<1.5)) { //if the angle is this small, the P will be too low to move the azimuth control
           azimuthSpeed = azimuthSpeed*1.5;    //Number needs to be tested on 2020Bot, currently arbitrary
         }

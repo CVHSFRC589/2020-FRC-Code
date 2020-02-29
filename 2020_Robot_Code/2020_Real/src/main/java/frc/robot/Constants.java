@@ -47,7 +47,7 @@ public final class Constants {
         public static final int[] kIntakeSolenoidPorts = new int[]{6, 5};
         public static final int kIntakeMotorPort = 40;
         
-        public static final double kIntakeMotorSpeed = 0.4;
+        public static final double kIntakeMotorSpeed = 0.45;
     }
     public static final class ShooterConstants{
         public static final int kLoadingWheelMotorPort = 22;
@@ -63,7 +63,7 @@ public final class Constants {
 
         public static double shootingSpeed = -0.55;  //-0.52
         public static final double loadingSpeed = 1;
-        public static final double azimuthSpeed = 0.15;
+        public static final double azimuthSpeed = 0.12;
     
         public static final int azimuthMaxCurrentLimit = 40; //in Amps 
         

@@ -56,7 +56,7 @@ public class ManuallyShoot extends CommandBase {
     }
     else{   //the button was pressed while the shooter was on, so turn it off
       shoot.setShootingMotor(0);
-      shoot.setShootingMotorPID(0);
+      //shoot.setShootingMotorPID(0);
       runShooter = true;
       ShooterSubsystem.shootingWheelRunning = false;
     }

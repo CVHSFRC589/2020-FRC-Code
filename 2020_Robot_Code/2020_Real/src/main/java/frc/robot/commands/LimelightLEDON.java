@@ -8,29 +8,36 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ShooterConstants;
+import frc.robot.ControlMode.LedMode;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class TrenchSpeed extends CommandBase {
+public class LimelightLEDON extends CommandBase {
   /**
-   * Creates a new TrenchSpeed.
+   * Creates a new ToggleLimelightLED.
    */
-  ShooterSubsystem m_shooter;
-  public TrenchSpeed(ShooterSubsystem shooter) {
+  ShooterSubsystem m_shooter; // eventually move the setLimelightLEDMode to Limelight subsystem
+  LimelightSubsystem m_limelight;
+
+  public LimelightLEDON(ShooterSubsystem shooter, LimelightSubsystem limelight) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_shooter = shooter;
-    addRequirements(m_shooter);
+    m_limelight = limelight;
+    addRequirements(m_shooter, m_limelight);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ShooterConstants.shootingSpeed = -0.65;
+    
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //3 is on, 1 is off
+    m_limelight.getNetworkTable().getEntry("ledMode").setNumber(3);
   }
 
   // Called once the command ends or is interrupted.
