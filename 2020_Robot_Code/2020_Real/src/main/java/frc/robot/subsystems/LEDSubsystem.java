@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.LimeLight;
 import frc.robot.subsystems.LimelightSubsystem;
 
 public class LEDSubsystem extends SubsystemBase {
@@ -22,7 +21,7 @@ public class LEDSubsystem extends SubsystemBase {
   AddressableLEDBuffer m_ledBuffer;
 
   public LEDSubsystem() {
-    // PWM port 9
+   // PWM port 9
     m_led = new AddressableLED(9);
 
     m_ledBuffer = new AddressableLEDBuffer(60);
@@ -34,7 +33,7 @@ public class LEDSubsystem extends SubsystemBase {
 
   public void LED() {
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-      // Sets the specified LED to the HSV values for red
+    //  Sets the specified LED to the HSV values for red
       m_ledBuffer.setHSV(i, 180, 98, 59);
     }
     m_led.setData(m_ledBuffer);
@@ -61,28 +60,31 @@ public class LEDSubsystem extends SubsystemBase {
     }
   }
 
-  // private void frontLEDs(){
-  //   int i;
-  // //boolean forwardDrive = DriveSubsystem.m_driveForward;
-  //   while(forwardDrive){
-  //     m_ledBuffer.setHSV(i, 190 + (i * (80/m_ledBuffer.getLength())), 100, 50); //Set farthest 2 LEDs
-  //     m_led.setData(m_ledBuffer);
-  //     i = i + 1;
-  //     if(i > m_ledBuffer.getLength())
-  //     {
-  //       i = 0;
-  //     }
-  //   }
-  //  m_ledBuffer.setHSV(i, 270 - (i * (80/m_ledBuffer.getLength())), 100, 50); //Set farthest 2 LEDs
-  //  m_led.setData(m_ledBuffer);
-  //   i = i + 1;
+  private void frontDrivingLEDs(){
+    int i = 0;
+  boolean forwardDrive = true; //Change to m_forwardDrive
+    while(forwardDrive){
+      m_ledBuffer.setHSV(i, 190 + (i * (80/m_ledBuffer.getLength())), 100, 100); //Set farthest 2 LEDs
+      m_led.setData(m_ledBuffer);
+      i ++;
+      if(i > m_ledBuffer.getLength())
+      {
+        i = 0;
+      }
+    }
+   m_ledBuffer.setHSV(i, 270 - (i * (80/m_ledBuffer.getLength())), 100, 100); //Set farthest 2 LEDs
+   m_led.setData(m_ledBuffer);
+    i ++;
 
-  //  if(i > m_ledBuffer.getLength())
-  //  {
-  //   i = 0;
-  //  }
-  //   }
- }
+   if(i > m_ledBuffer.getLength())
+   {
+    i = 0;
+   }
+    }
+  }
+
+//we need an LED to describe when the shooter and/or feeder is on
+
 /*
   private fullFireSpeed(){
 

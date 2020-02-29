@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     public static double xOffset;
     public static double point3Angle;
     public static boolean limelightTargetingStatic = true;
+    public double limelightMountAngle = 7.75;
   
     public LimelightSubsystem() {
       table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -57,7 +58,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
   }
   public void getDistance() {
     //Angle (in degrees) the limelight is mounted at
-    final double limeLightDefAngle = 16.3; //NEW VALUE NEEDED
+    final double limeLightDefAngle = .2 + limelightMountAngle + 2.4; //NEW VALUE NEEDED
     //Add the mount angle to the yangle gotten
     yAngleDegrees = yAngleDegrees + limeLightDefAngle;
     //Convert the new yangle into radians for the tangent
@@ -65,9 +66,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     //Get the tangent of the new yangle
     tyTangent = Math.tan(yAngleRadians);
     //Divide the tangent by the magic number gotten from a sample at 166.6in from target straight on
-    dist = 70.5 / tyTangent;           //NEW NUMBER MAY NEED TO BE GOTTEN WITH NEW ROBOT
+    dist = 57.25 / tyTangent;           //NEW NUMBER MAY NEED TO BE GOTTEN WITH NEW ROBOT
     //plug the number into the desmos graph
     dist = dist * 1.096 - 16.0466;     //Desmos correction graph REQUIRES TESTING WITH NEW ROBOT
+    dist = dist - 4.5; //Distance from camera lens to center of ball output
   }
 
   public static void toggleAimAssist() {
