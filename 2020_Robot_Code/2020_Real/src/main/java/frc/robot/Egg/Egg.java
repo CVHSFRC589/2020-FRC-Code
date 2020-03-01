@@ -184,7 +184,7 @@ public class Egg extends CommandBase {
       
     } else {
       if (runningCommand) {
-        if (CommandScheduler.getInstance().isScheduled(Commands.get(task.command))) {
+        if (!CommandScheduler.getInstance().isScheduled(Commands.get(task.command))) {
           runningCommand = false;
           task = null;
         } 
@@ -267,14 +267,14 @@ public class Egg extends CommandBase {
     //T.add(new Task(3));
     Points = new ArrayList<DoublePoint>();
     Points.add(new DoublePoint(0, 0));
-    Points.add(new DoublePoint(-135, 0));
+    Points.add(new DoublePoint(-100, 0));
     //Points.add(new DoublePoint(-72, -30));
     //Points.add(new DoublePoint(-192, -30));
     P = new Path(Points);
-    P.calculate();
-    T.add(new Task(P, true));
+    //P.calculate();
+    //T.add(new Task(P, true));
     T.add(new Task(1));
-    T.add(new Task("AutomaticAiming", null));
+    //T.add(new Task("AutomaticAiming", null));
     T.add(new Task("ManuallyLoad", null));
     T.add(new Task(3));
     //T.add(new Task("ManuallyShoot", null));
@@ -303,6 +303,7 @@ public class Egg extends CommandBase {
 
     //Navx.reset();
     startAngle = Navx.getAngle();
+    System.out.println("-----------------Start Angle: " + startAngle);
     angle = 0;
 
   }
@@ -382,7 +383,7 @@ public class Egg extends CommandBase {
     Robot.driveSubsystem.tankDrive(Vl, Vr, 1);
     //Robot.driveSubsystem.setMotors(Vl, -Vr, 1);
 
-    System.out.println("X: " + (int)x + " Y: " + (int)y + " Angle: " + (int)angle + "StartAngle: " + startAngle);
+    System.out.println("X: " + (int)x + " Y: " + (int)y + " Angle: " + (int)angle);
   }
 
   double startAngle;
