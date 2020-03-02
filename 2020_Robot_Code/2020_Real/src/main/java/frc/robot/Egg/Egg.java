@@ -214,7 +214,7 @@ public class Egg extends CommandBase {
   
   
 
-  protected double x = 0, y = 0, angle = 0, b = 22;
+  protected double x, y, angle = 0, b = 22;
   double oldEval = 0, oldLE = 0, oldRE = 0;
   protected AHRS Navx;  
 
@@ -262,24 +262,21 @@ public class Egg extends CommandBase {
     //T.add(new Task("ManuallyLoad", null));
     //T.add(new Task("ManuallyShoot", null));
 
-    T.add(new Task("LimelightLEDON", null));
+
     T.add(new Task("ManuallyShoot", null));
-    //T.add(new Task(3));
     Points = new ArrayList<DoublePoint>();
     Points.add(new DoublePoint(0, 0));
-    Points.add(new DoublePoint(-100, 0));
+    Points.add(new DoublePoint(-90, 0));
     //Points.add(new DoublePoint(-72, -30));
     //Points.add(new DoublePoint(-192, -30));
     P = new Path(Points);
-    //P.calculate();
-    //T.add(new Task(P, true));
-    T.add(new Task(1));
-    //T.add(new Task("AutomaticAiming", null));
+    P.calculate();
+    T.add(new Task(P, true));
+    T.add(new Task("AutomaticAiming", null));
     T.add(new Task("ManuallyLoad", null));
     T.add(new Task(3));
     //T.add(new Task("ManuallyShoot", null));
     T.add(new Task("ManuallyLoad", null));
-    
 
     Schedule S = new Schedule(T);
     schedule = S;
@@ -301,10 +298,7 @@ public class Egg extends CommandBase {
 
     Navx = new AHRS(SPI.Port.kMXP);
 
-    //Navx.reset();
-    startAngle = Navx.getAngle();
-    System.out.println("-----------------Start Angle: " + startAngle);
-    angle = 0;
+    Navx.reset();
 
   }
 
@@ -332,7 +326,11 @@ public class Egg extends CommandBase {
   }
 
   void drive() {
-
+    //System.out.println("Driving");
+    angle = Navx.getAngle();
+    //angle += 6;
+    //angle += 90;
+    //System.out.println("***************" + angle);
     trackPos();
 
     double r = -10;
@@ -385,13 +383,9 @@ public class Egg extends CommandBase {
 
     System.out.println("X: " + (int)x + " Y: " + (int)y + " Angle: " + (int)angle);
   }
-
-  double startAngle;
   
   void trackPos() {
-    angle = Navx.getAngle();
     boolean negative = (angle < 0) ? true : false; 
-    angle -= startAngle;
     angle = Math.abs(angle);
     while (angle  > 360) {
       angle -= 360;
