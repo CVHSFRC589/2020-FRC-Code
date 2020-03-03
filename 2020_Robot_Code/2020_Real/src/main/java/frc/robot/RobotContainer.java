@@ -169,7 +169,7 @@ public class RobotContainer {
     new JoystickButton(j2, targetAlign).whenPressed(new AutomaticAiming(m_shoot), true);
 
     //Manual Shooting
-    new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
+    new JoystickButton(j2, shootBall).whileHeld(new ManuallyShoot(m_shoot));
     new JoystickButton(j2, loadBall).whenPressed(new ManuallyLoad(m_shoot));
     new JoystickButton(j2, initiationLineSpeed).whenPressed(new InitiationLineSpeed(m_shoot));
     new JoystickButton(j2, trenchSpeed).whenPressed(new TrenchSpeed(m_shoot));
