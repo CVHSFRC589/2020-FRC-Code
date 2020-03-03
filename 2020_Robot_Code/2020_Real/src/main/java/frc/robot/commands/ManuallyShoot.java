@@ -18,24 +18,29 @@ public class ManuallyShoot extends CommandBase {
    * Creates a new ManuallyShoot.
    */
   ShooterSubsystem shoot;
-  private static boolean runShooter = false;
+  private static boolean runShooter = true;
   public ManuallyShoot(ShooterSubsystem tempShoot) {
     // Use addRequirements() here to declare subsystem dependencies.
     shoot = tempShoot;
     addRequirements(shoot);
+    shoot.setShootingMotor(0);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(runShooter){
-      shoot.setShootingMotor(ShooterConstants.shootingSpeed);
-      runShooter = false;
-    }
-    else{
-      shoot.setShootingMotor(0);
-      runShooter = true;
-    }
+    // if(runShooter){ //if we want to run the shooter
+    //   shoot.setShootingMotor(ShooterConstants.shootingSpeed);
+    //   //shoot.setShootingMotorPID(ShooterConstants.shootingSpeed);
+    //   runShooter = false;
+    //   ShooterSubsystem.shootingWheelRunning = true;
+    // }
+    // else{   //the button was pressed while the shooter was on, so turn it off
+    //   shoot.setShootingMotor(0);
+    //   shoot.setShootingMotorPID(0);
+    //   runShooter = true;
+    //   ShooterSubsystem.shootingWheelRunning = false;
+    // }
    // shoot.setLoadingMotor(ShooterConstants.loadingSpeed); //set this constant to one for the loading motor
    // System.out.println("CALLED ***************" + ShooterConstants.shootingSpeed);
   }
@@ -43,8 +48,18 @@ public class ManuallyShoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   // shoot.setShootingMotor(ShooterConstants.shootingSpeed);
-   // shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
+    if(runShooter){ //if we want to run the shooter
+      shoot.setShootingMotor(ShooterConstants.shootingSpeed);
+      //shoot.setShootingMotorPID(ShooterConstants.shootingSpeed);
+      runShooter = false;
+      ShooterSubsystem.shootingWheelRunning = true;
+    }
+    else{   //the button was pressed while the shooter was on, so turn it off
+      shoot.setShootingMotor(0);
+      //shoot.setShootingMotorPID(0);
+      runShooter = true;
+      ShooterSubsystem.shootingWheelRunning = false;
+    }
   }
 
   // Called once the command ends or is interrupted.

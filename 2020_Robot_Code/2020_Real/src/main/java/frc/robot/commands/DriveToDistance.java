@@ -42,7 +42,7 @@ public class DriveToDistance extends CommandBase {
     @Override
     public void initialize() {
       drive.setLeft(0);
-      System.out.println("init: " + drive.getLeft());
+      //System.out.println("init: " + drive.getLeft());
     }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -59,7 +59,7 @@ public class DriveToDistance extends CommandBase {
     if(Math.abs(distTraveled) >= distance){
       finishedTraveling = true;
     }
-    drive.tankDrive(0.7, 0.7, 1);
+    drive.tankDrive(-0.5, -0.5, 1);
   }
 
 

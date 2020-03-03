@@ -35,29 +35,38 @@ public final class Constants {
         public static final int kEncoderCPR = 450;
         public static final double kEncoderIPR = kWheelDiameterInches*Math.PI; // 18.85 inches per revolution (circumference)
         public static final double kEncoderCPI = 0.583333333333; //idk why this even works
+        
+        public static final double maxAutoSpeed = 0.4;
     }
 
     public static final class ClimberConstants{
-        public static final int[] kHookSolenoidPorts = new int[]{0, 1};
+        public static final int[] kHookSolenoidPorts = new int[]{3, 4};
 
     }
     public static final class IntakeConstants{
-        public static final int[] kIntakeSolenoidPorts = new int[]{2, 3};
+        public static final int[] kIntakeSolenoidPorts = new int[]{6, 5};
         public static final int kIntakeMotorPort = 40;
         
-        public static final int kIntakeMotorSpeed = 1;
+        public static final double kIntakeMotorSpeed = 0.45;
     }
     public static final class ShooterConstants{
         public static final int kLoadingWheelMotorPort = 22;
         public static final int kMainWheelMotorPort = 21;
         public static final int kAzimuthMotorPort = 30; //30;
 
+        public static final int kGateForwardChannel = 1;
+        public static final int kGateReverseChannel = 2;
+
+
         public static final int leftLimitInputChannel = 1;
         public static final int rightLimitInputChannel = 2;
 
-        public static final double shootingSpeed = -0.52;  //-0.52
+        public static double shootingSpeed = -0.55;  //-0.52
         public static final double loadingSpeed = 1;
+        public static final double azimuthSpeed = 0.12;
     
         public static final int azimuthMaxCurrentLimit = 40; //in Amps 
+        
+        public static final double azimuthEncoderLimit = 100; //change to whatever it needs to be
     }
 }

@@ -10,7 +10,7 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveController extends CommandBase {
@@ -68,8 +68,10 @@ public class DriveController extends CommandBase {
     }
     
     //Arcade drive with z multiplier
-    m_drive.arcadeDrive(m_for*z, z*m_rot);
-    System.out.println("left encoder: " + m_drive.getLeft());
+    if (!Robot.isAuto) {
+      m_drive.arcadeDrive(m_for*z, z*m_rot);
+    }
+    //System.out.println("left encoder: " + m_drive.getLeft());
     //Arcade Drive without a multiplier
     //m_drive.arcadeDrive(m_forward.getAsDouble(), m_rotation.getAsDouble());
   }

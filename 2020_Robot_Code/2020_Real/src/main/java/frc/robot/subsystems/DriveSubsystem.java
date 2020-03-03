@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.EncoderType;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import java.util.function.DoubleSupplier;
 
@@ -45,9 +46,12 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
+
+    m_leftMotor.setIdleMode(IdleMode.kCoast);
+    m_rightMotor.setIdleMode(IdleMode.kCoast);
    
-    leftManager.initializePID();
-    rightManager.initializePID();
+    //leftManager.initializePID(0.25);
+   // rightManager.initializePID(0.25);
   }
 
   /**
@@ -57,15 +61,15 @@ public class DriveSubsystem extends SubsystemBase {
   public void arcadeDrive(double fwd, double rot){
     if(m_driveForward){
        m_drive.arcadeDrive(-fwd, rot);
-      System.out.println("Forward drive");
+      //System.out.println("Forward drive");
     }
     if(!m_driveForward){
-       m_drive.arcadeDrive(fwd, -rot);
+       m_drive.arcadeDrive(fwd, rot);
     }
   }
   public void drivePID(){
-    leftManager.setPIDSpeed(1);
-    rightManager.setPIDSpeed(1);
+     leftManager.setPIDSpeed(-0.25);
+     rightManager.setPIDSpeed(-0.25);
   }
   public void tankDrive(double left, double right, double multiplier){
    if(m_driveForward)
@@ -93,8 +97,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void switchDriveDirection(){
     m_driveForward = !m_driveForward;
-    System.out.println("*********************" + "moving forward: " + m_driveForward + "*********************");
-    setMotors(0, 0, 0);
+    //System.out.println("*********************" + "moving forward: " + m_driveForward + "*********************");
+    //setMotors(0, 0, 0);
   }
 
   public double getLeft(){
@@ -109,5 +113,9 @@ public class DriveSubsystem extends SubsystemBase {
   public void setRight(int position){
     rightEncoder.setPosition(position);
   }
+
+public boolean getForward(){
+  return m_driveForward;
+}
 
 }

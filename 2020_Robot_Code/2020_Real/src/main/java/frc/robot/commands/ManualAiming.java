@@ -32,23 +32,26 @@ public class ManualAiming extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_shoot.setAzimuthMotor(0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO:
-    //double m_rotSpeed = m_rotationalSpeed.getAsDouble();  //USE THIS FOR ACTUAL AZIMUTH CONTROL
-    double m_rotSpeed = 0; //THIS IS SET TO 0 FOR TESTING 
+   // System.out.print("88888888888888888");
+
+    double m_rotSpeed = m_rotationalSpeed.getAsDouble();  //USE THIS FOR ACTUAL AZIMUTH CONTROL
+    //double m_rotSpeed = 0; //THIS IS SET TO 0 FOR TESTING 
     //Azimuth joystick deadzones
-    if(m_rotSpeed<0.4 && m_rotSpeed>0){
+    if(m_rotSpeed<0.2 && m_rotSpeed>0){
       m_rotSpeed = 0;
     }
-    if(m_rotSpeed>-0.4 && m_rotSpeed<0){
+    if(m_rotSpeed>-0.2 && m_rotSpeed<0){
       m_rotSpeed = 0;
     }
-    m_shoot.setAzimuthMotorJoystick(m_rotSpeed/5); //can divide the speed by ten
-    // m_shoot.setAzimuthMotor(m_rotationalSpeed.getAsDouble());
+    //System.out.print("********************888");
+
+    m_shoot.setAzimuthMotor(-m_rotSpeed/10);    
   }
 
   // Called once the command ends or is interrupted.
