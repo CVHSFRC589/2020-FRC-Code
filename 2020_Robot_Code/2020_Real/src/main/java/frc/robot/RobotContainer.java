@@ -144,7 +144,7 @@ public class RobotContainer {
     LimelightLEDON L = new LimelightLEDON(m_shoot, m_LimelightSubsystem);
     commands.put("LimelightLEDON", L);
     
-    //constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
+    constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
   }
 
   /**
@@ -170,7 +170,7 @@ public class RobotContainer {
 
     //Manual Shooting
     new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
-    new JoystickButton(j2, loadBall).whenPressed(new ManuallyLoad(m_shoot));
+    new JoystickButton(j2, loadBall).whileHeld(new ManuallyLoad(m_shoot));
     new JoystickButton(j2, initiationLineSpeed).whenPressed(new InitiationLineSpeed(m_shoot));
     new JoystickButton(j2, trenchSpeed).whenPressed(new TrenchSpeed(m_shoot));
 
