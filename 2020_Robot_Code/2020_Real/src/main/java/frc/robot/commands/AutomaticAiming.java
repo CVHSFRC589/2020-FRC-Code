@@ -48,7 +48,8 @@ public class AutomaticAiming extends CommandBase {
       if(shoot.getTargetFound())
       {
         //System.out.println(shoot.getTargetFound());
-        if(Math.abs(shoot.getDegRotToTarget())<0.05)    //Make LEDs GREEN
+        if(Math.abs(shoot.getDegRotToTarget())<0.05) 
+        //if(shoot.getDegRotToTarget()<0.055 || shoot.getDegRotToTarget()>-0.045)    //Make LEDs GREEN
         { //If we're aligned with the target stop moving
           shoot.setAzimuthMotor(0);
           //ShooterSubsystem.on = false; //reset the on boolean, so the next time the command is called it runs (initialize makes it true first)

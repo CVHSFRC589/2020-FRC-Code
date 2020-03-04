@@ -94,6 +94,8 @@ public class ShooterSubsystem extends SubsystemBase {
     
     m_gateSolenoid.set(kForward);
 
+    //1 IS OFF, 3 FORCES ON BUT USE 0 TO KEEP CURRENT PIPELINE SETTINGS
+    m_limey.getNetworkTable().getEntry("ledMode").setNumber(0);
     
     m_azimuthEncoder.setPosition(0);
     initialAzimuthEncoderValue = m_azimuthEncoder.getPosition();
@@ -178,8 +180,8 @@ public class ShooterSubsystem extends SubsystemBase {
       } 
       else {
         azimuthSpeed = (xOffset / -20.500000)/2; 
-        if ((xOffset > -1.5) && (xOffset<1.5)) { //if the angle is this small, the P will be too low to move the azimuth control
-          azimuthSpeed = azimuthSpeed*1.5;    //Number needs to be tested on 2020Bot, currently arbitrary
+        if ((xOffset > -1.5) && (xOffset<1.5)) { 
+          azimuthSpeed = azimuthSpeed*1.5; 
         }
       }
     }

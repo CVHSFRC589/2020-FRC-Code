@@ -61,9 +61,9 @@ public final class Constants {
         public static final int leftLimitInputChannel = 1;
         public static final int rightLimitInputChannel = 2;
 
-        public static double shootingSpeed = -0.55;  //-0.52
+        public static double shootingSpeed = -0.49;  //-0.52, 0.62
         public static final double loadingSpeed = 1;
-        public static final double azimuthSpeed = 0.12;
+        public static final double azimuthSpeed = 0.25;
     
         public static final int azimuthMaxCurrentLimit = 40; //in Amps 
         

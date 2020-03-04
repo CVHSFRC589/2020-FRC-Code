@@ -37,7 +37,7 @@ public class LimelightLEDON extends CommandBase {
   @Override
   public void execute() {
     //3 is on, 1 is off
-    m_limelight.getNetworkTable().getEntry("ledMode").setNumber(3);
+    m_limelight.getNetworkTable().getEntry("ledMode").setNumber(0);
   }
 
   // Called once the command ends or is interrupted.
