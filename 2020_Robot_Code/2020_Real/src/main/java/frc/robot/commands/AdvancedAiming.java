@@ -83,19 +83,20 @@ public class AdvancedAiming extends CommandBase {
       }
     }
     //Ah yes so many brackets so easy to read
+    //really love to see it
     else{
       shoot.setAzimuthMotor(0);
     }
   }
 
   void rotateRight() {
-    if (!shoot.limitLeft) {
+    if (!shoot.limitRight) {
       shoot.setAzimuthMotorAutomatic(ShooterConstants.azimuthSpeed);
     }
   }
 
   void rotateLeft() {
-    if (!shoot.limitRight) {
+    if (!shoot.limitLeft) {
       shoot.setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeed);
     }
   }
