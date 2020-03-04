@@ -17,7 +17,7 @@ import frc.robot.Constants.ShooterConstants;
 
 public class AdvancedAiming extends CommandBase {
   /**
-   * Creates a new AutomaticAiming.
+   * Creates a new AdvancedAiming.
    */
   ShooterSubsystem shoot;
   boolean direction = true;
