@@ -13,10 +13,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.Manager;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.LimeLight;
-import frc.robot.ControlMode;
 
 public class AdvancedAiming extends CommandBase {
   /**
@@ -67,7 +64,7 @@ public class AdvancedAiming extends CommandBase {
       {
         double angle = getAngle();
         if (angle < 90) {
-          if (ShooterSubsystem.m_azimuthEncoder.getPosition() < angle) {
+          if (getTurretAngle() < angle) {
             rotateRight();
           } else {
             rotateLeft();
@@ -77,7 +74,7 @@ public class AdvancedAiming extends CommandBase {
         } else if (angle < 270) { // 180 < angle < 270
           rotateLeft();
         } else {// 270 < angle < 360
-          if (ShooterSubsystem.m_azimuthEncoder.getPosition() > angle) {
+          if (getTurretAngle() > angle) {
             rotateRight();
           } else {
             rotateLeft();
@@ -101,6 +98,17 @@ public class AdvancedAiming extends CommandBase {
     if (!shoot.limitRight) {
       shoot.setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeed);
     }
+  }
+
+  double getTurretAngle() {
+    double angle = ShooterSubsystem.m_azimuthEncoder.getPosition();
+    boolean negative = (angle < 0) ? true : false; 
+    angle = Math.abs(angle);
+    while (angle  > 360) {
+      angle -= 360;
+    }
+    angle = (negative) ? 360 - angle : angle;
+    return angle;
   }
 
   double getAngle() {
