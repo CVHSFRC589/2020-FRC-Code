@@ -272,7 +272,7 @@ public class Egg extends CommandBase {
     P = new Path(Points);
     P.calculate();
     T.add(new Task(P, true));
-    T.add(new Task("AutomaticAiming", null));
+    //T.add(new Task("AutomaticAiming", null));
     T.add(new Task("ManuallyLoad", null));
     T.add(new Task(3));
     //T.add(new Task("ManuallyShoot", null));
