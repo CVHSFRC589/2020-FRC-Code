@@ -65,8 +65,10 @@ public class AdvancedAiming extends CommandBase {
         double angle = getAngle();
         if (angle < 90) {
           if (getTurretAngle() < angle) {
+            System.out.println("turret angle: " + getTurretAngle());
             rotateRight();
           } else {
+            System.out.println("turret angle: " + getTurretAngle());
             rotateLeft();
           }
         } else if (angle < 180) { // 90 < angle < 180
