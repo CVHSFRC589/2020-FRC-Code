@@ -61,11 +61,11 @@ public class AutomaticAiming extends CommandBase {
           double x = shoot.getDegRotToTarget(); 
           if(x<0)
           {  //if right of target turn left
-          shoot.setAzimuthMotorAutomatic(ShooterConstants.azimuthSpeed);
+          shoot.setAzimuthMotorAutomatic(ShooterConstants.azimuthSpeedAuto);
           }
           else if(x>0)
           {  //if left of target turn right
-          shoot.setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeed);
+          shoot.setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeedAuto);
           }
         } 
       }
@@ -73,19 +73,19 @@ public class AutomaticAiming extends CommandBase {
       {
         //System.out.print("*LLLLLLLLLLLLll***********^^^^******");
         if(!shoot.limitLeft){
-          shoot.setAzimuthMotorAutomatic(ShooterConstants.azimuthSpeed);
+          shoot.setAzimuthMotorAutomatic(ShooterConstants.azimuthSpeedAuto);
           direction = true;
         }
         else if(!shoot.limitRight){
-          shoot.setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeed);
+          shoot.setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeedAuto);
           direction = false;
         }
         else{
           if(direction){
-            shoot.setAzimuthMotorAutomatic(ShooterConstants.azimuthSpeed);
+            shoot.setAzimuthMotorAutomatic(ShooterConstants.azimuthSpeedAuto);
           }
           else{
-            shoot.setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeed);
+            shoot.setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeedAuto);
           }
         }
       }

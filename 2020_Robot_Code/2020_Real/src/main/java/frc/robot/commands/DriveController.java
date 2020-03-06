@@ -69,7 +69,7 @@ public class DriveController extends CommandBase {
     
     //Arcade drive with z multiplier
     if (!Robot.isAuto) {
-      m_drive.arcadeDrive(m_for*z, z*m_rot);
+      m_drive.arcadeDrive(m_for, m_rot);  //multiply both by z for speed multiplying 
     }
     //System.out.println("left encoder: " + m_drive.getLeft());
     //Arcade Drive without a multiplier

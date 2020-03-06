@@ -85,6 +85,7 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shootingWheel.set(0);
 
     m_loadingWheel.setIdleMode(IdleMode.kBrake);
+    m_azimuthControl.setIdleMode(IdleMode.kCoast);
     
     m_shootingWheel.restoreFactoryDefaults();
     m_loadingWheel.setSmartCurrentLimit(ShooterConstants.azimuthMaxCurrentLimit);
@@ -138,12 +139,17 @@ public class ShooterSubsystem extends SubsystemBase {
     boolean leftEncoderLimitHit = false;
     boolean rightEncoderLimitHit = false;
     if((Math.abs(m_azimuthEncoder.getPosition()) - initialAzimuthEncoderValue) >= ShooterConstants.azimuthEncoderLimit){
-      if(m_azimuthEncoder.getPosition() < initialAzimuthEncoderValue){
+      m_azimuthControl.set(0);
+      if(m_azimuthEncoder.getPosition() < initialAzimuthEncoderValue){ //Once we've crossed encoder limits move back to center
         leftEncoderLimitHit = true;
       }
-      if(m_azimuthEncoder.getPosition() > initialAzimuthEncoderValue){
+      if((m_azimuthEncoder.getPosition() > initialAzimuthEncoderValue)){
         rightEncoderLimitHit = true;
       }
+    }
+    else{
+      leftEncoderLimitHit = false;
+      rightEncoderLimitHit = false;
     }
    
     //If neither limit switch is hit and the encoder limit hasn't been reached, we're fine (set the motors to the desired speed)
@@ -165,7 +171,7 @@ public class ShooterSubsystem extends SubsystemBase {
       limitLeft = m_leftLimit.get();
       limitRight = m_rightLimit.get();
     }
-    
+    System.out.println(m_azimuthEncoder.getPosition());
 
   }
 
@@ -180,26 +186,26 @@ public class ShooterSubsystem extends SubsystemBase {
       } 
       else {
         azimuthSpeed = (xOffset / -20.500000)/2; 
-        if ((xOffset > -1.5) && (xOffset<1.5)) { 
+        if ((xOffset > -2.5) && (xOffset<2.5)) { 
           azimuthSpeed = azimuthSpeed*1.5; 
         }
       }
     }
     else{
       if(!limitLeft){
-        setAzimuthMotor(ShooterConstants.azimuthSpeed);
+        setAzimuthMotor(ShooterConstants.azimuthSpeedAuto);
         direction = true;
       }
       else if(!limitRight){
-        setAzimuthMotor(-ShooterConstants.azimuthSpeed);
+        setAzimuthMotor(-ShooterConstants.azimuthSpeedAuto);
         direction = false;
       }
       else{
         if(direction){
-          setAzimuthMotor(ShooterConstants.azimuthSpeed);
+          setAzimuthMotor(ShooterConstants.azimuthSpeedAuto);
         }
         else{
-          setAzimuthMotor(-ShooterConstants.azimuthSpeed);
+          setAzimuthMotor(-ShooterConstants.azimuthSpeedAuto);
         }
       }
     }

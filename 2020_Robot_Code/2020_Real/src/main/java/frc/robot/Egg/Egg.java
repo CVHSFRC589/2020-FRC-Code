@@ -266,7 +266,7 @@ public class Egg extends CommandBase {
     T.add(new Task("ManuallyShoot", null));
     Points = new ArrayList<DoublePoint>();
     Points.add(new DoublePoint(0, 0));
-    Points.add(new DoublePoint(-90, 0));
+    Points.add(new DoublePoint(-50, 0));
     //Points.add(new DoublePoint(-72, -30));
     //Points.add(new DoublePoint(-192, -30));
     P = new Path(Points);
