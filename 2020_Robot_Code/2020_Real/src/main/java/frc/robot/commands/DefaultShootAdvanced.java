@@ -7,18 +7,20 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
-
-public class ChangeShootMode extends CommandBase {
+public class DefaultShootAdvanced extends CommandBase {
   /**
-   * Creates a new ChangeShootMode.
+   * Creates a new DefaultShoot.
    */
+  public static DoubleSupplier m_rotationalSpeed;
   ShooterSubsystem m_shoot;
-  public ChangeShootMode(ShooterSubsystem shoot) 
-  {
-   m_shoot = shoot; 
+  public DefaultShootAdvanced(ShooterSubsystem shoot, DoubleSupplier z) {
+    m_shoot = shoot;
+    m_rotationalSpeed = z;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_shoot);
   }
@@ -31,11 +33,14 @@ public class ChangeShootMode extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shoot.shootMode = !m_shoot.shootMode;
-    if(m_shoot.shootMode){
-      System.out.println("manual");
-    }else{
-      System.out.println("auto");
+    if(m_shoot.shootMode){//auto
+      System.out.println("Smart turn");
+      m_shoot.smartlyTurnTurret();
+      
+    }
+    else{//manual
+      System.out.println("Dumb turn");
+      m_shoot.dumblyTurnTurret(m_rotationalSpeed);
     }
   }
 
