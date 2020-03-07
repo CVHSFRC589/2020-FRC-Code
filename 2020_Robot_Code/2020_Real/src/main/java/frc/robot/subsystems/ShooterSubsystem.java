@@ -69,7 +69,7 @@ public class ShooterSubsystem extends SubsystemBase {
   LimeLight m_limeLight = new LimeLight("limelight");
   LimelightSubsystem m_limey = new LimelightSubsystem();
 
-  public boolean shootMode = false;// false = auto, true = manual
+  public static boolean shootMode = false;// false = auto, true = manual
 
   private int m_cameraMode = 0; // 0 -> targeting mode, 1 -> camera stream
 
@@ -173,6 +173,10 @@ public class ShooterSubsystem extends SubsystemBase {
       leftEncoderLimitHit = false;
       rightEncoderLimitHit = false;
     }
+
+    //only false for testing, REMOVE
+    // leftEncoderLimitHit = false;
+    // rightEncoderLimitHit = false;
 
     // If neither limit switch is hit and the encoder limit hasn't been reached,
     // we're fine (set the motors to the desired speed)

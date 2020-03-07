@@ -62,7 +62,7 @@ public final class Constants {
         public static final int rightLimitInputChannel = 2;
 
         public static double shootingSpeed = -1;  //-0.52, 0.62
-        public static double loadingSpeed = 0.6;  //not final because gets made negative to de-jam balls
+        public static double loadingSpeed = 0.5; //0.4 //not final because gets made negative to de-jam balls
         public static final double azimuthSpeed = 0.4;
         public static final double azimuthSpeedAuto = 0.4;
     

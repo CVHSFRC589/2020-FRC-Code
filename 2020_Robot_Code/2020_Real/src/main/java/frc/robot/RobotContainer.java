@@ -85,21 +85,25 @@ public class RobotContainer {
 
   Button constantDrive; //Mainly a test
 
-  //Button number assignments    no numbers are final
+  //Button number assignments
+  //j1
   final int climberExtend = 11; //j1
   final int climberRetract = 10; //j1
+  final int switchDriveDirection = 6; //j1
+  final int changeStreamMode = 9; //j1
+  final int switchCameraMode = 8; //j1
+
+
+  //j2
   final int intakeDeploy = 4; //j2
   final int intakeRetract = 5; //j2
   final int intakeToggle = 3; //j2
-  final int intakeReverse = 10; //j2
+  final int intakeReverse = 8; //j2
   final int targetAlign = 7; //j2
-  final int switchDriveDirection = 6; //j1
   final int loadBall = 1; //j2
   final int reverseLoad = 9; //j2
   final int shootBall = 2; //j2
   final int toggleLimelightLED = 6; //j2
-  final int changeStreamMode = 9; //j1
-  final int switchCameraMode = 8; //j1
   final int initiationLineSpeed = 11; //j2
   final int trenchSpeed = 12; //j2
   final int changeShootMode = 10;//j2
