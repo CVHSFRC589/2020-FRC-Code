@@ -13,14 +13,14 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 import frc.robot.Constants.ShooterConstants;
 
-public class ManuallyShoot extends CommandBase {
+public class SmartShoot extends CommandBase {
   /**
    * Creates a new ManuallyShoot.
    */
   ShooterSubsystem shoot;
   LimelightSubsystem lime = new LimelightSubsystem();
   private static boolean runShooter = true;
-  public ManuallyShoot(ShooterSubsystem tempShoot) {
+  public SmartShoot(ShooterSubsystem tempShoot) {
     // Use addRequirements() here to declare subsystem dependencies.
     shoot = tempShoot;
     addRequirements(shoot);
@@ -50,11 +50,11 @@ public class ManuallyShoot extends CommandBase {
   @Override
   public void execute() {
     if(runShooter){ //if we want to run the shooter
-      shoot.setShootingMotor(ShooterConstants.shootingSpeed);
-      
-      //shoot.setShootingMotorPID(ShooterConstants.shootingSpeed);
-      runShooter = false;
-      ShooterSubsystem.shootingWheelRunning = true;
+      //vikram's crazy code
+      double distToTarget = lime.getDistance();
+      //maximum optimal speed is ~ 0.6
+      //assume that, when 120 inches away, we want to go at this speed
+      shoot.setShootingMotor(distToTarget/120 * ShooterConstants.shootingSpeed);
     }
     else{   //the button was pressed while the shooter was on, so turn it off
       shoot.setShootingMotor(0);
