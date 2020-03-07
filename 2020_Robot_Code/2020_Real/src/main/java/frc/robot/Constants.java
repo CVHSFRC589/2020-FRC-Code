@@ -68,5 +68,6 @@ public final class Constants {
         public static final int azimuthMaxCurrentLimit = 40; //in Amps 
         
         public static final double azimuthEncoderLimit = 100; //change to whatever it needs to be
+        
     }
 }
