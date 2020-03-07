@@ -197,14 +197,14 @@ public class ShooterSubsystem extends SubsystemBase {
       limitLeft = m_leftLimit.get();
       limitRight = m_rightLimit.get();
     }
-    System.out.println(m_azimuthEncoder.getPosition());
+    //System.out.println(m_azimuthEncoder.getPosition());
 
   }
 
   public boolean direction = false;
 
-  public void setAzimuthMotorAutomatic(double azimuthSpeed) {
-    if (m_limeLight.getIsTargetFound()) {
+  public void setAzimuthMotorAutomatic(double azimuthSpeed){
+    if(m_limeLight.getIsTargetFound()){
       double xOffset = m_limey.gettxValue();
       m_azimuthControl.set(0.1);
       if ((-.5 < xOffset) && (xOffset < .5)) {
@@ -230,36 +230,8 @@ public class ShooterSubsystem extends SubsystemBase {
         }
       }
     }
-
-    // DigitalInput returns false if limit switch was hit
-
-    // check if encoder limit was reached (in case of magnetic limit switch failure)
-    // boolean leftEncoderLimitHit = false;
-    // boolean rightEncoderLimitHit = false;
-    // boolean limitHit = false; //just for return purposes
-    // if((Math.abs(m_azimuthEncoder.getPosition()) - initialAzimuthEncoderValue) >=
-    // ShooterConstants.azimuthEncoderLimit){
-    // if(m_azimuthEncoder.getPosition() < initialAzimuthEncoderValue){
-    // leftEncoderLimitHit = true;
-    // }
-    // if(m_azimuthEncoder.getPosition() > initialAzimuthEncoderValue){
-    // rightEncoderLimitHit = true;
-    // }
-    // }
-
-    // if((m_leftLimit.get() && m_rightLimit.get()) && (!leftEncoderLimitHit &&
-    // !rightEncoderLimitHit)){
-    // m_azimuthControl.set(azimuthSpeed);
-    // }
-    // else if((((!m_leftLimit.get() || leftEncoderLimitHit) && (azimuthSpeed>0)) ||
-    // ((!m_rightLimit.get() || rightEncoderLimitHit) &&(azimuthSpeed<0))) &&
-    // ((m_leftLimit.get() || m_rightLimit.get()))){
-    // m_azimuthControl.set(azimuthSpeed);
-    // }
-    // else {
-    // m_azimuthControl.set(0);
-    // limitHit = true;
-    // }
+    
+    
     boolean leftEncoderLimitHit = false;
     boolean rightEncoderLimitHit = false;
     if ((Math.abs(m_azimuthEncoder.getPosition())
@@ -297,8 +269,16 @@ public class ShooterSubsystem extends SubsystemBase {
     }
   }
 
-  public void xOffsetCorrection() {
-
+  public void sweepTurret(){
+    if(m_leftLimit.get()){
+      m_azimuthControl.set(-(ShooterConstants.azimuthSpeedAuto*0.5));
+    }
+    else if(m_rightLimit.get()){
+      m_azimuthControl.set(ShooterConstants.azimuthSpeedAuto*0.5);
+    }
+    else{
+      m_azimuthControl.set(0);
+    }
   }
 
   // TODO: make getter method for position of azimuth motor and speed of loading
