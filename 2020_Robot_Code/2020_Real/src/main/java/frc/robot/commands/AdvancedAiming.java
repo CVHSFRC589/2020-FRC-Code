@@ -11,7 +11,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.Constants.ShooterConstants;
 
@@ -44,12 +44,14 @@ public class AdvancedAiming extends CommandBase {
       //Target on screen
       if(shoot.getTargetFound())
       {
-        if(Math.abs(shoot.getDegRotToTarget())<0.1)    //Make LEDs GREEN
+        if(Math.abs(shoot.getDegRotToTarget())<0.1)    //Make LEDs GREEN done
         { //If we're aligned with the target stop moving
           shoot.setAzimuthMotor(0);
+          //----------LEDSubsystem.setTurretLEDsGreen();
         }
         else
         {
+          //----------LEDSubsystem.setTurretLEDsRed();
           double x = shoot.getDegRotToTarget(); 
           if(x<0)
           {  //if right of target turn left

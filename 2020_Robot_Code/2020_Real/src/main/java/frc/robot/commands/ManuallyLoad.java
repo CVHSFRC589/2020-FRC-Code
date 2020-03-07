@@ -29,11 +29,13 @@ public class ManuallyLoad extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    //start loading motor if it isn't running and if the shooting motor is on
     if(runLoad && ShooterSubsystem.shootingWheelRunning){
       shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
       //shoot.setLoadingMotorPID(ShooterConstants.loadingSpeed);
       runLoad = false;
     }
+    //stop loading motor if it was already running
     else{
       shoot.setLoadingMotor(0);
       //shoot.setLoadingMotorPID(0);

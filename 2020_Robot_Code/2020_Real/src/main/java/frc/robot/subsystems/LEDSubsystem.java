@@ -5,46 +5,43 @@
 // /* the project.                                                               */
 // /*----------------------------------------------------------------------------*/
 
-// package frc.robot.subsystems;
+package frc.robot.subsystems;
 
-// import edu.wpi.first.wpilibj.AddressableLED;
-// import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-// import edu.wpi.first.wpilibj2.command.SubsystemBase;
-// import frc.robot.LimeLight;
-// import frc.robot.subsystems.LimelightSubsystem;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-// public class LEDSubsystem extends SubsystemBase {
-//   /**
-//    * Creates a new LEDSubsystem.
-//    */
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LEDConstants;
 
-//   AddressableLED m_led;
-//   AddressableLEDBuffer m_ledBuffer;
+public class LEDSubsystem extends SubsystemBase {
+  /**
+   * Creates a new LEDSubsystem.
+   */
 
-//   public LEDSubsystem() {
-//   //PWM port 9
+  public static CANSparkMax ledMotor = new CANSparkMax(LEDConstants.kLEDPort, MotorType.kBrushless);
+  public void LED(){
+    
+  }
 
-//   }
+  public static void setTurretLEDsGreen(){ //AutoAiming/Aiming Subsystems
+    ledMotor.set(0.73);//lime
+  }
+  public static void setTurretLEDsRed(){ //AutoAiming/Aiming Subsystems
+    ledMotor.set(0.61);//red
+  }
 
-//   private turretAlignmentLEDs(){
-   
-//   }
+  public static void climberLEDPattern(){ //Climbing subsystem
+    ledMotor.set(-0.97); //Rainbow Party
+  }
 
-//   private void turretAlignmentLEDs(){
-   
-//   }
-// /*
-//   private fullFireSpeed(){
+  // public static void drivingTurretForward(){
+  //   ledMotor.set(0.01); //Lightchase color 1
+  // }
+  // public static void drivingIntakeForward(){
+  //   ledMotor.set(0.21); //Lightchase color 2
+  // }
 
-//   }
-// */
-// }
-//   private void frontLEDs(){
-  
-//     }
- 
-// /*
-//   private fullFireSpeed(){
-
-//   }
-// */
+  // public static void turretFullSpeed(){
+  //   ledMotor.set(-0.57); //Fire Large
+  // }
+}

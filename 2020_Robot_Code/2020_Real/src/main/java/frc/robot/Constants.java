@@ -70,4 +70,7 @@ public final class Constants {
         
         public static final double azimuthEncoderLimit = 30; //change to whatever it needs to be
     }
+    public static final class LEDConstants{
+        public static final int kLEDPort = 1;//needs to be changed at some point
+    }
 }
