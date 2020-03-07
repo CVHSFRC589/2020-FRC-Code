@@ -4,36 +4,37 @@
 // /* must be accompanied by the FIRST BSD license file in the root directory of */
 // /* the project.                                                               */
 // /*----------------------------------------------------------------------------*/
+// 
+package frc.robot.subsystems;
 
-// package frc.robot.subsystems;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-// import com.revrobotics.CANSparkMax;
-// import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-// import edu.wpi.first.wpilibj.AddressableLED;
-// import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-// import edu.wpi.first.wpilibj2.command.SubsystemBase;
-// import frc.robot.Constants.LEDConstants;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LEDConstants;
 
 
-// public class LEDSubsystem extends SubsystemBase {
-//   /**
-//    * Creates a new LEDSubsystem.
-//    */
+public class LEDSubsystem extends SubsystemBase {
+  /**
+   * Creates a new LEDSubsystem.
+   */
 
-//   public static CANSparkMax ledMotor = new CANSparkMax(LEDConstants.kLEDPort, MotorType.kBrushless);
-//   public void LED(){
+  public static CANSparkMax ledMotor = new CANSparkMax(LEDConstants.kLEDPort, MotorType.kBrushless);
+  public void LED(){
     
-//   }
+  }
 
-// public static void setTurretLEDsGreen(){
-//   ledMotor.set(0.73);//lime
-// }
+  public static void setTurretLEDsLime(){
+    ledMotor.set(0.73);//lime when aligned
+  }
 
-// public static void setTurretLEDsRed(){
-//   ledMotor.set(0.61);//red
-// }
+  public static void setTurretLEDsRed(){
+    ledMotor.set(0.61);//red when not aligned
+  }
 
-//   public static void turretAligned(){
+  public static void setLEDs(){
 
-// }
+  }
+}

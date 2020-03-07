@@ -55,7 +55,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     SmartDashboard.putNumber("Network Table Y", yAngleDegrees);
     displayXOffset();
   }
-  public void getDistance() {
+  public double getDistance() {
     //Angle (in degrees) the limelight is mounted at
     final double limeLightDefAngle = 16.3; //NEW VALUE NEEDED
     //Add the mount angle to the yangle gotten
@@ -68,6 +68,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     dist = 70.5 / tyTangent;           //NEW NUMBER MAY NEED TO BE GOTTEN WITH NEW ROBOT
     //plug the number into the desmos graph
     dist = dist * 1.096 - 16.0466;     //Desmos correction graph REQUIRES TESTING WITH NEW ROBOT
+    return dist;
   }
 
   public static void toggleAimAssist() {
