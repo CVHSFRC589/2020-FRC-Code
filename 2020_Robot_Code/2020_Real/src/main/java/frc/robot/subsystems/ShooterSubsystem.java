@@ -44,7 +44,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public static CANSparkMax m_loadingWheel = new CANSparkMax(ShooterConstants.kLoadingWheelMotorPort, MotorType.kBrushless); //loading wheel
   public static CANSparkMax m_shootingWheel = new CANSparkMax(ShooterConstants.kMainWheelMotorPort, MotorType.kBrushless); //shooting wheel
   public static CANSparkMax m_azimuthControl = new CANSparkMax(ShooterConstants.kAzimuthMotorPort, MotorType.kBrushless); //motor to control turret's horizontal motion
-
+  
   public static CANEncoder m_loaderEncoder = new CANEncoder(m_loadingWheel, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   public static CANEncoder m_shooterEncoder = new CANEncoder(m_shootingWheel, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
   public static CANEncoder m_azimuthEncoder = new CANEncoder(m_azimuthControl, EncoderType.kHallSensor, DriveConstants.kEncoderCPR);
@@ -54,42 +54,42 @@ public class ShooterSubsystem extends SubsystemBase {
   //Manager is used for PID control
   Manager m_loaderPID = new Manager(m_loadingWheel);
   Manager m_shooterPID = new Manager(m_shootingWheel);
-
+  
   //Control Mode stuff
   ControlMode m_cameraController = new ControlMode();
   LimeLight m_limeLight = new LimeLight("limelight");
   LimelightSubsystem m_limey = new LimelightSubsystem();
-
+  
   private int m_cameraMode = 0; //0 -> targeting mode, 1 -> camera stream
   private StreamType m_streamMode = StreamType.kStandard; //0 -> standard (side-by-side), 1 -> Picture in Picture main, 2 -> Picture in picture secondary
-
+  
   //Turret limit switches
   public DigitalInput m_leftLimit = new DigitalInput(ShooterConstants.leftLimitInputChannel);
   public DigitalInput m_rightLimit = new DigitalInput(ShooterConstants.rightLimitInputChannel);
   
   public static boolean shootingWheelRunning = false;
   public double initialAzimuthEncoderValue = 0;
-
+  
   public boolean limitLeft = false;
   public boolean limitRight = false;
-
+  
   public static boolean on = false; //used in AutomaticAiming
-
+  
   //Might have a solenoid to gatekeep power cells (between storage and shooting system)
   
   public NetworkTable table;
   public NetworkTableEntry tx;
-
+  
   public ShooterSubsystem() {
     m_loadingWheel.set(0);
     m_shootingWheel.set(0);
-
+    
     m_loadingWheel.setIdleMode(IdleMode.kBrake);
     m_azimuthControl.setIdleMode(IdleMode.kCoast);
     
     m_shootingWheel.restoreFactoryDefaults();
     m_loadingWheel.setSmartCurrentLimit(ShooterConstants.azimuthMaxCurrentLimit);
-
+    
     m_shooterPID.initializePID(ShooterConstants.shootingSpeed);
     m_loaderPID.initializePID(ShooterConstants.loadingSpeed);
     
@@ -100,8 +100,10 @@ public class ShooterSubsystem extends SubsystemBase {
     
     m_azimuthEncoder.setPosition(0);
     initialAzimuthEncoderValue = m_azimuthEncoder.getPosition();
+    
+    m_azimuthControl.setIdleMode(IdleMode.kCoast);
   }
-
+  
   public void shootPID(){
     m_shooterPID.setPIDSpeed(1);
     m_loaderPID.setPIDSpeed(1);
@@ -112,7 +114,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public double getDegRotToTarget(){
     return m_limeLight.getdegRotationToTarget();
   }
-
+  
   //Motors (regular and PID control)
   public void setLoadingMotor(double speed){
     m_loadingWheel.set(speed);
@@ -120,7 +122,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public void setLoadingMotorPID(double speed){
     m_loaderPID.setPIDSpeed(speed);
   }
-
+  
   public void setShootingMotor(double speed){
     m_shootingWheel.set(speed);
   }
