@@ -86,7 +86,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
   } 
 
 
-  public double gettxValue(){
+  public static double gettxValue(){
     tx = table.getEntry("tx");
     xOffset = tx.getDouble(0.0);
     return xOffset;
