@@ -26,7 +26,8 @@ public class AdvancedAiming extends CommandBase {
   public AdvancedAiming(ShooterSubsystem tempShoot) {
     shoot = tempShoot;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shoot);
+    //addRequirements(shoot);
+    
   }
 
   // Called when the command is initially scheduled.
@@ -43,7 +44,7 @@ public class AdvancedAiming extends CommandBase {
       //Target on screen
       if(shoot.getTargetFound())
       {
-        if(Math.abs(shoot.getDegRotToTarget())<0.05)    //Make LEDs GREEN
+        if(Math.abs(shoot.getDegRotToTarget())<0.1)    //Make LEDs GREEN
         { //If we're aligned with the target stop moving
           shoot.setAzimuthMotor(0);
         }
@@ -62,25 +63,26 @@ public class AdvancedAiming extends CommandBase {
       }
       else //Target off screen
       {
-        double angle = getAngle();
-        if (angle < 90) {
-          if (getTurretAngle() < angle) {
-            System.out.println("turret angle: " + getTurretAngle());
-            rotateRight();
+        double angle = getAngle(); //angle of the robot
+        double turretAngle = getTurretAngle(); //angle of the turret
+
+        if (Math.abs(turretAngle - angle) > 3) {
+          if ((angle < 90 && turretAngle < 90) || (angle > 270 && turretAngle > 270)) {
+            if (angle < turretAngle) {
+              rotateLeft();
+            } else {
+              rotateRight();
+            }
           } else {
-            System.out.println("turret angle: " + getTurretAngle());
-            rotateLeft();
+            if (angle > turretAngle) {
+              rotateLeft();
+            } else {
+              rotateRight();
+            }
           }
-        } else if (angle < 180) { // 90 < angle < 180
-          rotateRight();
-        } else if (angle < 270) { // 180 < angle < 270
-          rotateLeft();
-        } else {// 270 < angle < 360
-          if (getTurretAngle() > angle) {
-            rotateRight();
-          } else {
-            rotateLeft();
-          }
+        }
+        else{
+          shoot.setAzimuthMotor(0);
         }
       }
     }
@@ -92,19 +94,18 @@ public class AdvancedAiming extends CommandBase {
   }
 
   void rotateRight() {
-    if (!shoot.limitRight) {
-      shoot.setAzimuthMotorAutomatic(ShooterConstants.azimuthSpeed);
-    }
+    System.out.println("Right");
+      shoot.setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeedAuto);
   }
 
   void rotateLeft() {
-    if (!shoot.limitLeft) {
-      shoot.setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeed);
-    }
+    System.out.println("Left");
+      shoot.setAzimuthMotorAutomatic(ShooterConstants.azimuthSpeedAuto);
   }
 
   double getTurretAngle() {
     double angle = ShooterSubsystem.m_azimuthEncoder.getPosition();
+    angle *= -3;
     boolean negative = (angle < 0) ? true : false; 
     angle = Math.abs(angle);
     while (angle  > 360) {
@@ -115,7 +116,7 @@ public class AdvancedAiming extends CommandBase {
   }
 
   double getAngle() {
-    double angle = Navx.getAngle();
+    double angle = -Navx.getAngle();
     boolean negative = (angle < 0) ? true : false; 
     angle = Math.abs(angle);
     while (angle  > 360) {

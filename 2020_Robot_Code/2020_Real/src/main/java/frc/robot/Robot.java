@@ -84,11 +84,14 @@ public class Robot extends TimedRobot {
     //}
 
     egg = new Egg(this, m_robotContainer.commands, Constants.DriveConstants.maxAutoSpeed);
-    CommandScheduler.getInstance().schedule(egg);
+    //CommandScheduler.getInstance().schedule(egg);
     //new DrivePID(driveSubsystem);
     //new DriveToDistance(driveSubsystem, -5);
     //new DriveController(driveSubsystem, -0.5, -.5, );
     isAuto = true;
+
+    CommandScheduler.getInstance().schedule(m_robotContainer.m_aim);
+      
   }
 
   /**
@@ -110,6 +113,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
       
     }
+
   }
 
   /**

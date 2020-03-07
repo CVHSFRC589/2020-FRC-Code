@@ -18,6 +18,7 @@ import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.ToggleLimelightLED;
 import frc.robot.commands.TrenchSpeed;
 import frc.robot.commands.DriveToDistance;
+import frc.robot.commands.AdvancedAiming;
 import frc.robot.commands.AutomaticAiming;
 import frc.robot.commands.ChangeCameraMode;
 import frc.robot.commands.ChangeStreamMode;
@@ -69,6 +70,7 @@ public class RobotContainer {
   private final ClimberSubsystem m_climb = new ClimberSubsystem();
   //private final LEDSubsystem m_led = new LEDSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
+  public final AdvancedAiming m_aim = new AdvancedAiming(m_shoot);
   
 
   // Driver's joystick(s)
@@ -108,9 +110,9 @@ public class RobotContainer {
     configureButtonBindings();
 
     //Default command for shooter (MANUAL)
-    m_shoot.setDefaultCommand(
-      new ManualAiming(m_shoot, 
-        () -> j2.getZ()));
+    // m_shoot.setDefaultCommand(
+    //   new ManualAiming(m_shoot, 
+    //     () -> j2.getZ()));
 
     //Default command for drive
     //used for arcadedrive
@@ -119,7 +121,7 @@ public class RobotContainer {
         m_drive, 
         () -> j1.getY(),  //can set to j2.getZ() to use twist reading on joystick
         () -> j1.getX(),
-        () -> j1.getZ()));
+        () -> j1.getZ()));  //j1.getZ() to use a dynamic multiplier
 
     // m_drive.setDefaultCommand(
     //   new DrivePID(
@@ -144,7 +146,7 @@ public class RobotContainer {
     LimelightLEDON L = new LimelightLEDON(m_shoot, m_LimelightSubsystem);
     commands.put("LimelightLEDON", L);
     
-    constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
+    //constantDrive.toggleWhenPressed(new DriveToDistance(m_drive, 24), true);
   }
 
   /**
@@ -166,11 +168,14 @@ public class RobotContainer {
     new JoystickButton(j2, intakeReverse).whenPressed(new ReverseIntake(m_intake));
     
     //Automated Shooting
-    new JoystickButton(j2, targetAlign).whenPressed(new AutomaticAiming(m_shoot), true);
+    // new JoystickButton(j2, targetAlign).whenPressed(new AutomaticAiming(m_shoot), true);
+    
+    new JoystickButton(j2, targetAlign).whenPressed(new AdvancedAiming(m_shoot), true);
 
     //Manual Shooting
     new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
-    new JoystickButton(j2, loadBall).whileHeld(new ManuallyLoad(m_shoot));
+    new JoystickButton(j2, loadBall).whenPressed(new ManuallyLoad(m_shoot));
+    new JoystickButton(j2, loadBall).whenReleased(new ManuallyLoad(m_shoot));
     new JoystickButton(j2, initiationLineSpeed).whenPressed(new InitiationLineSpeed(m_shoot));
     new JoystickButton(j2, trenchSpeed).whenPressed(new TrenchSpeed(m_shoot));
 

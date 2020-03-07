@@ -25,7 +25,7 @@ public class TrenchSpeed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ShooterConstants.shootingSpeed = -0.65;
+    ShooterConstants.shootingSpeed = -0.62;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

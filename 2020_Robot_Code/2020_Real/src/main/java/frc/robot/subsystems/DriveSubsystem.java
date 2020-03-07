@@ -47,8 +47,8 @@ public class DriveSubsystem extends SubsystemBase {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
 
-    m_leftMotor.setIdleMode(IdleMode.kCoast);
-    m_rightMotor.setIdleMode(IdleMode.kCoast);
+    m_leftMotor.setIdleMode(IdleMode.kBrake);
+    m_rightMotor.setIdleMode(IdleMode.kBrake);
    
     //leftManager.initializePID(0.25);
    // rightManager.initializePID(0.25);
