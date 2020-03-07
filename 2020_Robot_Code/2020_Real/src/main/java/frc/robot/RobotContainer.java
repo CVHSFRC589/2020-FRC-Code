@@ -33,6 +33,7 @@ import frc.robot.commands.RetractClimber;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.ShootPID;
+import frc.robot.commands.SmartShoot;
 import frc.robot.commands.SwitchDriveDirection;
 import frc.robot.commands.DriveController;
 import frc.robot.commands.UpdateLimelight;
@@ -186,6 +187,7 @@ public class RobotContainer {
 
     //Manual Shooting
     new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
+    //new JoystickButton(j2, shootBall).whenPressed(new SmartShoot(m_shoot));
     //reverse direction of loadBall while button is held
     new JoystickButton(j2, reverseLoad).whenPressed(new ChangeLoadDirection());
     new JoystickButton(j2, reverseLoad).whenReleased(new ChangeLoadDirection());

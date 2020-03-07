@@ -32,6 +32,7 @@ public class ManuallyLoad extends CommandBase {
     //start loading motor if it isn't running and if the shooting motor is on
     if(runLoad && ShooterSubsystem.shootingWheelRunning){
       shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
+      shoot.setAzimuthMotor(0); 
       //shoot.setLoadingMotorPID(ShooterConstants.loadingSpeed);
       runLoad = false;
     }
