@@ -18,11 +18,6 @@ public class LEDSubsystem extends SubsystemBase {
    * Creates a new LEDSubsystem.
    */
 
-public class LEDSubsystem extends SubsystemBase {
-  /**
-   * Creates a new LEDSubsystem.
-   */
-
   public static CANSparkMax ledMotor = new CANSparkMax(LEDConstants.kLEDPort, MotorType.kBrushless);
   public void LED(){
     
