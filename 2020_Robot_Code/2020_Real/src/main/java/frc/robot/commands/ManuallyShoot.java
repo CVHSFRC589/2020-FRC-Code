@@ -54,7 +54,7 @@ public class ManuallyShoot extends CommandBase {
       double distToTarget = lime.getDistance();
       //maximum optimal speed is ~ 0.6
       //assume that, when 120 inches away, we want to go at this speed
-      shoot.setShootingMotorPID(distToTarget/120 * 0.6);
+      shoot.setShootingMotorPID(distToTarget/120 * ShooterConstants.shootingSpeed);
 
       //previous code
       // shoot.setShootingMotor(ShooterConstants.shootingSpeed);
