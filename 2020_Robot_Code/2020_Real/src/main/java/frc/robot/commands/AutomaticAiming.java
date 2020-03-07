@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.Manager;
 import frc.robot.Constants.ShooterConstants;
@@ -52,11 +52,13 @@ public class AutomaticAiming extends CommandBase {
         //if(shoot.getDegRotToTarget()<0.055 || shoot.getDegRotToTarget()>-0.045)    //Make LEDs GREEN
         { //If we're aligned with the target stop moving
           shoot.setAzimuthMotor(0);
+          //----------LEDSubsystem.setTurretLEDsGreen();
           //ShooterSubsystem.on = false; //reset the on boolean, so the next time the command is called it runs (initialize makes it true first)
           //System.out.println("*******************ALIGNED*******************");
         }
         else
         {
+          //----------LEDSubsystem.setTurretLEDsRed();
           //System.out.println("************not aligned but in frame");
           double x = shoot.getDegRotToTarget(); 
           if(x<0)
