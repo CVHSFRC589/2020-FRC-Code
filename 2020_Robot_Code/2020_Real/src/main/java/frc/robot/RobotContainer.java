@@ -22,7 +22,9 @@ import frc.robot.commands.AdvancedAiming;
 import frc.robot.commands.AutomaticAiming;
 import frc.robot.commands.ChangeCameraMode;
 import frc.robot.commands.ChangeLoadDirection;
+import frc.robot.commands.ChangeShootMode;
 import frc.robot.commands.ChangeStreamMode;
+import frc.robot.commands.DefaultShoot;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DriveController;
 import frc.robot.commands.DrivePID;
@@ -99,6 +101,7 @@ public class RobotContainer {
   final int switchCameraMode = 8; //j1
   final int initiationLineSpeed = 11; //j2
   final int trenchSpeed = 12; //j2
+  final int changeShootMode = 10;//j2
 
   //final int constDrive = 7;
   //{constantDrive = new JoystickButton(j1, constDrive);}
@@ -117,6 +120,12 @@ public class RobotContainer {
     // m_shoot.setDefaultCommand(
     //   new ManualAiming(m_shoot, 
     //     () -> j2.getZ()));
+
+    //Real default command for shooter(auto)
+    m_shoot.setDefaultCommand(
+      new DefaultShoot(m_shoot,
+        () -> j2.getZ()));
+
 
     //Default command for drive
     //used for arcadedrive
@@ -199,6 +208,8 @@ public class RobotContainer {
     new JoystickButton(j1, changeStreamMode).whenPressed(new ChangeStreamMode(m_shoot));
     new JoystickButton(j1, switchCameraMode).whenPressed(new ChangeCameraMode(m_shoot));
     new JoystickButton(j2, toggleLimelightLED).whenPressed(new ToggleLimelightLED(m_shoot, m_LimelightSubsystem));
+    
+    new JoystickButton(j2, changeShootMode).whenPressed(new ChangeShootMode(m_shoot));
   }
 
   /**
