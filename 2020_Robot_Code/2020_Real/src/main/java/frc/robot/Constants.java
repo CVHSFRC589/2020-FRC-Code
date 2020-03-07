@@ -36,7 +36,7 @@ public final class Constants {
         public static final double kEncoderIPR = kWheelDiameterInches*Math.PI; // 18.85 inches per revolution (circumference)
         public static final double kEncoderCPI = 0.583333333333; //idk why this even works
         
-        public static final double maxAutoSpeed = 0.4;
+        public static final double maxAutoSpeed = 1;
     }
 
     public static final class ClimberConstants{
@@ -61,14 +61,14 @@ public final class Constants {
         public static final int leftLimitInputChannel = 1;
         public static final int rightLimitInputChannel = 2;
 
-        public static double shootingSpeed = -0.7;  //-0.52, 0.62
-        public static final double loadingSpeed = 1;
-        public static final double azimuthSpeed = 0.2;
-        public static final double azimuthSpeedAuto = 0.1;
+        public static double shootingSpeed = -1;  //-0.52, 0.62
+        public static double loadingSpeed = 0.9;  //if these not being final is bad, change speed in the subsystems themselves
+        public static final double azimuthSpeed = 0.4;
+        public static final double azimuthSpeedAuto = 0.4;
     
         public static final int azimuthMaxCurrentLimit = 40; //in Amps 
         
-        public static final double azimuthEncoderLimit = 25; //change to whatever it needs to be
+        public static final double azimuthEncoderLimit = 30; //change to whatever it needs to be
     }
     public static final class LEDConstants{
         public static final int kLEDPort = 1;//needs to be changed at some point
