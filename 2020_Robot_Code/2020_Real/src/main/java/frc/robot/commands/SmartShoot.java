@@ -52,6 +52,7 @@ public class SmartShoot extends CommandBase {
     if(runShooter){ //if we want to run the shooter
       //vikram's crazy code
       double distToTarget = lime.getDistance();
+      System.out.println("Distance to target" + distToTarget);
       //maximum optimal speed is ~ 0.6
       //assume that, when 120 inches away, we want to go at this speed
       shoot.setShootingMotor(distToTarget/120 * ShooterConstants.shootingSpeed);
