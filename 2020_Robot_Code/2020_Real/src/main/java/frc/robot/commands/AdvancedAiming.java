@@ -75,10 +75,12 @@ public class AdvancedAiming extends CommandBase {
             } else {
               rotateRight();
             }
-          } else {
+          } 
+          else {
             if (angle > turretAngle) {
               rotateLeft();
-            } else {
+            } 
+            else {
               rotateRight();
             }
           }
@@ -92,8 +94,8 @@ public class AdvancedAiming extends CommandBase {
     //really love to see it
     else{
       //just to get the turret moving
-      shoot.sweepTurret();
-      //shoot.setAzimuthMotor(0);
+      //shoot.sweepTurret();
+      shoot.setAzimuthMotor(0);
     }
   }
 

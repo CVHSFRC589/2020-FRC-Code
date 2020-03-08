@@ -64,7 +64,8 @@ public final class Constants {
         public static double shootingSpeed = -1;  //-0.52, 0.62
         public static double loadingSpeed = 0.5; //0.4 //not final because gets made negative to de-jam balls
         public static final double azimuthSpeed = 0.4;
-        public static final double azimuthSpeedAuto = 0.4;
+        public static final double azimuthSpeedAuto = 0.3;
+        public static final double azimuthSpeedMax = 0.4;
     
         public static final int azimuthMaxCurrentLimit = 40; //in Amps 
         

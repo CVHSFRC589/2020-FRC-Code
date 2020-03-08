@@ -209,9 +209,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setAzimuthMotorAutomatic(double azimuthSpeed){
     if(m_limeLight.getIsTargetFound()){
-      double xOffset = m_limey.gettxValue();
+      double xOffset = LimelightSubsystem.gettxValue();
       m_azimuthControl.set(0.1);
-      if ((-.5 < xOffset) && (xOffset < .5)) {
+      if ((-1 < xOffset) && (xOffset < 1)) { //in degrees, was -0.5 to 0.5
         azimuthSpeed = 0;
       } else {
         azimuthSpeed = (xOffset / -20.500000) / 2;
@@ -247,6 +247,15 @@ public class ShooterSubsystem extends SubsystemBase {
         rightEncoderLimitHit = true;
       }
     }
+
+    //keep azimuthSpeed below a certain amount
+    if(azimuthSpeed>ShooterConstants.azimuthSpeedMax){
+      azimuthSpeed = ShooterConstants.azimuthSpeedMax;
+    }
+    if(azimuthSpeed<(-ShooterConstants.azimuthSpeedMax)){
+      azimuthSpeed = (-ShooterConstants.azimuthSpeedMax);
+    }
+
 
     // If neither limit switch is hit and the encoder limit hasn't been reached,
     // we're fine (set the motors to the desired speed)

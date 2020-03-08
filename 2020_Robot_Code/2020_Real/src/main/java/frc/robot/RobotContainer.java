@@ -99,7 +99,7 @@ public class RobotContainer {
   final int intakeRetract = 5; //j2
   final int intakeToggle = 3; //j2
   final int intakeReverse = 8; //j2
-  final int targetAlign = 7; //j2
+  //final int targetAlign = 7; //j2
   final int loadBall = 1; //j2
   final int reverseLoad = 9; //j2
   final int shootBall = 2; //j2
@@ -186,17 +186,9 @@ public class RobotContainer {
     new JoystickButton(j2, intakeReverse).whenPressed(new ReverseIntake(m_intake));
     
     //Automated Shooting
-    new JoystickButton(j2, targetAlign).whenPressed(new AutomaticAiming(m_shoot), true);
-    // new JoystickButton(j2, targetAlign).whileHeld(new AdvancedAiming(m_shoot));    
-    // if(m_toggleAutoAim){
-    //   m_toggleAutoAim = false;
-    // }
-    // else{
-    //   m_toggleAutoAim = true;
-    //   new JoystickButton(j2, targetAlign).whenPressed(new AdvancedAiming(m_shoot), true);
-    // }
-        //new JoystickButton(j2, targetAlign).whenPressed(new AdvancedAiming(m_shoot), true);
-
+    //new JoystickButton(j2, targetAlign).whenPressed(new AutomaticAiming(m_shoot), true);
+    // new JoystickButton(j2, targetAlign).whileHeld(new AdvancedAiming(m_shoot));  
+    new JoystickButton(j2, changeShootMode).whenPressed(new ChangeShootMode(m_shoot));
 
     //Manual Shooting
     new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
@@ -215,7 +207,6 @@ public class RobotContainer {
     new JoystickButton(j1, switchCameraMode).whenPressed(new ChangeCameraMode(m_shoot));
     new JoystickButton(j2, toggleLimelightLED).whenPressed(new ToggleLimelightLED(m_shoot, m_LimelightSubsystem));
     
-    new JoystickButton(j2, changeShootMode).whenPressed(new ChangeShootMode(m_shoot));
   }
 
   /**
