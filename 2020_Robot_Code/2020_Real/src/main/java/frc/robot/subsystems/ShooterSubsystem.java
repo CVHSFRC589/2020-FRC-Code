@@ -351,7 +351,8 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void smartlyTurnTurret() {
-    if (ShooterSubsystem.on) {
+    System.out.println("Call");
+    if (true) {
       // Target on screen
       if (getTargetFound()) {
         if (Math.abs(getDegRotToTarget()) < 0.1) // Make LEDs GREEN
@@ -368,25 +369,37 @@ public class ShooterSubsystem extends SubsystemBase {
         }
       } else // Target off screen
       {
-        double angle = getAngle(); // angle of the robot
-        double turretAngle = getTurretAngle(); // angle of the turret
-
-        if (Math.abs(turretAngle - angle) > 3) {
-          if ((angle < 90 && turretAngle < 90) || (angle > 270 && turretAngle > 270)) {
+        double angle = getAngle(); //angle of the robot
+        double turretAngle = getTurretAngle(); //angle of the turret
+        System.out.println("Angle: " + angle + "Turret: " + turretAngle);
+        if ((angle < 90 && turretAngle < 90) || (angle > 270 && turretAngle > 270)) {
+          System.out.println("Same" + Math.abs(angle - turretAngle));
+          if (Math.abs(angle - turretAngle) > 5) {
             if (angle < turretAngle) {
               rotateLeft();
             } else {
               rotateRight();
             }
-          } else {
+          }
+        } else if (angle < 90 || angle > 270) {
+          System.out.println("Dif" + Math.abs(angle - turretAngle + 360));
+          if (Math.abs(angle - turretAngle + 360) > 5) {
             if (angle > turretAngle) {
               rotateLeft();
-            } else {
+            } 
+            else {
               rotateRight();
             }
           }
         } else {
-          setAzimuthMotor(0);
+          System.out.println("Side");
+          //shoot.setAzimuthMotorAutomatic(0);
+          
+          if (angle < 180)  {
+            rotateRight();
+          } else {
+            rotateLeft();
+          }        
         }
       }
     }
@@ -398,12 +411,12 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   void rotateRight() {
-    System.out.println("Right");
+    //System.out.println("Right");
     setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeedAuto);
   }
 
   void rotateLeft() {
-    System.out.println("Left");
+    //System.out.println("Left");
     setAzimuthMotorAutomatic(ShooterConstants.azimuthSpeedAuto);
   }
 

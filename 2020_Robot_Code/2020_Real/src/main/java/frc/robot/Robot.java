@@ -114,7 +114,7 @@ public class Robot extends TimedRobot {
       
     }
 
-    CommandScheduler.getInstance().schedule(m_robotContainer.m_aim);
+    //CommandScheduler.getInstance().schedule(m_robotContainer.m_aim);
 
   }
 
