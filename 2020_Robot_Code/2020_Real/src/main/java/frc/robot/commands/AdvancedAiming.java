@@ -67,18 +67,20 @@ public class AdvancedAiming extends CommandBase {
       {
         double angle = getAngle(); //angle of the robot
         double turretAngle = getTurretAngle(); //angle of the turret
-
-        if (Math.abs(turretAngle - angle) > 3) {
+        //System.out.println("Angle: " + angle);
+        if (!(Math.abs(turretAngle - angle) < 5 || Math.abs(turretAngle - angle) > 270)) {
           if ((angle < 90 && turretAngle < 90) || (angle > 270 && turretAngle > 270)) {
             if (angle < turretAngle) {
               rotateLeft();
             } else {
               rotateRight();
             }
-          } else {
+          } 
+          else {
             if (angle > turretAngle) {
               rotateLeft();
-            } else {
+            } 
+            else {
               rotateRight();
             }
           }
@@ -91,17 +93,19 @@ public class AdvancedAiming extends CommandBase {
     //Ah yes so many brackets so easy to read
     //really love to see it
     else{
+      //just to get the turret moving
+      //shoot.sweepTurret();
       shoot.setAzimuthMotor(0);
     }
   }
 
   void rotateRight() {
-    System.out.println("Right");
+    //System.out.println("Right");
       shoot.setAzimuthMotorAutomatic(-ShooterConstants.azimuthSpeedAuto);
   }
 
   void rotateLeft() {
-    System.out.println("Left");
+      //System.out.println("Left");
       shoot.setAzimuthMotorAutomatic(ShooterConstants.azimuthSpeedAuto);
   }
 
@@ -118,7 +122,7 @@ public class AdvancedAiming extends CommandBase {
   }
 
   double getAngle() {
-    double angle = -Navx.getAngle();
+    double angle = -Navx.getAngle() - 45;
     boolean negative = (angle < 0) ? true : false; 
     angle = Math.abs(angle);
     while (angle  > 360) {

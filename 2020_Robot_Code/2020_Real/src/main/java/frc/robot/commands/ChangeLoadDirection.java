@@ -8,45 +8,26 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
-import frc.robot.subsystems.ShooterSubsystem;
-
 import frc.robot.Constants.ShooterConstants;
 
-public class ManuallyLoad extends CommandBase {
+public class ChangeLoadDirection extends CommandBase {
   /**
-   * Creates a new ManuallyLoad.
+   * Creates a new ChangeLoadDirection.
    */
-  ShooterSubsystem shoot;
-  private static boolean runLoad = true;
-  public ManuallyLoad(ShooterSubsystem tShoot) {
-    shoot = tShoot;
+
+  public ChangeLoadDirection() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shoot);
-    shoot.setLoadingMotor(0);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //start loading motor if it isn't running and if the shooting motor is on
-    if(runLoad && ShooterSubsystem.shootingWheelRunning){
-      shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
-      shoot.setAzimuthMotor(0); 
-      //shoot.setLoadingMotorPID(ShooterConstants.loadingSpeed);
-      runLoad = false;
-    }
-    //stop loading motor if it was already running
-    else{
-      shoot.setLoadingMotor(0);
-      //shoot.setLoadingMotorPID(0);
-      runLoad = true;
-    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    ShooterConstants.loadingSpeed *= -1;
   }
 
   // Called once the command ends or is interrupted.

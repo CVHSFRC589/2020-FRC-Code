@@ -2,6 +2,7 @@ package frc.robot.aiming;
 
 import java.util.ArrayList;
 import java.lang.Math;
+import java.text.DecimalFormat;
 
 import org.apache.commons.math3.fitting.*;
 
@@ -9,17 +10,17 @@ public class Trajectory {
 	
 	// WARNING: IMPERIAL UNITS (INCHES) & RADIAN INPUTS AND OUTPUTS ARE USED, CONVERT AT YOUR OWN RISK
 	
-	final public static double g = 386.0885827; //inches/second^2
-	final public static double robotH = 24.0; //inches
-	final public static double ballR = 3.5; //inches
-	final public static double timeIncr = 0.01; //seconds
-	final public static double density = 0.00004317211; //pounds/inches^3
-	final public static double ballM = 0.308647; //pounds
-	final public static double dragC = 0.55; //unitless
-	final public static int defaultDegree = 4; //polynomial degree
+	final public static double g = 386.0885827;
+	final public static double robotH = 24.0;
+	final public static double ballR = 3.5;
+	final public static double timeIncr = 0.01;
+	final public static double density = 0.00004317211;
+	final public static double ballM = 0.308647;
+	final public static double dragC = 0.55;
+	final public static int defaultDegree = 4;
 	
 	
-	// constructs a trajectory containing points, the polynomial curve, and the initial velocity
+	// constructs a trajectory containing points, the polynomial curve, the initial velocity, and the angle from the horizontal
 	public double[][] points;
 	public double[] curve;
 	public double initV;
@@ -28,6 +29,8 @@ public class Trajectory {
 	public double targetXAngle;
 	public double dist;
 	public double optimal;
+	
+	public double maxDist;
 	
 	public Trajectory(double initV, double yAngle) {
 		this.points = getPoints(initV, yAngle);
@@ -38,6 +41,8 @@ public class Trajectory {
 		this.targetXAngle = 0.0;
 		this.dist = 0.0;
 		this.optimal = 0.0;
+		
+		this.maxDist = this.points[0][this.points[0].length-1];
 	}
 	
 	public Trajectory(double[][] points, double[] curve, double initV, double yAngle) {
@@ -49,11 +54,13 @@ public class Trajectory {
 		this.targetXAngle = 0.0;
 		this.dist = 0.0;
 		this.optimal = 0.0;
+		
+		this.maxDist = this.points[0][this.points[0].length-1];
 	}
 	
-	// translates initial velocity to spin
+	// translates initial velocity to spin, calibrate further!
 	public static double getSpin(double initV) {
-		return 0; //getY(initV, new double[] {2.2332*Math.pow(10, -8), -0.000043438, 0.0562369, 0.0});
+		return getY(initV, new double[] {0, 0.0562369, -0.000043438, 2.2332*Math.pow(10, -8)});
 	}
 	
 	// evaluates a flight path using incremental points of the ball including gravity, lift, and drag
@@ -131,9 +138,23 @@ public class Trajectory {
 	
 	// plugs an x value into the polynomial equation and returns a y-value
 	public double getY(double x) {
+		if(x > maxDist) {
+			return 0.0;
+		}
 		double answer = 0.0;
 		for(int i = 0; i < this.curve.length; i++) {
 			answer += this.curve[i] * Math.pow(x, i);
+		}
+		if(answer < 0) {
+			return 0.0;
+		}
+		return answer;
+	}
+	
+	public static double getY(double x, double[] curve) {
+		double answer = 0.0;
+		for(int i = 0; i < curve.length; i++) {
+			answer += curve[i] * Math.pow(x, i);
 		}
 		if(answer < 0) {
 			return 0.0;
@@ -175,6 +196,63 @@ public class Trajectory {
 			return Math.atan((first-second)/0.05);
 		}
 		return 0.0;
+	}
+	
+	public String getCurveEquation() {
+		String equation = "";
+		for(int i = curve.length-1; i >= 0; i--) {
+			if(i == 0) {
+				equation += removeEs(curve[i]);
+			}
+			else if (i == 1) {
+				equation += removeEs(curve[i]) + "x + ";
+			}
+			else {
+				equation += removeEs(curve[i]) + "x^" + (i) + " + ";
+			}
+		}
+		return equation;
+	}
+	
+	public static String getCurveEquation(double[] curve) {
+		String equation = "";
+		for(int i = curve.length-1; i >= 0; i--) {
+			if(i == 0) {
+				equation += removeEs(curve[i]);
+			}
+			else if (i == 1) {
+				equation += removeEs(curve[i]) + "x + ";
+			}
+			else {
+				equation += removeEs(curve[i]) + "x^" + (i) + " + ";
+			}
+		}
+		return equation;
+	}
+	
+	public static String removeEs(double num) {
+		String oldNum = "" + num;
+		String format = "0";
+		int notation = 0;
+		if(oldNum.indexOf("E") >= 0) {
+			if(oldNum.indexOf(".") >= 0) {
+				notation += oldNum.substring(oldNum.indexOf(".")+1, oldNum.indexOf("E")).length();
+			}
+			notation += Math.abs(Integer.parseInt(oldNum.substring(oldNum.indexOf("E")+1)));
+		}
+		else if(oldNum.indexOf(".") >= 0) {
+			notation += oldNum.substring(oldNum.indexOf(".")+1).length();
+		}
+		
+		if(notation > 0) {
+			format += ".";
+		}
+		for(int i = 0; i < notation; i++) {
+			format += "0";
+		}
+		DecimalFormat decimalFormat = new DecimalFormat(format);
+		String newNum = decimalFormat.format(num);
+		return newNum;
 	}
 	
 	public Trajectory clone() {

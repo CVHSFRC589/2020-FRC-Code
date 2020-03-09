@@ -55,7 +55,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     SmartDashboard.putNumber("Network Table Y", yAngleDegrees);
     displayXOffset();
   }
-  public void getDistance() {
+  public double getDistance() {
     //Angle (in degrees) the limelight is mounted at
     final double limeLightDefAngle = 16.3; //NEW VALUE NEEDED
     //Add the mount angle to the yangle gotten

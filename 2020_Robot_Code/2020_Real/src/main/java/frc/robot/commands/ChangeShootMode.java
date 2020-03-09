@@ -8,45 +8,36 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import frc.robot.subsystems.ShooterSubsystem;
 
-import frc.robot.Constants.ShooterConstants;
 
-public class ManuallyLoad extends CommandBase {
+public class ChangeShootMode extends CommandBase {
   /**
-   * Creates a new ManuallyLoad.
+   * Creates a new ChangeShootMode.
    */
-  ShooterSubsystem shoot;
-  private static boolean runLoad = true;
-  public ManuallyLoad(ShooterSubsystem tShoot) {
-    shoot = tShoot;
+  ShooterSubsystem m_shoot;
+  public ChangeShootMode(ShooterSubsystem shoot) 
+  {
+   m_shoot = shoot; 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shoot);
-    shoot.setLoadingMotor(0);
+    addRequirements(m_shoot);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //start loading motor if it isn't running and if the shooting motor is on
-    if(runLoad && ShooterSubsystem.shootingWheelRunning){
-      shoot.setLoadingMotor(ShooterConstants.loadingSpeed);
-      shoot.setAzimuthMotor(0); 
-      //shoot.setLoadingMotorPID(ShooterConstants.loadingSpeed);
-      runLoad = false;
+    if(ShooterSubsystem.shootMode){
+      System.out.println("manual");
+    }else{
+      System.out.println("auto");
     }
-    //stop loading motor if it was already running
-    else{
-      shoot.setLoadingMotor(0);
-      //shoot.setLoadingMotorPID(0);
-      runLoad = true;
-    }
+    ShooterSubsystem.shootMode = !ShooterSubsystem.shootMode;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
   }
 
   // Called once the command ends or is interrupted.

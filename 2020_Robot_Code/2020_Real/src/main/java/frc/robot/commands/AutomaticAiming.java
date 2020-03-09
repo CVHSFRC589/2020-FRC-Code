@@ -32,12 +32,6 @@ public class AutomaticAiming extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // if(!ShooterSubsystem.on){
-    //   ShooterSubsystem.on = true;
-    // }
-    // else{
-    //   ShooterSubsystem.on = false;
-    // }
     ShooterSubsystem.on = true;
   }
 
@@ -98,64 +92,6 @@ public class AutomaticAiming extends CommandBase {
       endCommand = true;
     }
   }
-
-
-
-  //OTHER EXECUTE
-  // @Override
-  // public void execute() {
-  //   // if(shoot.getTargetFound()){ //If we're aligned with the target stop moving
-  //   //   shoot.setAzimuthMotor(0);
-  //   // }
-
-  //   if(shoot.getTargetFound())
-  //   {
-  //     System.out.println(shoot.getTargetFound());
-
-  //     if(Math.abs(shoot.getDegRotToTarget())<0.05)    //Make LEDs GREEN
-  //     { 
-  //       shoot.setAzimuthMotor(0);
-  //       System.out.println("*******************ALIGNED*******************");
-  //     }
-  //     else
-  //     {
-  //       System.out.println("************not aligned but in frame");
-  //       double x = shoot.getDegRotToTarget(); 
-  //       if(x<0)
-  //       {  //if right of target turn left
-  //        shoot.setAzimuthMotor(ShooterConstants.azimuthSpeed);
-  //       }
-  //       else if(x>0)
-  //       {  //if left of target turn right
-  //       shoot.setAzimuthMotor(-ShooterConstants.azimuthSpeed);
-  //       }
-  //     } 
-  //   }
-  //   else
-  //   {
-  //     //System.out.print("*LLLLLLLLLLLLll***********^^^^******");
-  //     if(!shoot.limitLeft){
-  //       shoot.setAzimuthMotor(ShooterConstants.azimuthSpeed);
-  //       direction = true;
-  //     }
-  //     else if(!shoot.limitRight){
-  //       shoot.setAzimuthMotor(-ShooterConstants.azimuthSpeed);
-  //       direction = false;
-  //     }
-  //     else{
-  //       if(direction){
-  //         shoot.setAzimuthMotor(ShooterConstants.azimuthSpeed);
-  //       }
-  //       else{
-  //         shoot.setAzimuthMotor(-ShooterConstants.azimuthSpeed);
-  //       }
-  //     }
-  //   }
-  //   //shoot.setAzimuthMotor(0.1);
-
-  //  // System.out.println("*************(((()))))********");
-  //   //t++;
-  // }
 
   // Called once the command ends or is interrupted.
   @Override

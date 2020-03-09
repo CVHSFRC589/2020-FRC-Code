@@ -7,21 +7,22 @@ public abstract class Aimer {
 	
 	// WARNING: IMPERIAL UNITS (INCHES) & RADIAN INPUTS AND OUTPUTS ARE USED, CONVERT AT YOUR OWN RISK
 	
-	final public static double portH = 98.25; //inches
-	final public static double portD = 29.25; //inches
-	final public static double ballR = 3.5; //inches
-	final public static double outerR = 15.0; //inches
-	final public static double innerR = 6.5; //inches
-	final public static double bestInner = 400.0; //unitless
-	final public static double bestOuter = 100.0; //unitless
+	final public static double portH = 98.25;
+	final public static double portD = 29.25;
+	final public static double ballR = 3.5;
+	final public static double outerR = 15.0;
+	final public static double innerR = 6.5;
+	final public static double bestInner = 400.0;
+	final public static double bestOuter = 100.0;
 	
 	public Trajectory[] allTrajectories;
 	
 	public Aimer() {
-		this.allTrajectories = new Trajectory[0];
+		this.allTrajectories = new Trajectory[1];
+		allTrajectories[0] = new Trajectory(new double[][] {{0}, {0}}, new double[] {0}, 0, 0);
 	}
 	
-	// tests all possible trajectories to find the optimal initial velocity at some distance and angle, takes ~0.0036245 sec on my laptop
+	// tests all possible trajectories to find the optimal initial velocity at some distance and angle
 	public Trajectory getOptimalTrajectory(double dist, double xAngle) {
 		double optimal = 0.0;
 		double targetXAngle = 0.0;
@@ -87,7 +88,7 @@ public abstract class Aimer {
 		return returned.toArray(format);
 	}
 	
-	// tests all possible trajectories to find the optimal initial velocity at some distance for an outer port shot, takes ~0.0034245 sec on my laptop
+	// tests all possible trajectories to find the optimal initial velocity at some distance for an outer port shot
 	public Trajectory getOuterTrajectory(double dist) {
 		double optimal = 0.0;
 		int optTrajectoryNum = 0;
@@ -111,6 +112,62 @@ public abstract class Aimer {
 		ArrayList<Trajectory> returned = new ArrayList<>();
 		for(double testDist = distIncr; testDist <= maxDist; testDist += distIncr) {
 			Trajectory optTrajectory = this.getOuterTrajectory(testDist);
+			if(optTrajectory.optimal > 0) {
+				returned.add(optTrajectory);
+			}
+		}
+		Trajectory[] format = new Trajectory[0];
+		return returned.toArray(format);
+	}
+	
+	public Trajectory getInnerTrajectory(double dist, double xAngle) {
+		double optimal = 0.0;
+		double targetXAngle = 0.0;
+		int optTrajectoryNum = 0;
+		for(int testTrajectoryNum = 0; testTrajectoryNum < allTrajectories.length; testTrajectoryNum++) {
+			Trajectory traj = allTrajectories[testTrajectoryNum];
+			double[] testPeak = traj.getPeak();
+			double[] inner = getInner(dist, xAngle);
+			double outerOffset = Math.pow(traj.getY(inner[3]) - portH, 2);
+			outerOffset += Math.pow(inner[1], 2);
+			outerOffset = Math.sqrt(outerOffset);
+			if(outerOffset < outerR-ballR-1) {
+				double innerOffset = Math.abs(traj.getY(inner[0]) - portH);
+				if(innerOffset < innerR-ballR-1) {
+					if(testPeak[0] > inner[3] && testPeak[0] < inner[0]) {
+						if(Math.abs(testPeak[1]-portH) < outerR-ballR) {
+							double innerOpt = (1-(innerOffset/(innerR-ballR))) * bestInner;
+							double outerOpt = (1-(outerOffset/(outerR-ballR))) * bestOuter;
+							double testOptimal = innerOpt+outerOpt;
+							if(testOptimal > optimal) {
+								targetXAngle = inner[2];
+								optimal = testOptimal;
+								optTrajectoryNum = testTrajectoryNum;
+							}
+						}
+					}
+					else {
+						double innerOpt = (1-(innerOffset/(innerR-ballR))) * bestInner;
+						double outerOpt = (1-(outerOffset/(outerR-ballR))) * bestOuter;
+						double testOptimal = innerOpt+outerOpt;
+						if(testOptimal > optimal) {
+							targetXAngle = inner[2];
+							optimal = testOptimal;
+							optTrajectoryNum = testTrajectoryNum;
+						}
+					}
+				}
+			}
+		}
+		Trajectory targetTrajectory = allTrajectories[optTrajectoryNum].clone();
+		targetTrajectory.setDetails(targetXAngle, dist, optimal);
+		return targetTrajectory;
+	}
+	
+	public Trajectory[] getInnerTrajectories(double distIncr, double maxDist, double xAngle) {
+		ArrayList<Trajectory> returned = new ArrayList<>();
+		for(double testDist = distIncr; testDist <= maxDist; testDist += distIncr) {
+			Trajectory optTrajectory = this.getInnerTrajectory(testDist, xAngle);
 			if(optTrajectory.optimal > 0) {
 				returned.add(optTrajectory);
 			}

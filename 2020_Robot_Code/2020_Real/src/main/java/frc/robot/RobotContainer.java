@@ -21,7 +21,10 @@ import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.AdvancedAiming;
 import frc.robot.commands.AutomaticAiming;
 import frc.robot.commands.ChangeCameraMode;
+import frc.robot.commands.ChangeLoadDirection;
+import frc.robot.commands.ChangeShootMode;
 import frc.robot.commands.ChangeStreamMode;
+import frc.robot.commands.DefaultShoot;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DriveController;
 import frc.robot.commands.DrivePID;
@@ -32,6 +35,7 @@ import frc.robot.commands.RetractClimber;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.ShootPID;
+import frc.robot.commands.SmartShoot;
 import frc.robot.commands.SwitchDriveDirection;
 import frc.robot.commands.DriveController;
 import frc.robot.commands.UpdateLimelight;
@@ -42,7 +46,7 @@ import frc.robot.commands.DrivePID;
 
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ControlPanelSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
+//import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -71,6 +75,8 @@ public class RobotContainer {
   //private final LEDSubsystem m_led = new LEDSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   public final AdvancedAiming m_aim = new AdvancedAiming(m_shoot);
+
+  private static boolean m_toggleAutoAim = false;
   
 
   // Driver's joystick(s)
@@ -79,22 +85,28 @@ public class RobotContainer {
 
   Button constantDrive; //Mainly a test
 
-  //Button number assignments    no numbers are final
+  //Button number assignments
+  //j1
   final int climberExtend = 11; //j1
   final int climberRetract = 10; //j1
+  final int switchDriveDirection = 6; //j1
+  final int changeStreamMode = 9; //j1
+  final int switchCameraMode = 8; //j1
+
+
+  //j2
   final int intakeDeploy = 4; //j2
   final int intakeRetract = 5; //j2
   final int intakeToggle = 3; //j2
-  final int intakeReverse = 10; //j2
-  final int targetAlign = 7; //j2
-  final int switchDriveDirection = 6; //j1
+  final int intakeReverse = 8; //j2
+  //final int targetAlign = 7; //j2
   final int loadBall = 1; //j2
+  final int reverseLoad = 9; //j2
   final int shootBall = 2; //j2
   final int toggleLimelightLED = 6; //j2
-  final int changeStreamMode = 9; //j1
-  final int switchCameraMode = 8; //j1
   final int initiationLineSpeed = 11; //j2
   final int trenchSpeed = 12; //j2
+  final int changeShootMode = 10;//j2
 
   //final int constDrive = 7;
   //{constantDrive = new JoystickButton(j1, constDrive);}
@@ -113,6 +125,12 @@ public class RobotContainer {
     // m_shoot.setDefaultCommand(
     //   new ManualAiming(m_shoot, 
     //     () -> j2.getZ()));
+
+    //Real default command for shooter(auto)
+    m_shoot.setDefaultCommand(
+      new DefaultShoot(m_shoot,
+        () -> j2.getZ()));
+
 
     //Default command for drive
     //used for arcadedrive
@@ -168,12 +186,17 @@ public class RobotContainer {
     new JoystickButton(j2, intakeReverse).whenPressed(new ReverseIntake(m_intake));
     
     //Automated Shooting
-    // new JoystickButton(j2, targetAlign).whenPressed(new AutomaticAiming(m_shoot), true);
-    
-    new JoystickButton(j2, targetAlign).whenPressed(new AdvancedAiming(m_shoot), true);
+    //new JoystickButton(j2, targetAlign).whenPressed(new AutomaticAiming(m_shoot), true);
+    // new JoystickButton(j2, targetAlign).whileHeld(new AdvancedAiming(m_shoot));  
+    new JoystickButton(j2, changeShootMode).whenPressed(new ChangeShootMode(m_shoot));
 
     //Manual Shooting
     new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
+    //new JoystickButton(j2, shootBall).whenPressed(new SmartShoot(m_shoot));
+    //reverse direction of loadBall while button is held
+    new JoystickButton(j2, reverseLoad).whenPressed(new ChangeLoadDirection());
+    new JoystickButton(j2, reverseLoad).whenReleased(new ChangeLoadDirection());
+
     new JoystickButton(j2, loadBall).whenPressed(new ManuallyLoad(m_shoot));
     new JoystickButton(j2, loadBall).whenReleased(new ManuallyLoad(m_shoot));
     new JoystickButton(j2, initiationLineSpeed).whenPressed(new InitiationLineSpeed(m_shoot));
@@ -183,6 +206,7 @@ public class RobotContainer {
     new JoystickButton(j1, changeStreamMode).whenPressed(new ChangeStreamMode(m_shoot));
     new JoystickButton(j1, switchCameraMode).whenPressed(new ChangeCameraMode(m_shoot));
     new JoystickButton(j2, toggleLimelightLED).whenPressed(new ToggleLimelightLED(m_shoot, m_LimelightSubsystem));
+    
   }
 
   /**

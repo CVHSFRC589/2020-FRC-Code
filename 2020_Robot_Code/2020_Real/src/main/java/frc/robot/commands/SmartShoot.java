@@ -13,14 +13,14 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 import frc.robot.Constants.ShooterConstants;
 
-public class ManuallyShoot extends CommandBase {
+public class SmartShoot extends CommandBase {
   /**
    * Creates a new ManuallyShoot.
    */
   ShooterSubsystem shoot;
   LimelightSubsystem lime = new LimelightSubsystem();
   private static boolean runShooter = true;
-  public ManuallyShoot(ShooterSubsystem tempShoot) {
+  public SmartShoot(ShooterSubsystem tempShoot) {
     // Use addRequirements() here to declare subsystem dependencies.
     shoot = tempShoot;
     addRequirements(shoot);
@@ -50,11 +50,28 @@ public class ManuallyShoot extends CommandBase {
   @Override
   public void execute() {
     if(runShooter){ //if we want to run the shooter
-      shoot.setShootingMotor(ShooterConstants.shootingSpeed);
-      
-      //shoot.setShootingMotorPID(ShooterConstants.shootingSpeed);
-      runShooter = false;
-      ShooterSubsystem.shootingWheelRunning = true;
+      //vikram's crazy code
+      double distToTarget = lime.getDistance();
+      System.out.println("Distance to target" + distToTarget);
+      //maximum optimal speed is ~ 0.6
+      //assume that, when 120 inches away, we want to go at this speed
+      shoot.setShootingMotor(distToTarget/120 * ShooterConstants.shootingSpeed);
+		// whoever decided that this ^ abomination was a sufficient speed control algorithm needs to talk to me
+		// 	-Bennett, the guy who wrote 600 lines of three-dimensional complex physics simulation code
+		// 	 incorporating drag, gravity, and the magnus effect to find trajectories for this specific purpose
+    // seriously
+    
+    //One common anecdote in the field of engineering is physicists make assumptions.  These can include ignoring
+    //trivial factors such as air resistance or unnecessary dimensions.  This can be seen is this example, where the
+    //speed required to project a ball into a goal does not need to be modled in three dimensions with complex physics,
+    //but can instead be computed using a simple linear function.  We can use such a function as we have sizable
+    //margins of error, where a slight error in the fit of the function would be negligible compared to loss of
+    //precision due to motor speed or limelight error or any other number of factors.  Thus by simplifying we can
+    //avoid the computations requred in physics calculations, and the results will be near identical.
+    //Furthermore, we are a team on 589.  If you have a problem please bring it up with the rest of the subsystem
+    //in a civilized manner instead of the comments of our robot code or github commit messages, as I will be doing
+    //at the meeting tonight.
+    // Lukas, the guy who wrote 6000 lines of higher demensional mathmatics to fully automate the robot
     }
     else{   //the button was pressed while the shooter was on, so turn it off
       shoot.setShootingMotor(0);
