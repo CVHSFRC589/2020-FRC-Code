@@ -56,6 +56,10 @@ public class SmartShoot extends CommandBase {
       //maximum optimal speed is ~ 0.6
       //assume that, when 120 inches away, we want to go at this speed
       shoot.setShootingMotor(distToTarget/120 * ShooterConstants.shootingSpeed);
+		// whoever decided that this ^ abomination was a sufficient speed control algorithm needs to talk to me
+		// 	-Bennett, the guy who wrote 600 lines of three-dimensional complex physics simulation code
+		// 	 incorporating drag, gravity, and the magnus effect to find trajectories for this specific purpose
+		// seriously
     }
     else{   //the button was pressed while the shooter was on, so turn it off
       shoot.setShootingMotor(0);
