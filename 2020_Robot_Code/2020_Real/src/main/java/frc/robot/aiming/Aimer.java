@@ -18,7 +18,8 @@ public abstract class Aimer {
 	public Trajectory[] allTrajectories;
 	
 	public Aimer() {
-		this.allTrajectories = new Trajectory[0];
+		this.allTrajectories = new Trajectory[1];
+		allTrajectories[0] = new Trajectory(new double[][] {{0}, {0}}, new double[] {0}, 0, 0);
 	}
 	
 	// tests all possible trajectories to find the optimal initial velocity at some distance and angle

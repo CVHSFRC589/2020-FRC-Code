@@ -36,7 +36,7 @@ public class LimelightLEDON extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //3 is on, 1 is off
+    //3 is force on, 1 is off, 0 is settings in chrome
     m_limelight.getNetworkTable().getEntry("ledMode").setNumber(0);
   }
 
