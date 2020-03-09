@@ -68,7 +68,7 @@ public class AdvancedAiming extends CommandBase {
         double angle = getAngle(); //angle of the robot
         double turretAngle = getTurretAngle(); //angle of the turret
         //System.out.println("Angle: " + angle);
-        if (!(90 < angle && angle < 270) && !(Math.abs(turretAngle - angle) < 5 || Math.abs(turretAngle - angle) > 180)) {
+        if (!(Math.abs(turretAngle - angle) < 5 || Math.abs(turretAngle - angle) > 270)) {
           if ((angle < 90 && turretAngle < 90) || (angle > 270 && turretAngle > 270)) {
             if (angle < turretAngle) {
               rotateLeft();
