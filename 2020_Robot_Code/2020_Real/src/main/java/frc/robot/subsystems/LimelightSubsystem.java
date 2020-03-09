@@ -65,7 +65,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
     //Get the tangent of the new yangle
     tyTangent = Math.tan(yAngleRadians);
     //Divide the tangent by the magic number gotten from a sample at 166.6in from target straight on
-    dist = 70.5 / tyTangent;           //NEW NUMBER MAY NEED TO BE GOTTEN WITH NEW ROBOT
+    dist = 70.5 / tyTangent; //was 70.5/tyTangent    //NEW NUMBER MAY NEED TO BE GOTTEN WITH NEW ROBOT
     //plug the number into the desmos graph
     dist = dist * 1.096 - 16.0466;     //Desmos correction graph REQUIRES TESTING WITH NEW ROBOT
     return dist;

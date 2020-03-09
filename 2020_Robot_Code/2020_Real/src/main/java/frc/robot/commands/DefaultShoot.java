@@ -39,7 +39,7 @@ public class DefaultShoot extends CommandBase {
       
     }
     else{//manual
-      System.out.println("Dumb turn");
+      //System.out.println("Dumb turn");
       m_shoot.dumblyTurnTurret(m_rotationalSpeed);
     }
   }

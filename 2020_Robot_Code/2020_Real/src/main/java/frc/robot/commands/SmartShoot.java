@@ -49,13 +49,14 @@ public class SmartShoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(runShooter){ //if we want to run the shooter
+    if(runShooter){ //if runShooter    //if we want to run the shooter
       //vikram's crazy code
       double distToTarget = lime.getDistance();
       System.out.println("Distance to target" + distToTarget);
       //maximum optimal speed is ~ 0.6
       //assume that, when 120 inches away, we want to go at this speed
       shoot.setShootingMotor(distToTarget/120 * ShooterConstants.shootingSpeed);
+      runShooter = false;
     }
     else{   //the button was pressed while the shooter was on, so turn it off
       shoot.setShootingMotor(0);

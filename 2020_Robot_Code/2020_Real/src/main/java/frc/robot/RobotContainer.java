@@ -191,8 +191,8 @@ public class RobotContainer {
     new JoystickButton(j2, changeShootMode).whenPressed(new ChangeShootMode(m_shoot));
 
     //Manual Shooting
-    new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
-    //new JoystickButton(j2, shootBall).whenPressed(new SmartShoot(m_shoot));
+    //new JoystickButton(j2, shootBall).whenPressed(new ManuallyShoot(m_shoot));
+    new JoystickButton(j2, shootBall).whenPressed(new SmartShoot(m_shoot));
     //reverse direction of loadBall while button is held
     new JoystickButton(j2, reverseLoad).whenPressed(new ChangeLoadDirection());
     new JoystickButton(j2, reverseLoad).whenReleased(new ChangeLoadDirection());
