@@ -174,6 +174,8 @@ public class ShooterSubsystem extends SubsystemBase {
       rightEncoderLimitHit = false;
     }
 
+    //System.out.println(rightEncoderLimitHit + " " + m_azimuthEncoder.getPosition()); 
+
     //only false for testing, REMOVE
     // leftEncoderLimitHit = false;
     // rightEncoderLimitHit = false;
@@ -350,17 +352,24 @@ public class ShooterSubsystem extends SubsystemBase {
     setAzimuthMotor(-m_rotSpeed / 5);
   }
 
+  static double xTemp = 0;
+
   public void smartlyTurnTurret() {
     //System.out.println("Call");
     if (true) {
       // Target on screen
       if (getTargetFound()) {
-        if (Math.abs(getDegRotToTarget()) < 0.1) // Make LEDs GREEN
+        if (Math.abs(getDegRotToTarget()) < 0.2) // Make LEDs GREEN
         { // If we're aligned with the target stop moving
           setAzimuthMotor(0);
-
         } else {
           double x = getDegRotToTarget();
+          // System.out.println(xTemp + " " + x);
+
+          // if((xTemp>-0.1 && xTemp<0.1) && (Math.abs(x-xTemp)>0.5)){ //if the change in degrees is negligible (0.2) set x to 0
+          //   x = 0;
+          // }
+          xTemp = getDegRotToTarget();
           if (x < 0) { // if right of target turn left
             rotateLeft();
           } else if (x > 0) { // if left of target turn right
@@ -378,6 +387,7 @@ public class ShooterSubsystem extends SubsystemBase {
             if (angle < turretAngle) {
               rotateLeft();
             } else {
+              //System.out.println("rotate right");
               rotateRight();
             }
           }
