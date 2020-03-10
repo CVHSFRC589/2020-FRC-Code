@@ -51,7 +51,7 @@ public class ManualAiming extends CommandBase {
     }
     //System.out.print("********************888");
 
-    m_shoot.setAzimuthMotor(-m_rotSpeed/10);    
+    m_shoot.setAzimuthMotor(-m_rotSpeed/5);    
   }
 
   // Called once the command ends or is interrupted.

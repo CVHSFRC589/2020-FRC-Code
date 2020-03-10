@@ -36,7 +36,7 @@ public final class Constants {
         public static final double kEncoderIPR = kWheelDiameterInches*Math.PI; // 18.85 inches per revolution (circumference)
         public static final double kEncoderCPI = 0.583333333333; //idk why this even works
         
-        public static final double maxAutoSpeed = 1;
+        public static final double maxAutoSpeed = 0.4;
     }
 
     public static final class ClimberConstants{
@@ -63,7 +63,7 @@ public final class Constants {
 
         public static double shootingSpeed = -1;  //-0.52, 0.62
         public static double loadingSpeed = 0.5; //0.4 //not final because gets made negative to de-jam balls
-        public static final double azimuthSpeed = 0.4;
+        public static final double azimuthSpeed = 0.6;
         public static final double azimuthSpeedAuto = 0.3;
         public static final double azimuthSpeedMax = 0.4;
     

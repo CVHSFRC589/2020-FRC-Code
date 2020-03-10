@@ -347,11 +347,11 @@ public class ShooterSubsystem extends SubsystemBase {
     }
     // System.out.print("********************888");
 
-    setAzimuthMotor(-m_rotSpeed / 10);
+    setAzimuthMotor(-m_rotSpeed / 5);
   }
 
   public void smartlyTurnTurret() {
-    System.out.println("Call");
+    //System.out.println("Call");
     if (true) {
       // Target on screen
       if (getTargetFound()) {
@@ -371,9 +371,9 @@ public class ShooterSubsystem extends SubsystemBase {
       {
         double angle = getAngle(); //angle of the robot
         double turretAngle = getTurretAngle(); //angle of the turret
-        System.out.println("Angle: " + angle + "Turret: " + turretAngle);
+        //System.out.println("Angle: " + angle + "Turret: " + turretAngle);
         if ((angle < 90 && turretAngle < 90) || (angle > 270 && turretAngle > 270)) {
-          System.out.println("Same" + Math.abs(angle - turretAngle));
+          //System.out.println("Same" + Math.abs(angle - turretAngle));
           if (Math.abs(angle - turretAngle) > 5) {
             if (angle < turretAngle) {
               rotateLeft();
@@ -382,7 +382,7 @@ public class ShooterSubsystem extends SubsystemBase {
             }
           }
         } else if (angle < 90 || angle > 270) {
-          System.out.println("Dif" + Math.abs(angle - turretAngle + 360));
+          //System.out.println("Dif" + Math.abs(angle - turretAngle + 360));
           if (Math.abs(angle - turretAngle + 360) > 5) {
             if (angle > turretAngle) {
               rotateLeft();
@@ -392,7 +392,7 @@ public class ShooterSubsystem extends SubsystemBase {
             }
           }
         } else {
-          System.out.println("Side");
+          //System.out.println("Side");
           //shoot.setAzimuthMotorAutomatic(0);
           
           if (angle < 180)  {

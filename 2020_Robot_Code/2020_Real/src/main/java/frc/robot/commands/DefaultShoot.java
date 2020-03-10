@@ -34,7 +34,7 @@ public class DefaultShoot extends CommandBase {
   @Override
   public void execute() {
     if(m_shoot.shootMode){//auto
-      System.out.println("Smart turn");
+      //System.out.println("Smart turn");
       m_shoot.smartlyTurnTurret();
       
     }

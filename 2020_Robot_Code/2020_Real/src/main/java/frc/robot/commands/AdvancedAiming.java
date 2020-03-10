@@ -67,9 +67,9 @@ public class AdvancedAiming extends CommandBase {
       {
         double angle = getAngle(); //angle of the robot
         double turretAngle = getTurretAngle(); //angle of the turret
-        System.out.println("Angle: " + angle + "Turret: " + turretAngle);
+        //System.out.println("Angle: " + angle + "Turret: " + turretAngle);
         if ((angle < 90 && turretAngle < 90) || (angle > 270 && turretAngle > 270)) {
-          System.out.println("Same" + Math.abs(angle - turretAngle));
+          //System.out.println("Same" + Math.abs(angle - turretAngle));
           if (Math.abs(angle - turretAngle) > 5) {
             if (angle < turretAngle) {
               rotateLeft();
@@ -78,7 +78,7 @@ public class AdvancedAiming extends CommandBase {
             }
           }
         } else if (angle < 90 || angle > 270) {
-          System.out.println("Dif" + Math.abs(angle - turretAngle + 360));
+          //System.out.println("Dif" + Math.abs(angle - turretAngle + 360));
           if (Math.abs(angle - turretAngle + 360) > 5) {
             if (angle > turretAngle) {
               rotateLeft();
@@ -88,7 +88,7 @@ public class AdvancedAiming extends CommandBase {
             }
           }
         } else {
-          System.out.println("Side");
+          //System.out.println("Side");
           //shoot.setAzimuthMotorAutomatic(0);
           
           if (angle < 180)  {
