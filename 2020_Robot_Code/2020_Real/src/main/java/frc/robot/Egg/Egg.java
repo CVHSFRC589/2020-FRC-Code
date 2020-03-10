@@ -264,9 +264,10 @@ public class Egg extends CommandBase {
 
 
     T.add(new Task("ManuallyShoot", null));
+    T.add(new Task("DeployIntake", null));
     Points = new ArrayList<DoublePoint>();
     Points.add(new DoublePoint(0, 0));
-    Points.add(new DoublePoint(-70, 0));
+    Points.add(new DoublePoint(-50, 0));
     //Points.add(new DoublePoint(-72, -30));
     //Points.add(new DoublePoint(-192, -30));
     P = new Path(Points);
@@ -278,19 +279,15 @@ public class Egg extends CommandBase {
     T.add(new Task(3));
     //T.add(new Task("ManuallyShoot", null));
     T.add(new Task("ManuallyLoad", null));
-    T.add(new Task("DeployIntake", null));
     T.add(new Task("ToggleIntake", null));    
 
     T.add(new Task(1));
     Points = new ArrayList<DoublePoint>();
-    Points.add(new DoublePoint(-70, 0));
-    Points.add(new DoublePoint(-120, 0));
+    Points.add(new DoublePoint(-50, 0));
+    Points.add(new DoublePoint(-130, 0));
     P = new Path(Points);
     P.calculate();
     T.add(new Task(P, true));
-
-    T.add(new Task("RetractIntake", null));
-    T.add(new Task("ToggleIntake", null));
 
     T.add(new Task(1));
     T.add(new Task("ManuallyLoad", null));
@@ -298,6 +295,8 @@ public class Egg extends CommandBase {
     //T.add(new Task("ManuallyShoot", null));
     T.add(new Task("ManuallyLoad", null));
     T.add(new Task("ManuallyShoot", null));
+
+    T.add(new Task("ToggleIntake", null));
 
 
     Schedule S = new Schedule(T);

@@ -12,7 +12,7 @@ public class PurePursuit {
 	public Path Path;
 	
 	public double t = 0;
-	double lookaheadDistance = 40;
+	double lookaheadDistance = 10;
 	double fluff = 7;
 	DoublePoint lookaheadPoint = null;
 	double WheelWidth = 0;
@@ -115,8 +115,8 @@ public class PurePursuit {
 
 			if (!found) {
 				System.out.println("Loop" + lookaheadDistance);
-				if (t > Path.resolution * 0.9) {
-					lookaheadDistance -= 5;
+				if (t > Path.resolution * 0.8) {
+					lookaheadDistance -= 10;
 					if (lookaheadDistance <= 0) {
 						t = -1;
 						System.out.println("Done");
@@ -124,7 +124,7 @@ public class PurePursuit {
 					}
 				} else {
 					lookaheadDistance += 5;
-					if (lookaheadDistance >= 70) {
+					if (lookaheadDistance >= 50) {
 						t = -1;
 						System.out.println("Done");
 						return new DoublePoint(0, 0);
