@@ -92,6 +92,7 @@ public class Robot extends TimedRobot {
 
     CommandScheduler.getInstance().schedule(m_robotContainer.m_aim);
       
+    m_robotContainer.m_shoot.shootMode = false;
   }
 
   /**

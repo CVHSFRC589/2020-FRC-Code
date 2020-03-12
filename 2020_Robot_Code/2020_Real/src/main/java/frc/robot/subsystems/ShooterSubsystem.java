@@ -69,7 +69,7 @@ public class ShooterSubsystem extends SubsystemBase {
   LimeLight m_limeLight = new LimeLight("limelight");
   LimelightSubsystem m_limey = new LimelightSubsystem();
 
-  public static boolean shootMode = false;// false = auto, true = manual
+  public static boolean shootMode = true;// false = auto, true = manual
 
   private int m_cameraMode = 0; // 0 -> targeting mode, 1 -> camera stream
 

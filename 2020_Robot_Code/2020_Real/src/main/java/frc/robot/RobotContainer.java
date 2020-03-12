@@ -70,7 +70,7 @@ public class RobotContainer {
   private final LimelightSubsystem m_LimelightSubsystem = new LimelightSubsystem();
 
   public final DriveSubsystem m_drive = new DriveSubsystem();
-  private final ShooterSubsystem m_shoot = new ShooterSubsystem();
+  public final ShooterSubsystem m_shoot = new ShooterSubsystem();
   private final ClimberSubsystem m_climb = new ClimberSubsystem();
   //private final LEDSubsystem m_led = new LEDSubsystem();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
