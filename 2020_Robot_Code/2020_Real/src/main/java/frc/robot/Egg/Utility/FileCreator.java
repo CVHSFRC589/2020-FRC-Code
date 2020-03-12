@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import frc.robot.Egg.Utility.*;
-
 public final class FileCreator {
 	
 	//This is a class that allows for the creation of files and directories

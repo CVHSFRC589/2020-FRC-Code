@@ -28,10 +28,7 @@ import frc.robot.Constants.DriveConstants;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
-//import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.ControlMode;
 import frc.robot.LimeLight;
 
@@ -296,7 +293,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
   }
 
-  // TODO: make getter method for position of azimuth motor and speed of loading
+  // make getter method for position of azimuth motor and speed of loading
   // and shooting motors
 
   public void switchCameraMode() {
@@ -415,9 +412,6 @@ public class ShooterSubsystem extends SubsystemBase {
     }
     // Ah yes so many brackets so easy to read
     // really love to see it
-    else {
-      setAzimuthMotor(0);
-    }
   }
 
   void rotateRight() {

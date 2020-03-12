@@ -1,6 +1,5 @@
 package frc.robot.Egg.Utility.Math;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 public class CubicSpline {

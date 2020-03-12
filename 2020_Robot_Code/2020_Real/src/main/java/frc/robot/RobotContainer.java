@@ -17,7 +17,6 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.commands.ToggleLimelightLED;
 import frc.robot.commands.TrenchSpeed;
-import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.AdvancedAiming;
 import frc.robot.commands.AutomaticAiming;
 import frc.robot.commands.ChangeCameraMode;
@@ -27,32 +26,20 @@ import frc.robot.commands.ChangeStreamMode;
 import frc.robot.commands.DefaultShoot;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.DriveController;
-import frc.robot.commands.DrivePID;
 import frc.robot.commands.ExtendClimber;
 import frc.robot.commands.InitiationLineSpeed;
 import frc.robot.commands.LimelightLEDON;
 import frc.robot.commands.RetractClimber;
 import frc.robot.commands.RetractIntake;
 import frc.robot.commands.ReverseIntake;
-import frc.robot.commands.ShootPID;
-import frc.robot.commands.SmartShoot;
-import frc.robot.commands.SwitchDriveDirection;
-import frc.robot.commands.DriveController;
-import frc.robot.commands.UpdateLimelight;
-import frc.robot.commands.ManualAiming;
 import frc.robot.commands.ManuallyShoot;
 import frc.robot.commands.ManuallyLoad;
-import frc.robot.commands.DrivePID;
 
 import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.ControlPanelSubsystem;
-//import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -76,7 +63,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   public final AdvancedAiming m_aim = new AdvancedAiming(m_shoot);
 
-  private static boolean m_toggleAutoAim = false;
+  //private static boolean m_toggleAutoAim = false;
   
 
   // Driver's joystick(s)

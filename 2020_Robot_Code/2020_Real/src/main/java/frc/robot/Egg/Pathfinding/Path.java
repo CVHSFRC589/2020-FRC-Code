@@ -1,11 +1,7 @@
 package frc.robot.Egg.Pathfinding;
 
-import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.List;
 
 import frc.robot.Egg.Utility.*;
 import frc.robot.Egg.Utility.Error;
@@ -43,10 +39,8 @@ public class Path implements Serializable {
 	}
 	
 	public DoublePoint getClosest(DoublePoint P) {
-		double min = DoublePoint.getDistance(P, travelPoints.get(0));
+		//double min = DoublePoint.getDistance(P, travelPoints.get(0));
 		DoublePoint minPoint = travelPoints.get(0);
-
-		
 		
 		return minPoint; 
 	}
@@ -75,15 +69,17 @@ public class Path implements Serializable {
 		ArrayList<DoublePoint> Xlist = new ArrayList<DoublePoint>();
 		ArrayList<DoublePoint> Ylist = new ArrayList<DoublePoint>();
 
-		double ty = 0, tx = 0;
+		//double ty = 0, tx = 0;
 		
 		for (int i = 0; i < navPoints.size(); i++) {
+			/*
 			try {
 				tx += Math.abs(navPoints.get(i).x - navPoints.get(i - 1).x);
 				ty += Math.abs(navPoints.get(i).y - navPoints.get(i - 1).y);
 			} catch (Exception E) {
 				
 			}
+			*/
 			Xlist.add(new DoublePoint(i, navPoints.get(i).x));
 			Ylist.add(new DoublePoint(i, navPoints.get(i).y));
 		}

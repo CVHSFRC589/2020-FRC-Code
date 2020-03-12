@@ -33,7 +33,7 @@ public class DefaultShoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!m_shoot.shootMode){//auto
+    if(!ShooterSubsystem.shootMode) {// auto
       //System.out.println("Smart turn");
       m_shoot.smartlyTurnTurret();
       

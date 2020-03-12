@@ -9,10 +9,7 @@ package frc.robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
-import com.revrobotics.EncoderType;
-import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * Add your docs here.
@@ -20,9 +17,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class Manager{
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
     private CANPIDController m_pidController;
-    private CANSparkMax m_motor;
+    //private CANSparkMax m_motor;
     public Manager(CANSparkMax motor){
-        m_motor = motor;
+        //m_motor = motor;
         motor.set(0);
         motor.restoreFactoryDefaults();
         m_pidController = motor.getPIDController();

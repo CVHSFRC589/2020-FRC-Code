@@ -8,12 +8,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.Manager;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.LimeLight;
-import frc.robot.ControlMode;
 
 public class AutomaticAiming extends CommandBase {
   /**

@@ -8,6 +8,10 @@ import java.io.Serializable;
 
 public class DoublePoint implements Serializable {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 6401719774352885562L;
 	public double x;
 	public double y;
 	

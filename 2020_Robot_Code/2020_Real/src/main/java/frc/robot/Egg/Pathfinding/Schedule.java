@@ -3,8 +3,6 @@ package frc.robot.Egg.Pathfinding;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import frc.robot.Egg.Pathfinding.*;
-
 public class Schedule implements Serializable {
 	/**
 	 * 

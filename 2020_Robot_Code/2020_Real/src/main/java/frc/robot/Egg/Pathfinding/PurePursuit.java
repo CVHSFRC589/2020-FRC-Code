@@ -1,10 +1,5 @@
 package frc.robot.Egg.Pathfinding;
 
-import java.util.ArrayList;
-
-import org.opencv.core.RotatedRect;
-
-import frc.robot.Robot;
 import frc.robot.Egg.Utility.Math.*;
 
 public class PurePursuit {
@@ -29,10 +24,6 @@ public class PurePursuit {
 		/*------------------------------------------------------------*/
 		
 		Path = P;
-
-		for (DoublePoint Point : Path.travelPoints) {
-			//System.out.println(Point);
-		}
 
 		WheelWidth = wheelWidth;
 		lookaheadPoint = P.get(0);

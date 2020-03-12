@@ -5,10 +5,6 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import frc.robot.ControlMode;
 import frc.robot.ControlMode.Advanced_Crosshair;
 import frc.robot.ControlMode.Advanced_Target;
 import frc.robot.ControlMode.CamMode;
@@ -57,14 +53,18 @@ public class LimeLight {
     public void LimeLightInit() {
         //testAllTab();
     }
+
+    /*
     private void testAllTab(){
         ShuffleboardTab LimeLightTab = Shuffleboard.getTab(m_tableName);
         // To Do
         // populate tab with all the data
        
     }
+    */
 
     //This is a test
+    /*
     private boolean isConnected(){
         resetPilelineLatency();
         Timer.delay(.05);  //How to make this not hold the thread?
@@ -74,6 +74,7 @@ public class LimeLight {
             return true;
         }
     }
+    */
 
     /**
      * tv   Whether the limelight has any valid targets (0 or 1)
@@ -134,9 +135,11 @@ public class LimeLight {
         return l;
     }
 
+    /*
     private void resetPilelineLatency(){
         m_table.getEntry("tl").setValue(0.0);
     }
+    */
     //Setters
     
     /**

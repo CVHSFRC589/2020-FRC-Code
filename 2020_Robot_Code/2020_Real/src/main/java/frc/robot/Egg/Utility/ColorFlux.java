@@ -7,10 +7,7 @@ public class ColorFlux {
 	public Color color;
 
 	public ColorFlux() {
-		color = new Color(255, 0, 0);
-		
-		// TODO Auto-generated constructor stub
-		
+		color = new Color(255, 0, 0);		
 	}
 	
 	public void Set(Color Color) {

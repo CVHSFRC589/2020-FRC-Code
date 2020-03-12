@@ -7,14 +7,12 @@
 
 package frc.robot.Egg;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Robot;
 import frc.robot.Constants.DriveConstants;
 
 import java.util.*;
-import java.awt.*;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,12 +23,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.SPI;
-import frc.robot.commands.*;
-import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.Egg.Pathfinding.*;
-import frc.robot.Egg.Utility.*;
 import frc.robot.Egg.Utility.Math.*;
-import frc.robot.Constants;
 
 public class Egg extends CommandBase {
   Robot robot;
@@ -178,7 +172,6 @@ public class Egg extends CommandBase {
           M.invoke(task.command);
         }
       } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
       

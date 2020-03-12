@@ -147,8 +147,7 @@ public class AStar {
 		
 		System.out.println(MaxAngle * 180 / Math.PI);
 		
-		double angle;
-		
+		//double angle;		
 		
 		int i;
 				
@@ -205,7 +204,7 @@ public class AStar {
 	}
 	
 	public static ArrayList<DoublePoint> CountCull(ArrayList<DoublePoint> input, int count) {
-		ArrayList<DoublePoint> line = new ArrayList<DoublePoint>();
+		//ArrayList<DoublePoint> line = new ArrayList<DoublePoint>();
 		ArrayList<DoublePoint> output = new ArrayList<DoublePoint>();
 		
 		ArrayList<DoublePoint> temp = input;

@@ -8,6 +8,10 @@ public class Matrix implements Serializable {
 	//while java has a matrix class, I decided to write my own so I could have control of 
 	//what it can do.  It has basic setters and getters as well as basic row operations
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1525190604969454134L;
 	public int width;
 	public int height;
 	
